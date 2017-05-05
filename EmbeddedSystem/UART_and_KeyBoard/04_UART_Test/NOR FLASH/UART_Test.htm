@@ -1,0 +1,1178 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+<title>Static Call Graph - [.\NOR FLASH\UART_Test.axf]</title></head>
+<body><HR>
+<H1>Static Call Graph for image .\NOR FLASH\UART_Test.axf</H1><HR>
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, RVCT3.1 [Build 942]: Last Updated: Tue May 02 10:38:48 2017
+<BR><P>
+<H3>Maximum Stack Usage =       1032 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+Call chain for Maximum Stack Depth:</H3>
+main &rArr; uart1_test &rArr; uart_printf &rArr; __c89vsprintf &rArr; _printf_char_common &rArr; __printf &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+<P>
+<H3>
+Functions with no stack information
+</H3><UL>
+ <LI><a href="#[bc32e0]">Reset_Handler</a>
+ <LI><a href="#[bc3328]">__user_initial_stackheap</a>
+ <LI><a href="#[bc35b0]">Undef_Handler</a>
+ <LI><a href="#[bc3568]">SWI_Handler</a>
+ <LI><a href="#[bc3520]">PAbt_Handler</a>
+ <LI><a href="#[bc34d8]">DAbt_Handler</a>
+ <LI><a href="#[bc3490]">IRQ_Handler</a>
+ <LI><a href="#[bc3448]">FIQ_Handler</a>
+</UL>
+</UL>
+<P>
+<H3>
+Mutually Recursive functions
+</H3> <LI><a href="#[bc35b0]">Undef_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[bc35b0]">Undef_Handler</a><BR>
+ <LI><a href="#[bc3568]">SWI_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[bc3568]">SWI_Handler</a><BR>
+ <LI><a href="#[bc3520]">PAbt_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[bc3520]">PAbt_Handler</a><BR>
+ <LI><a href="#[bc34d8]">DAbt_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[bc34d8]">DAbt_Handler</a><BR>
+ <LI><a href="#[bc3448]">FIQ_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[bc3448]">FIQ_Handler</a><BR>
+</UL>
+<P>
+<H3>
+Function Pointers
+</H3><UL>
+ <LI><a href="#[bc32e0]">Reset_Handler</a>
+ <LI><a href="#[bc35b0]">Undef_Handler</a>
+ <LI><a href="#[bc3568]">SWI_Handler</a>
+ <LI><a href="#[bc3520]">PAbt_Handler</a>
+ <LI><a href="#[bc34d8]">DAbt_Handler</a>
+ <LI><a href="#[bc3490]">IRQ_Handler</a>
+ <LI><a href="#[bc3448]">FIQ_Handler</a>
+ <LI><a href="#[bbabf8]">__main</a>
+ <LI><a href="#[109ee68]">__ARM_get_argv</a>
+ <LI><a href="#[bb6750]">_get_lc_ctype</a>
+ <LI><a href="#[bb6bc8]">_sputc</a>
+ <LI><a href="#[bc22c0]">main</a>
+ <LI><a href="#[bb4b60]">_printf_outstr_char</a>
+ <LI><a href="#[bb49e8]">_printf_input_char</a>
+ <LI><a href="#[10a0ec0]">__I_use_semihosting</a>
+</UL>
+<P>
+<H3>
+Global Symbols
+</H3>
+<P><STRONG><a name="[bc32e0]"></a>Reset_Handler</STRONG> (ARM, 0 bytes, Stack size unknown bytes, s3c2410a.o(RESET))
+<BR>[Address Reference Count : 1]<UL><LI> s3c2410a.o(RESET)
+</UL>
+<P><STRONG><a name="[bbabf8]"></a>__main</STRONG> (ARM, 8 bytes, Stack size 0 bytes, __main.o(!!!main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68 + Unknown Stack Size
+<LI>Call Chain = __main &rArr; __rt_entry &rArr; __rt_lib_init &rArr; _get_lc_ctype &rArr; strcmp
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb9728]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+<LI><a href="#[109af50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
+</UL>
+
+<P><STRONG><a name="[109af50]"></a>__scatterload</STRONG> (ARM, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter))
+<BR><BR>[Called By]<UL><LI><a href="#[bbabf8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+</UL>
+
+<P><STRONG><a name="[109af08]"></a>__scatterload_rt2</STRONG> (ARM, 52 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb9728]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[109aec0]"></a>__scatterload_null</STRONG> (ARM, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+
+<P><STRONG><a name="[109ac80]"></a>__scatterload_copy</STRONG> (ARM, 40 bytes, Stack size unknown bytes, __scatter_copy.o(!!handler_copy), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[109ac80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
+</UL>
+<BR>[Called By]<UL><LI><a href="#[109ac80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_copy
+</UL>
+
+<P><STRONG><a name="[109ab18]"></a>__scatterload_zeroinit</STRONG> (ARM, 44 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
+
+<P><STRONG><a name="[bb3e58]"></a>__ARM_argv_veneer</STRONG> (ARM, 16 bytes, Stack size 0 bytes, lib_init.o(.emb_text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bc3328]"></a>__user_initial_stackheap</STRONG> (ARM, 0 bytes, Stack size unknown bytes, s3c2410a.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb9100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+</UL>
+
+<P><STRONG><a name="[bc22c0]"></a>main</STRONG> (ARM, 20 bytes, Stack size 8 bytes, main.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1032 + Unknown Stack Size
+<LI>Call Chain = main &rArr; uart1_test &rArr; uart_printf &rArr; __c89vsprintf &rArr; _printf_char_common &rArr; __printf &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bc2230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_test
+<LI><a href="#[bc2278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> kernel.o(.text)
+</UL>
+<P><STRONG><a name="[bc2230]"></a>uart1_test</STRONG> (ARM, 172 bytes, Stack size 272 bytes, uart_test.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 1024 + Unknown Stack Size
+<LI>Call Chain = uart1_test &rArr; uart_printf &rArr; __c89vsprintf &rArr; _printf_char_common &rArr; __printf &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf
+<LI><a href="#[bc1160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_getch
+<LI><a href="#[bc11a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc22c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[bbfa80]"></a>port_init</STRONG> (ARM, 160 bytes, Stack size 0 bytes, 2410lib.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bc2278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init
+</UL>
+
+<P><STRONG><a name="[bbfa38]"></a>uart_change_baud</STRONG> (ARM, 252 bytes, Stack size 40 bytes, 2410lib.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb9b20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[bb9f10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<LI><a href="#[bba238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[bba7e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+</UL>
+
+<P><STRONG><a name="[bc11a8]"></a>delay</STRONG> (ARM, 180 bytes, Stack size 16 bytes, 2410lib.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = delay &rArr; __aeabi_idivmod
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bbbbc0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbf8d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_sendbyte
+<LI><a href="#[bbf9f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
+<LI><a href="#[bc2230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_test
+<LI><a href="#[bc2278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init
+</UL>
+
+<P><STRONG><a name="[bbf9f0]"></a>uart_init</STRONG> (ARM, 624 bytes, Stack size 64 bytes, 2410lib.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = uart_init &rArr; delay &rArr; __aeabi_idivmod
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb9b20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
+<LI><a href="#[bb9f10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
+<LI><a href="#[bba238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[bba7e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[bc11a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc2278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init
+</UL>
+
+<P><STRONG><a name="[bbf9a8]"></a>uart_select</STRONG> (ARM, 12 bytes, Stack size 0 bytes, 2410lib.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bc2278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init
+</UL>
+
+<P><STRONG><a name="[bbf960]"></a>uart_txempty</STRONG> (ARM, 96 bytes, Stack size 0 bytes, 2410lib.o(.text), UNUSED)
+
+<P><STRONG><a name="[bc1160]"></a>uart_getch</STRONG> (ARM, 152 bytes, Stack size 0 bytes, 2410lib.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bbf840]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_getstring
+<LI><a href="#[bc2230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_test
+</UL>
+
+<P><STRONG><a name="[bbf918]"></a>uart_getkey</STRONG> (ARM, 164 bytes, Stack size 0 bytes, 2410lib.o(.text), UNUSED)
+
+<P><STRONG><a name="[bbf8d0]"></a>uart_sendbyte</STRONG> (ARM, 324 bytes, Stack size 8 bytes, 2410lib.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = uart_sendbyte &rArr; delay &rArr; __aeabi_idivmod
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bc11a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbf840]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_getstring
+<LI><a href="#[bbf888]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_sendstring
+</UL>
+
+<P><STRONG><a name="[bbf888]"></a>uart_sendstring</STRONG> (ARM, 40 bytes, Stack size 8 bytes, 2410lib.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = uart_sendstring &rArr; uart_sendbyte &rArr; delay &rArr; __aeabi_idivmod
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bbf8d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_sendbyte
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf
+</UL>
+
+<P><STRONG><a name="[bc1118]"></a>uart_printf</STRONG> (ARM, 56 bytes, Stack size 280 bytes, 2410lib.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 752 + Unknown Stack Size
+<LI>Call Chain = uart_printf &rArr; __c89vsprintf &rArr; _printf_char_common &rArr; __printf &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bbc488]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__c89vsprintf (via Veneer)
+<LI><a href="#[bbf888]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_sendstring
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbdca8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_infor
+<LI><a href="#[bbdd38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_fiq
+<LI><a href="#[bbdd80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_abort_p
+<LI><a href="#[bbddc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_abort_d
+<LI><a href="#[bbde10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_swi
+<LI><a href="#[bbde58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_undef
+<LI><a href="#[bbdea0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;break_point
+<LI><a href="#[bbf840]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_getstring
+<LI><a href="#[bc2230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart1_test
+</UL>
+
+<P><STRONG><a name="[bbf840]"></a>uart_getstring</STRONG> (ARM, 100 bytes, Stack size 16 bytes, 2410lib.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bbf8d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_sendbyte
+<LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf
+<LI><a href="#[bc1160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_getch
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbf7f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_getintnum
+</UL>
+
+<P><STRONG><a name="[bbf7f8]"></a>uart_getintnum</STRONG> (ARM, 364 bytes, Stack size 64 bytes, 2410lib.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bbbf28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen (via Veneer)
+<LI><a href="#[bbc690]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi (via Veneer)
+<LI><a href="#[bbc920]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
+<LI><a href="#[bbf840]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_getstring
+</UL>
+
+<P><STRONG><a name="[bbf7b0]"></a>timer_start</STRONG> (ARM, 68 bytes, Stack size 0 bytes, 2410lib.o(.text), UNUSED)
+
+<P><STRONG><a name="[bbf768]"></a>timer_stop</STRONG> (ARM, 32 bytes, Stack size 0 bytes, 2410lib.o(.text), UNUSED)
+
+<P><STRONG><a name="[bbf720]"></a>change_value_MPLL</STRONG> (ARM, 24 bytes, Stack size 0 bytes, 2410lib.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bc2278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init
+</UL>
+
+<P><STRONG><a name="[bbf6d8]"></a>change_clock_divider</STRONG> (ARM, 16 bytes, Stack size 0 bytes, 2410lib.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bc2278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init
+</UL>
+
+<P><STRONG><a name="[bbf690]"></a>ChangeUPllValue</STRONG> (ARM, 24 bytes, Stack size 0 bytes, 2410lib.o(.text), UNUSED)
+
+<P><STRONG><a name="[bbf648]"></a>EnableMMU</STRONG> (ARM, 36 bytes, Stack size 0 bytes, 2410lib.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[bbf600]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitMMU
+</UL>
+
+<P><STRONG><a name="[bbf600]"></a>InitMMU</STRONG> (ARM, 156 bytes, Stack size 8 bytes, 2410lib.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bbf648]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EnableMMU
+</UL>
+
+<P><STRONG><a name="[bbf5b8]"></a>__gccmain</STRONG> (ARM, 4 bytes, Stack size 0 bytes, 2410lib.o(.text), UNUSED)
+
+<P><STRONG><a name="[bbdea0]"></a>break_point</STRONG> (ARM, 20 bytes, Stack size 8 bytes, sys_init.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbdd38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_fiq
+<LI><a href="#[bbdd80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_abort_p
+<LI><a href="#[bbddc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_abort_d
+<LI><a href="#[bbde10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_swi
+<LI><a href="#[bbde58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;debug_undef
+</UL>
+
+<P><STRONG><a name="[bbde58]"></a>debug_undef</STRONG> (ARM, 48 bytes, Stack size 8 bytes, sys_init.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bbdea0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;break_point
+<LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf
+</UL>
+
+<P><STRONG><a name="[bbde10]"></a>debug_swi</STRONG> (ARM, 48 bytes, Stack size 8 bytes, sys_init.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bbdea0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;break_point
+<LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf
+</UL>
+
+<P><STRONG><a name="[bbddc8]"></a>debug_abort_d</STRONG> (ARM, 48 bytes, Stack size 8 bytes, sys_init.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bbdea0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;break_point
+<LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf
+</UL>
+
+<P><STRONG><a name="[bbdd80]"></a>debug_abort_p</STRONG> (ARM, 48 bytes, Stack size 8 bytes, sys_init.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bbdea0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;break_point
+<LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf
+</UL>
+
+<P><STRONG><a name="[bbdd38]"></a>debug_fiq</STRONG> (ARM, 48 bytes, Stack size 8 bytes, sys_init.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bbdea0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;break_point
+<LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf
+</UL>
+
+<P><STRONG><a name="[bbdcf0]"></a>interrupts_init</STRONG> (ARM, 464 bytes, Stack size 0 bytes, sys_init.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bc2278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init
+</UL>
+
+<P><STRONG><a name="[bbdca8]"></a>print_infor</STRONG> (ARM, 44 bytes, Stack size 8 bytes, sys_init.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 760 + Unknown Stack Size
+<LI>Call Chain = print_infor &rArr; uart_printf &rArr; __c89vsprintf &rArr; _printf_char_common &rArr; __printf &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc2278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_init
+</UL>
+
+<P><STRONG><a name="[bc2278]"></a>sys_init</STRONG> (ARM, 124 bytes, Stack size 8 bytes, sys_init.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 768 + Unknown Stack Size
+<LI>Call Chain = sys_init &rArr; print_infor &rArr; uart_printf &rArr; __c89vsprintf &rArr; _printf_char_common &rArr; __printf &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bbdca8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;print_infor
+<LI><a href="#[bbdcf0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;interrupts_init
+<LI><a href="#[bbf6d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_clock_divider
+<LI><a href="#[bbf720]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;change_value_MPLL
+<LI><a href="#[bbf9a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_select
+<LI><a href="#[bbf9f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
+<LI><a href="#[bbfa80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;port_init
+<LI><a href="#[bc11a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc22c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[bbdc60]"></a>beep_init</STRONG> (ARM, 56 bytes, Stack size 0 bytes, sys_init.o(.text), UNUSED)
+
+<P><STRONG><a name="[bbc920]"></a>__rt_ctype_table</STRONG> (ARM, 24 bytes, Stack size 8 bytes, rt_ctype_table.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __rt_ctype_table
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb81b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4700]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_wcrtomb (via Veneer)
+<LI><a href="#[bb6aa8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol (via Veneer)
+<LI><a href="#[bbf7f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_getintnum
+</UL>
+
+<P><STRONG><a name="[bbc690]"></a>atoi</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, atoi.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb6aa8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
+<LI><a href="#[bb8928]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr (via Veneer)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbf7f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_getintnum (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bbc488]"></a>__c89vsprintf</STRONG> (Thumb, 38 bytes, Stack size 16 bytes, c89vsprintf.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 472 + Unknown Stack Size
+<LI>Call Chain = __c89vsprintf &rArr; _printf_char_common &rArr; __printf &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb6bc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sputc
+<LI><a href="#[bb6e10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc1118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_printf (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bbbf28]"></a>strlen</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, strlen.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[bbf7f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_getintnum (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bbbc08]"></a>__aeabi_idiv</STRONG> (ARM, 0 bytes, Stack size 8 bytes, aeabi_sdiv.o(.text), UNUSED)
+
+<P><STRONG><a name="[bbbbc0]"></a>__aeabi_idivmod</STRONG> (ARM, 384 bytes, Stack size 8 bytes, aeabi_sdiv.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_idivmod
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc11a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+<LI><a href="#[10a0c30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bbaec8]"></a>__use_two_region_memory</STRONG> (ARM, 4 bytes, Stack size 0 bytes, stkheap2.o(.text), UNUSED)
+
+<P><STRONG><a name="[bbae80]"></a>__rt_stackheap_init</STRONG> (ARM, 36 bytes, Stack size 16 bytes, stkheap2.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
+<LI>Call Chain = __rt_stackheap_init &rArr; __user_setup_stackheap
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb8528]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_stackheap_storage
+<LI><a href="#[bb9100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb9728]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[bbae38]"></a>__rt_heap_extend</STRONG> (ARM, 24 bytes, Stack size 8 bytes, stkheap2.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bbad60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_heap_extend (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb9728]"></a>__rt_entry</STRONG> (ARM, 76 bytes, Stack size 16 bytes, kernel.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68 + Unknown Stack Size
+<LI>Call Chain = __rt_entry &rArr; __rt_lib_init &rArr; _get_lc_ctype &rArr; strcmp
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+<LI><a href="#[bb4538]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit (via BX)
+<LI><a href="#[bbae80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_stackheap_init
+<LI><a href="#[10a1950]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_platform_post_lib_init
+<LI><a href="#[10a1ac0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_platform_post_stackheap_init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbabf8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
+<LI><a href="#[109af08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+</UL>
+
+<P><STRONG><a name="[bb96e0]"></a>__rt_exit</STRONG> (ARM, 20 bytes, Stack size 8 bytes, kernel.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __rt_exit &rArr; __rt_lib_shutdown
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb3d80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown (via Veneer)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4538]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bb9698]"></a>__rt_abort</STRONG> (ARM, 8 bytes, Stack size 0 bytes, kernel.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb5d58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
+</UL>
+
+<P><STRONG><a name="[bb9100]"></a>__user_setup_stackheap</STRONG> (ARM, 96 bytes, Stack size 8 bytes, sys_stackheap_outer.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = __user_setup_stackheap
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb5a80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_perproc_libspace
+<LI><a href="#[bc3328]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_initial_stackheap
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbae80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_stackheap_init
+</UL>
+
+<P><STRONG><a name="[bb8928]"></a>__aeabi_errno_addr</STRONG> (ARM, 12 bytes, Stack size 0 bytes, rt_errno_addr_intlibspace.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb48c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul (via Veneer)
+<LI><a href="#[bb6aa8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol (via Veneer)
+<LI><a href="#[bbc690]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bb88e0]"></a>__rt_errno_addr_intlibspace</STRONG> (ARM, 0 bytes, Stack size 0 bytes, rt_errno_addr_intlibspace.o(.text), UNUSED)
+
+<P><STRONG><a name="[bb8528]"></a>__rt_stackheap_storage</STRONG> (ARM, 12 bytes, Stack size 0 bytes, rt_stackheap_storage_intlibspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bbae80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_stackheap_init
+</UL>
+
+<P><STRONG><a name="[bb81b8]"></a>__rt_locale</STRONG> (ARM, 12 bytes, Stack size 0 bytes, rt_locale_intlibspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+<LI><a href="#[bb4f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real (via Veneer)
+<LI><a href="#[bbc920]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
+</UL>
+
+<P><STRONG><a name="[bb8048]"></a>_printf_pre_padding</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, _printf_pad.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
+<LI>Call Chain = _printf_pre_padding
+</UL>
+<BR>[Calls]<UL><LI><a href="#[10a12f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r2
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
+<LI><a href="#[bb5160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<LI><a href="#[bb7968]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
+<LI><a href="#[bb7c18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
+</UL>
+
+<P><STRONG><a name="[bb8000]"></a>_printf_post_padding</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, _printf_pad.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
+<LI>Call Chain = _printf_post_padding
+</UL>
+<BR>[Calls]<UL><LI><a href="#[10a12f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r2
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
+<LI><a href="#[bb5160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<LI><a href="#[bb7968]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
+<LI><a href="#[bb7c18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
+</UL>
+
+<P><STRONG><a name="[bb7dd0]"></a>_printf_truncate_signed</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, _printf_truncate.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb7338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_dec
+</UL>
+
+<P><STRONG><a name="[bb7d88]"></a>_printf_truncate_unsigned</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, _printf_truncate.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb7338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_dec
+<LI><a href="#[bb74b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_oct
+<LI><a href="#[bb7680]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_hex
+</UL>
+
+<P><STRONG><a name="[bb7c18]"></a>_printf_str</STRONG> (Thumb, 94 bytes, Stack size 16 bytes, _printf_str.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32 + Unknown Stack Size
+<LI>Call Chain = _printf_str &rArr; _printf_post_padding
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb8000]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
+<LI><a href="#[bb8048]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+<LI><a href="#[10a1268]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r3
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+</UL>
+
+<P><STRONG><a name="[bb7968]"></a>_printf_wctomb</STRONG> (Thumb, 188 bytes, Stack size 56 bytes, _printf_wctomb.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 80 + Unknown Stack Size
+<LI>Call Chain = _printf_wctomb &rArr; _wcrtomb &rArr; __rt_ctype_table
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb4700]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_wcrtomb
+<LI><a href="#[bb8000]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
+<LI><a href="#[bb8048]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+<LI><a href="#[10a12f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r2
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+</UL>
+
+<P><STRONG><a name="[bb7680]"></a>_printf_longlong_hex</STRONG> (Thumb, 182 bytes, Stack size 88 bytes, _printf_longlong_hex.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
+<LI>Call Chain = _printf_longlong_hex &rArr; _printf_int_common &rArr; _printf_post_padding
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb5160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<LI><a href="#[bb7d88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_unsigned
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+</UL>
+
+<P><STRONG><a name="[bb74b8]"></a>_printf_longlong_oct</STRONG> (Thumb, 138 bytes, Stack size 64 bytes, _printf_longlong_oct.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 120 + Unknown Stack Size
+<LI>Call Chain = _printf_longlong_oct &rArr; _printf_int_common &rArr; _printf_post_padding
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb5160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<LI><a href="#[bb7d88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_unsigned
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+</UL>
+
+<P><STRONG><a name="[bb7338]"></a>_printf_int_dec</STRONG> (Thumb, 98 bytes, Stack size 72 bytes, _printf_dec.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128 + Unknown Stack Size
+<LI>Call Chain = _printf_int_dec &rArr; _printf_int_common &rArr; _printf_post_padding
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb4208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_udiv10 (via Veneer)
+<LI><a href="#[bb5160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<LI><a href="#[bb7d88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_unsigned
+<LI><a href="#[bb7dd0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_truncate_signed
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+</UL>
+
+<P><STRONG><a name="[bb70f8]"></a>_printf_longlong_dec</STRONG> (Thumb, 124 bytes, Stack size 80 bytes, _printf_longlong_dec.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 136 + Unknown Stack Size
+<LI>Call Chain = _printf_longlong_dec &rArr; _printf_int_common &rArr; _printf_post_padding
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb5160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<LI><a href="#[bb5700]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ll_udiv10 (via Veneer)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+</UL>
+
+<P><STRONG><a name="[bb6f30]"></a>_printf_charcount</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, _printf_charcount.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+</UL>
+
+<P><STRONG><a name="[bb6e10]"></a>_printf_char_common</STRONG> (Thumb, 44 bytes, Stack size 88 bytes, _printf_char_common.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 456 + Unknown Stack Size
+<LI>Call Chain = _printf_char_common &rArr; __printf &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbc488]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__c89vsprintf
+</UL>
+
+<P><STRONG><a name="[bb6bc8]"></a>_sputc</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, _sputc.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bbc488]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__c89vsprintf
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> c89vsprintf.o(.text)
+</UL>
+<P><STRONG><a name="[bb6aa8]"></a>strtol</STRONG> (Thumb, 112 bytes, Stack size 32 bytes, strtol.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb48c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul
+<LI><a href="#[bb8928]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr (via Veneer)
+<LI><a href="#[bbc920]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table (via Veneer)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbc690]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
+</UL>
+
+<P><STRONG><a name="[bb5d58]"></a>_sys_exit</STRONG> (ARM, 20 bytes, Stack size 0 bytes, sys_exit.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb9698]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_abort
+</UL>
+
+<P><STRONG><a name="[bb5ac8]"></a>__user_libspace</STRONG> (ARM, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+
+<P><STRONG><a name="[bb5a80]"></a>__user_perproc_libspace</STRONG> (ARM, 0 bytes, Stack size 0 bytes, libspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb9100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
+</UL>
+
+<P><STRONG><a name="[bb5a38]"></a>__user_perthread_libspace</STRONG> (ARM, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+
+<P><STRONG><a name="[bb5700]"></a>_ll_udiv10</STRONG> (ARM, 160 bytes, Stack size 12 bytes, lludiv10.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = _ll_udiv10
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4f98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits (via Veneer)
+<LI><a href="#[bb70f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_dec (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bb54d8]"></a>__printf</STRONG> (Thumb, 748 bytes, Stack size 48 bytes, __printf.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 368 + Unknown Stack Size
+<LI>Call Chain = __printf &rArr; _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb52e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wc (Weak Reference)
+<LI><a href="#[bb5328]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_mbtowc (Weak Reference)
+<LI><a href="#[bb5370]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_hex (Weak Reference)
+<LI><a href="#[bb5f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec (via Veneer)
+<LI><a href="#[bb6f30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_charcount
+<LI><a href="#[bb70f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_dec
+<LI><a href="#[bb7338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_dec
+<LI><a href="#[bb74b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_oct
+<LI><a href="#[bb7680]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_hex
+<LI><a href="#[bb7968]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
+<LI><a href="#[bb7c18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
+<LI><a href="#[10a1268]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r3
+<LI><a href="#[10a12f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r2
+<LI><a href="#[10a1388]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r1
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb6e10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_common
+</UL>
+
+<P><STRONG><a name="[bb5490]"></a>_printf_return_value</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, __printf.o(.text), UNUSED)
+
+<P><STRONG><a name="[bb5448]"></a>_printf_percent</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, __printf.o(.text), UNUSED)
+
+<P><STRONG><a name="[bb5400]"></a>_printf_sizespec</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, __printf.o(.text), UNUSED)
+
+<P><STRONG><a name="[bb5160]"></a>_printf_int_common</STRONG> (Thumb, 168 bytes, Stack size 40 bytes, _printf_intcommon.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56 + Unknown Stack Size
+<LI>Call Chain = _printf_int_common &rArr; _printf_post_padding
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb8000]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
+<LI><a href="#[bb8048]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+<LI><a href="#[10a12f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r2
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb70f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_dec
+<LI><a href="#[bb7338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_dec
+<LI><a href="#[bb74b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_oct
+<LI><a href="#[bb7680]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_longlong_hex
+</UL>
+
+<P><STRONG><a name="[bb4f50]"></a>__lib_sel_fp_printf</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, _printf_fp_dec.o(.text), UNUSED)
+
+<P><STRONG><a name="[bb4f08]"></a>_printf_fp_dec_real</STRONG> (Thumb, 696 bytes, Stack size 104 bytes, _printf_fp_dec.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 320 + Unknown Stack Size
+<LI>Call Chain = _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb4208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_udiv10 (via Veneer)
+<LI><a href="#[bb4f98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
+<LI><a href="#[bb8000]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
+<LI><a href="#[bb8048]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+<LI><a href="#[bb81b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale (via Veneer)
+<LI><a href="#[109e788]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_classify (via Veneer)
+<LI><a href="#[10a12f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r2
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb5f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bb4b60]"></a>_printf_outstr_char</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, _printf_outstr_char.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
+<LI>Call Chain = _printf_outstr_char
+</UL>
+<BR>[Calls]<UL><LI><a href="#[10a12f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r2
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> _printf_char_common.o(.text)
+</UL>
+<P><STRONG><a name="[bb49e8]"></a>_printf_input_char</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, _printf_input_char.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> _printf_char_common.o(.text)
+</UL>
+<P><STRONG><a name="[bb48c8]"></a>_strtoul</STRONG> (Thumb, 166 bytes, Stack size 40 bytes, _strtoul.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb8928]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr (via Veneer)
+<LI><a href="#[109fba0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_chval
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb6aa8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
+</UL>
+
+<P><STRONG><a name="[bb4700]"></a>_wcrtomb</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, _wcrtomb.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24 + Unknown Stack Size
+<LI>Call Chain = _wcrtomb &rArr; __rt_ctype_table
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bbc920]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table (via Veneer)
+<LI><a href="#[10a1268]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_call_via_r3
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb7968]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
+</UL>
+
+<P><STRONG><a name="[bb4538]"></a>exit</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, exit.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = exit &rArr; __rt_exit &rArr; __rt_lib_shutdown
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb44a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_call_atexit_fns (Weak Reference)
+<LI><a href="#[bb96e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit (via Veneer)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb9728]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[bb4388]"></a>strcmp</STRONG> (ARM, 156 bytes, Stack size 4 bytes, strcmp.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = strcmp
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb6750]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
+<LI><a href="#[109f888]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
+</UL>
+
+<P><STRONG><a name="[bb4208]"></a>__rt_udiv10</STRONG> (ARM, 44 bytes, Stack size 0 bytes, rtudiv10.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb4f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real (via Veneer)
+<LI><a href="#[bb7338]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_dec (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bb3dc8]"></a>__rt_lib_init</STRONG> (Thumb, 184 bytes, Stack size 40 bytes, lib_init.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = __rt_lib_init &rArr; _get_lc_ctype &rArr; strcmp
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb3b88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_atexit_init (Weak Reference)
+<LI><a href="#[bb3c18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__cpp_initialize__aeabi_ (Weak Reference)
+<LI><a href="#[bb3c60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__alloca_initialize (Weak Reference)
+<LI><a href="#[bb3ca8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_DescSize (Weak Reference)
+<LI><a href="#[bb3cf0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_exceptions_init (Weak Reference)
+<LI><a href="#[bb3e58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_argv_veneer (via Veneer)
+<LI><a href="#[bb6750]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype (via Veneer)
+<LI><a href="#[bb81b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_locale (via Veneer)
+<LI><a href="#[109ea18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_init (via Veneer)
+<LI><a href="#[109f888]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric (via Veneer)
+<LI><a href="#[10a1ea8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_signal_init (Weak Reference)
+<LI><a href="#[10a1ef0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_rand_init (Weak Reference)
+<LI><a href="#[10a1f38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_initio (Weak Reference)
+<LI><a href="#[10a1f80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_init_user_alloc (Weak Reference)
+<LI><a href="#[10a1fc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_init_alloc (Weak Reference)
+<LI><a href="#[10a2010]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_getenv_init (Weak Reference)
+<LI><a href="#[10a2058]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_time (Weak Reference)
+<LI><a href="#[10a20a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_monetary (Weak Reference)
+<LI><a href="#[10a20e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_collate (Weak Reference)
+<LI><a href="#[10a2130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_trap_init (Weak Reference)
+<LI><a href="#[10a2178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_clock_init (Weak Reference)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb9728]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bb3d80]"></a>__rt_lib_shutdown</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, lib_init.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __rt_lib_shutdown
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb3bd0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__cxa_finalize (Weak Reference)
+<LI><a href="#[10a1e18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminateio (Weak Reference)
+<LI><a href="#[10a1e60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_terminate_user_alloc (Weak Reference)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb96e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit (via Veneer)
+</UL>
+
+<P><STRONG><a name="[10a1ac0]"></a>_platform_post_stackheap_init</STRONG> (ARM, 12 bytes, Stack size 0 bytes, boardinit2.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb9728]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[10a1950]"></a>_platform_post_lib_init</STRONG> (ARM, 16 bytes, Stack size 8 bytes, boardinit3.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _platform_post_lib_init
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb9728]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
+</UL>
+
+<P><STRONG><a name="[10a1418]"></a>__ARM_call_via_r0</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a13d0]"></a>__call_via_r0</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a1388]"></a>__ARM_call_via_r1</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, callvia.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+</UL>
+
+<P><STRONG><a name="[10a1340]"></a>__call_via_r1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a12f8]"></a>__ARM_call_via_r2</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, callvia.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb4b60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_outstr_char
+<LI><a href="#[bb4f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
+<LI><a href="#[bb5160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_int_common
+<LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+<LI><a href="#[bb7968]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_wctomb
+<LI><a href="#[bb8000]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_post_padding
+<LI><a href="#[bb8048]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_pre_padding
+</UL>
+
+<P><STRONG><a name="[10a12b0]"></a>__call_via_r2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a1268]"></a>__ARM_call_via_r3</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, callvia.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[bb4700]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_wcrtomb
+<LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
+<LI><a href="#[bb7c18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_str
+</UL>
+
+<P><STRONG><a name="[10a1220]"></a>__call_via_r3</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a11d8]"></a>__ARM_call_via_r4</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a1190]"></a>__call_via_r4</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a1148]"></a>__ARM_call_via_r5</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a1100]"></a>__call_via_r5</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a10b8]"></a>__ARM_call_via_r6</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a1070]"></a>__call_via_r6</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a1028]"></a>__ARM_call_via_r7</STRONG> (Thumb, 2 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a0fe0]"></a>__call_via_r7</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, callvia.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a0ec0]"></a>__I_use_semihosting</STRONG> (ARM, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> sys_exit.o(.text)
+</UL>
+<P><STRONG><a name="[10a0e78]"></a>__use_no_semihosting_swi</STRONG> (ARM, 4 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+
+<P><STRONG><a name="[10a0c30]"></a>_btod_etento</STRONG> (Thumb, 196 bytes, Stack size 72 bytes, bigflt0.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bbbbc0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_idivmod (via Veneer)
+<LI><a href="#[10a0288]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul (via Veneer)
+<LI><a href="#[10a0318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_ediv (via Veneer)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4f98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits
+</UL>
+
+<P><STRONG><a name="[109fba0]"></a>_chval</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, _chval.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb48c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_strtoul
+</UL>
+
+<P><STRONG><a name="[109ee68]"></a>__ARM_get_argv</STRONG> (Thumb, 6 bytes, Stack size 4 bytes, no_argv.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __ARM_get_argv
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> lib_init.o(.emb_text)
+</UL>
+<P><STRONG><a name="[109ded8]"></a>__rt_fp_status_addr</STRONG> (ARM, 12 bytes, Stack size 0 bytes, rt_fp_status_addr_intlibspace.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[109ea18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_init
+</UL>
+
+<P><STRONG><a name="[10a04c8]"></a>_btod_d2e</STRONG> (ARM, 56 bytes, Stack size 0 bytes, btod.o(CL$$btod_d2e))
+<BR><BR>[Calls]<UL><LI><a href="#[10a0438]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2e_norm_op1
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4f98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits (via Veneer)
+</UL>
+
+<P><STRONG><a name="[10a0480]"></a>_d2e_denorm_low</STRONG> (ARM, 84 bytes, Stack size 0 bytes, btod.o(CL$$btod_d2e_denorm_low))
+<BR><BR>[Called By]<UL><LI><a href="#[10a0438]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2e_norm_op1
+</UL>
+
+<P><STRONG><a name="[10a0438]"></a>_d2e_norm_op1</STRONG> (ARM, 104 bytes, Stack size 0 bytes, btod.o(CL$$btod_d2e_norm_op1))
+<BR><BR>[Calls]<UL><LI><a href="#[10a0480]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2e_denorm_low
+</UL>
+<BR>[Called By]<UL><LI><a href="#[10a04c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_d2e
+</UL>
+
+<P><STRONG><a name="[10a03f0]"></a>__btod_div_common</STRONG> (ARM, 716 bytes, Stack size 24 bytes, btod.o(CL$$btod_div_common))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __btod_div_common
+</UL>
+<BR>[Called By]<UL><LI><a href="#[10a0318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_ediv
+</UL>
+
+<P><STRONG><a name="[10a0360]"></a>_e2e</STRONG> (ARM, 220 bytes, Stack size 24 bytes, btod.o(CL$$btod_e2e))
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = _e2e
+</UL>
+<BR>[Called By]<UL><LI><a href="#[10a0288]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul
+<LI><a href="#[10a0318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_ediv
+</UL>
+
+<P><STRONG><a name="[10a0318]"></a>_btod_ediv</STRONG> (ARM, 52 bytes, Stack size 24 bytes, btod.o(CL$$btod_ediv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = _btod_ediv &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[10a0360]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_e2e
+<LI><a href="#[10a03f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__btod_div_common
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4f98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits (via Veneer)
+<LI><a href="#[10a0c30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento (via Veneer)
+</UL>
+
+<P><STRONG><a name="[10a0288]"></a>_btod_emul</STRONG> (ARM, 52 bytes, Stack size 24 bytes, btod.o(CL$$btod_emul))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[10a01f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__btod_mult_common
+<LI><a href="#[10a0360]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_e2e
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4f98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits (via Veneer)
+<LI><a href="#[10a0c30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento (via Veneer)
+</UL>
+
+<P><STRONG><a name="[10a01f8]"></a>__btod_mult_common</STRONG> (ARM, 616 bytes, Stack size 16 bytes, btod.o(CL$$btod_mult_common))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __btod_mult_common
+</UL>
+<BR>[Called By]<UL><LI><a href="#[10a0288]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul
+</UL>
+
+<P><STRONG><a name="[109cdb8]"></a>__ARM_fpclassify</STRONG> (ARM, 44 bytes, Stack size 0 bytes, fpclassify.o(i.__ARM_fpclassify))
+<BR><BR>[Called By]<UL><LI><a href="#[109e788]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_classify
+</UL>
+
+<P><STRONG><a name="[109e788]"></a>__mathlib_classify</STRONG> (ARM, 56 bytes, Stack size 8 bytes, classify.o(i.__mathlib_classify))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __mathlib_classify
+</UL>
+<BR>[Calls]<UL><LI><a href="#[109cdb8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real (via Veneer)
+</UL>
+
+<P><STRONG><a name="[109e5d0]"></a>__support_dtoi</STRONG> (ARM, 96 bytes, Stack size 16 bytes, dtoi.o(i.__support_dtoi))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __support_dtoi
+</UL>
+<BR>[Calls]<UL><LI><a href="#[109d158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_scalbn
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4f98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bb6750]"></a>_get_lc_ctype</STRONG> (ARM, 80 bytes, Stack size 8 bytes, lc_ctype_c.o(locale$$code))
+<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = _get_lc_ctype &rArr; strcmp
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb4388]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> rt_ctype_table.o(.text)
+</UL>
+<P><STRONG><a name="[109f888]"></a>_get_lc_numeric</STRONG> (ARM, 80 bytes, Stack size 8 bytes, lc_numeric_c.o(locale$$code))
+<BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = _get_lc_numeric &rArr; strcmp
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb4388]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bba7e0]"></a>__aeabi_dadd</STRONG> (ARM, 0 bytes, Stack size 8 bytes, daddsub_noclz.o(x$fpl$dadd))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_dadd
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbf9f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
+<LI><a href="#[bbfa38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_change_baud
+</UL>
+
+<P><STRONG><a name="[bba798]"></a>_dadd</STRONG> (ARM, 452 bytes, Stack size 8 bytes, daddsub_noclz.o(x$fpl$dadd), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb6408]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcheck_NaN2
+<LI><a href="#[bba480]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_infinity (Weak Reference)
+<LI><a href="#[bba828]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsub1
+</UL>
+
+<P><STRONG><a name="[bba750]"></a>__fpl_inf_dadd</STRONG> (ARM, 0 bytes, Stack size unknown bytes, daddsub_noclz.o(x$fpl$dadd), UNUSED)
+
+<P><STRONG><a name="[bb6408]"></a>__fpl_dcheck_NaN2</STRONG> (ARM, 12 bytes, Stack size 0 bytes, dcheck.o(x$fpl$dcheck), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[10a1618]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_return_NaN
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bba1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ddiv
+<LI><a href="#[bba630]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsub
+<LI><a href="#[bba798]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dadd
+</UL>
+
+<P><STRONG><a name="[bb6258]"></a>__fpl_dcheck_NaN1</STRONG> (ARM, 12 bytes, Stack size 0 bytes, dcheck1.o(x$fpl$dcheck1), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[10a1618]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_return_NaN
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb9ec8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dfix
+<LI><a href="#[109d110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scalbn
+</UL>
+
+<P><STRONG><a name="[bba238]"></a>__aeabi_ddiv</STRONG> (ARM, 0 bytes, Stack size 16 bytes, ddiv.o(x$fpl$ddiv))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_ddiv
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbf9f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
+<LI><a href="#[bbfa38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_change_baud
+</UL>
+
+<P><STRONG><a name="[bba1f0]"></a>_ddiv</STRONG> (ARM, 464 bytes, Stack size 16 bytes, ddiv.o(x$fpl$ddiv), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb6408]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcheck_NaN2
+<LI><a href="#[bba160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ddiv_mantissas
+<LI><a href="#[bba480]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_infinity (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bba1a8]"></a>__fpl_inf_ddiv</STRONG> (ARM, 0 bytes, Stack size unknown bytes, ddiv.o(x$fpl$ddiv), UNUSED)
+
+<P><STRONG><a name="[bba160]"></a>_ddiv_mantissas</STRONG> (ARM, 608 bytes, Stack size 28 bytes, ddiv.o(x$fpl$ddiv), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[bba1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ddiv
+</UL>
+
+<P><STRONG><a name="[bb9f10]"></a>__aeabi_d2iz</STRONG> (ARM, 0 bytes, Stack size 8 bytes, dfix.o(x$fpl$dfix))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_d2iz
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bbf9f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
+<LI><a href="#[bbfa38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_change_baud
+</UL>
+
+<P><STRONG><a name="[bb9ec8]"></a>_dfix</STRONG> (ARM, 172 bytes, Stack size 8 bytes, dfix.o(x$fpl$dfix), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb6258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcheck_NaN1
+<LI><a href="#[bba480]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_infinity (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb9e80]"></a>__fpl_inf_dfix</STRONG> (ARM, 0 bytes, Stack size unknown bytes, dfix.o(x$fpl$dfix), UNUSED)
+
+<P><STRONG><a name="[bb9b20]"></a>__aeabi_i2d</STRONG> (ARM, 0 bytes, Stack size 0 bytes, dflt_noclz.o(x$fpl$dflt))
+<BR><BR>[Called By]<UL><LI><a href="#[bbf9f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
+<LI><a href="#[bbfa38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_change_baud
+</UL>
+
+<P><STRONG><a name="[bb9ad8]"></a>_dflt</STRONG> (ARM, 88 bytes, Stack size 0 bytes, dflt_noclz.o(x$fpl$dflt), UNUSED)
+
+<P><STRONG><a name="[bb9a90]"></a>__dflt_normalise</STRONG> (ARM, 0 bytes, Stack size unknown bytes, dflt_noclz.o(x$fpl$dflt), UNUSED)
+
+<P><STRONG><a name="[bba678]"></a>__aeabi_dsub</STRONG> (ARM, 0 bytes, Stack size 8 bytes, daddsub_noclz.o(x$fpl$dsub), UNUSED)
+
+<P><STRONG><a name="[bba630]"></a>_dsub</STRONG> (ARM, 572 bytes, Stack size 8 bytes, daddsub_noclz.o(x$fpl$dsub), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb6408]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcheck_NaN2
+<LI><a href="#[bba480]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_infinity (Weak Reference)
+<LI><a href="#[bba870]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dadd1
+</UL>
+
+<P><STRONG><a name="[bba5e8]"></a>__fpl_inf_dsub</STRONG> (ARM, 0 bytes, Stack size unknown bytes, daddsub_noclz.o(x$fpl$dsub), UNUSED)
+
+<P><STRONG><a name="[bb60f0]"></a>__dunder</STRONG> (ARM, 272 bytes, Stack size 4 bytes, dunder.o(x$fpl$dunder), UNUSED)
+
+<P><STRONG><a name="[bb60a8]"></a>__dunder_d</STRONG> (ARM, 4 bytes, Stack size 0 bytes, dunder.o(x$fpl$dunder), UNUSED)
+
+<P><STRONG><a name="[109ea18]"></a>_fp_init</STRONG> (ARM, 24 bytes, Stack size 8 bytes, fpinit.o(x$fpl$fpinit))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _fp_init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[109ded8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_fp_status_addr
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (via Veneer)
+</UL>
+
+<P><STRONG><a name="[109e9d0]"></a>__fplib_config_pureend_doubles</STRONG> (ARM, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
+
+<P><STRONG><a name="[109eb88]"></a>__ieee_status</STRONG> (ARM, 8 bytes, Stack size 0 bytes, istatus.o(x$fpl$ieeestatus))
+<BR><BR>[Called By]<UL><LI><a href="#[bb4f98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_digits (via Veneer)
+</UL>
+
+<P><STRONG><a name="[bb5f08]"></a>_printf_fp_dec</STRONG> (ARM, 4 bytes, Stack size 0 bytes, printf1.o(x$fpl$printf1))
+<BR><BR>[Stack]<UL><LI>Max Depth = 320 + Unknown Stack Size
+<LI>Call Chain = _printf_fp_dec &rArr; _printf_fp_dec_real &rArr; _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb4f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real (via Veneer)
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf (via Veneer)
+</UL>
+
+<P><STRONG><a name="[10a1618]"></a>__fpl_return_NaN</STRONG> (ARM, 116 bytes, Stack size 0 bytes, retnan.o(x$fpl$retnan), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[109ed00]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_cmpreturn
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb6258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcheck_NaN1
+<LI><a href="#[bb6408]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcheck_NaN2
+</UL>
+
+<P><STRONG><a name="[109d158]"></a>__ARM_scalbn</STRONG> (ARM, 0 bytes, Stack size 0 bytes, scalbn_noclz.o(x$fpl$scalbn))
+<BR><BR>[Called By]<UL><LI><a href="#[109e5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__support_dtoi
+</UL>
+
+<P><STRONG><a name="[109d110]"></a>scalbn</STRONG> (ARM, 108 bytes, Stack size 0 bytes, scalbn_noclz.o(x$fpl$scalbn), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[bb6258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcheck_NaN1
+<LI><a href="#[bba480]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_infinity (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[109d0c8]"></a>__fpl_inf_scalbn</STRONG> (ARM, 0 bytes, Stack size unknown bytes, scalbn_noclz.o(x$fpl$scalbn), UNUSED)
+
+<P><STRONG><a name="[109ed00]"></a>__fpl_cmpreturn</STRONG> (ARM, 60 bytes, Stack size 0 bytes, trapv.o(x$fpl$trapveneer), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[10a1618]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_return_NaN
+</UL>
+<P>
+<H3>
+Local Symbols
+</H3>
+<P><STRONG><a name="[bc35b0]"></a>Undef_Handler</STRONG> (ARM, 4 bytes, Stack size unknown bytes, s3c2410a.o(RESET))
+<BR><BR>[Calls]<UL><LI><a href="#[bc35b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Undef_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc35b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Undef_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> s3c2410a.o(RESET)
+</UL>
+<P><STRONG><a name="[bc3568]"></a>SWI_Handler</STRONG> (ARM, 4 bytes, Stack size unknown bytes, s3c2410a.o(RESET))
+<BR><BR>[Calls]<UL><LI><a href="#[bc3568]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SWI_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc3568]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SWI_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> s3c2410a.o(RESET)
+</UL>
+<P><STRONG><a name="[bc3520]"></a>PAbt_Handler</STRONG> (ARM, 4 bytes, Stack size unknown bytes, s3c2410a.o(RESET))
+<BR><BR>[Calls]<UL><LI><a href="#[bc3520]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PAbt_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc3520]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PAbt_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> s3c2410a.o(RESET)
+</UL>
+<P><STRONG><a name="[bc34d8]"></a>DAbt_Handler</STRONG> (ARM, 4 bytes, Stack size unknown bytes, s3c2410a.o(RESET))
+<BR><BR>[Calls]<UL><LI><a href="#[bc34d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAbt_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc34d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DAbt_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> s3c2410a.o(RESET)
+</UL>
+<P><STRONG><a name="[bc3490]"></a>IRQ_Handler</STRONG> (ARM, 4 bytes, Stack size unknown bytes, s3c2410a.o(RESET))
+<BR>[Address Reference Count : 1]<UL><LI> s3c2410a.o(RESET)
+</UL>
+<P><STRONG><a name="[bc3448]"></a>FIQ_Handler</STRONG> (ARM, 4 bytes, Stack size unknown bytes, s3c2410a.o(RESET))
+<BR><BR>[Calls]<UL><LI><a href="#[bc3448]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FIQ_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bc3448]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FIQ_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> s3c2410a.o(RESET)
+</UL>
+<P><STRONG><a name="[bba870]"></a>_dadd1</STRONG> (ARM, 0 bytes, Stack size unknown bytes, daddsub_noclz.o(x$fpl$dadd), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[bba630]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsub
+</UL>
+
+<P><STRONG><a name="[bba828]"></a>_dsub1</STRONG> (ARM, 0 bytes, Stack size unknown bytes, daddsub_noclz.o(x$fpl$dsub), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[bba798]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dadd
+</UL>
+
+<P><STRONG><a name="[bb4f98]"></a>_fp_digits</STRONG> (Thumb, 486 bytes, Stack size 96 bytes, _printf_fp_dec.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = _fp_digits &rArr; _btod_etento &rArr; _btod_emul &rArr; _e2e
+</UL>
+<BR>[Calls]<UL><LI><a href="#[bb5700]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ll_udiv10 (via Veneer)
+<LI><a href="#[109e5d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__support_dtoi (via Veneer)
+<LI><a href="#[109eb88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee_status (via Veneer)
+<LI><a href="#[10a0288]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_emul (via Veneer)
+<LI><a href="#[10a0318]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_ediv (via Veneer)
+<LI><a href="#[10a04c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_d2e (via Veneer)
+<LI><a href="#[10a0c30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_btod_etento
+</UL>
+<BR>[Called By]<UL><LI><a href="#[bb4f08]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_fp_dec_real
+</UL>
+<P>
+<H3>
+Undefined Global Symbols
+</H3>
+<P><STRONG><a name="[bb3cf0]"></a>__ARM_exceptions_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb3ca8]"></a>__Heap_DescSize</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb3c60]"></a>__alloca_initialize</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb3c18]"></a>__cpp_initialize__aeabi_</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb3bd0]"></a>__cxa_finalize</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3d80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bba480]"></a>__fpl_infinity</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED, UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb9ec8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dfix (Weak Reference)
+<LI><a href="#[bba1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_ddiv (Weak Reference)
+<LI><a href="#[bba630]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsub (Weak Reference)
+<LI><a href="#[bba798]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dadd (Weak Reference)
+<LI><a href="#[109d110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scalbn (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bbad60]"></a>__user_heap_extend</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED, UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[bbae38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_heap_extend (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb3b88]"></a>_atexit_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb44a8]"></a>_call_atexit_fns</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb4538]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a2178]"></a>_clock_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a2130]"></a>_fp_trap_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a20e8]"></a>_get_lc_collate</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a20a0]"></a>_get_lc_monetary</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a2058]"></a>_get_lc_time</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a2010]"></a>_getenv_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a1fc8]"></a>_init_alloc</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a1f80]"></a>_init_user_alloc</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a1f38]"></a>_initio</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb5370]"></a>_printf_fp_hex</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb5328]"></a>_printf_mbtowc</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[bb52e0]"></a>_printf_wc</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb54d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a1ef0]"></a>_rand_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a1ea8]"></a>_signal_init</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3dc8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a1e60]"></a>_terminate_user_alloc</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3d80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown (Weak Reference)
+</UL>
+
+<P><STRONG><a name="[10a1e18]"></a>_terminateio</STRONG> (Unknown, 0 bytes, Stack size 0 bytes, UNDEFINED)
+<BR><BR>[Called By]<UL><LI><a href="#[bb3d80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown (Weak Reference)
+</UL>
+<HR></body></html>

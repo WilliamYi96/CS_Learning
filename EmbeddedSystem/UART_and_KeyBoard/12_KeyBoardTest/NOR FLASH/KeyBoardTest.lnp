@@ -1,0 +1,4 @@
+".\nor flash\s3c2410a.o" ".\nor flash\iic_8led.o" ".\nor flash\iic_keybd.o" ".\nor flash\keyboard_test.o" ".\nor flash\main.o" ".\nor flash\2410lib.o" ".\nor flash\sys_init.o" --device DARMSS9 --strict --scatter ".\NOR FLASH\KeyBoardTest.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\KeyBoardTest.map" -o ".\NOR FLASH\KeyBoardTest.axf"

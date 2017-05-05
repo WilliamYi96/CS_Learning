@@ -1,0 +1,25 @@
+*** Creating Trace Output File '.\SDRAM\KeyBoardTest.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\sdram\s3c2410a.o"'
+### List of Objects: adding '".\sdram\iic_8led.o"'
+### List of Objects: adding '".\sdram\iic_keybd.o"'
+### List of Objects: adding '".\sdram\keyboard_test.o"'
+### List of Objects: adding '".\sdram\main.o"'
+### List of Objects: adding '".\sdram\2410lib.o"'
+### List of Objects: adding '".\sdram\sys_init.o"'
+### ADS-LD Command completed:
+".\sdram\s3c2410a.o" ".\sdram\iic_8led.o" ".\sdram\iic_keybd.o" ".\sdram\keyboard_test.o" ".\sdram\main.o" ".\sdram\2410lib.o" ".\sdram\sys_init.o" --device DARMSS9 --strict --scatter ".\SDRAM\KeyBoardTest.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\KeyBoardTest.map" -o ".\SDRAM\KeyBoardTest.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\SDRAM\KeyBoardTest.axf'
+### ADS-LD Command File: '.\SDRAM\KeyBoardTest.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\SDRAM\KeyBoardTest.lnp', Handle=0x00000254
+### Writing '.lnp' file
+### ADS-LD Command file '.\SDRAM\KeyBoardTest.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

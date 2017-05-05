@@ -1,0 +1,23 @@
+*** Creating Trace Output File '.\SDRAM\UART_Test.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\sdram\s3c2410a.o"'
+### List of Objects: adding '".\sdram\main.o"'
+### List of Objects: adding '".\sdram\uart_test.o"'
+### List of Objects: adding '".\sdram\2410lib.o"'
+### List of Objects: adding '".\sdram\sys_init.o"'
+### ADS-LD Command completed:
+".\sdram\s3c2410a.o" ".\sdram\main.o" ".\sdram\uart_test.o" ".\sdram\2410lib.o" ".\sdram\sys_init.o" --device DARMSS9 --strict --scatter ".\SDRAM\UART_Test.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\SDRAM\UART_Test.map" -o ".\SDRAM\UART_Test.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\SDRAM\UART_Test.axf'
+### ADS-LD Command File: '.\SDRAM\UART_Test.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\SDRAM\UART_Test.lnp', Handle=0x000002BC
+### Writing '.lnp' file
+### ADS-LD Command file '.\SDRAM\UART_Test.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

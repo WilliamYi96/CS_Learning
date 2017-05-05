@@ -1,0 +1,4 @@
+".\sdram\s3c2410a.o" ".\sdram\main.o" ".\sdram\uart_test.o" ".\sdram\2410lib.o" ".\sdram\sys_init.o" --device DARMSS9 --strict --scatter ".\SDRAM\UART_Test.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\SDRAM\UART_Test.map" -o ".\SDRAM\UART_Test.axf"

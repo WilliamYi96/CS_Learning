@@ -1,0 +1,23 @@
+*** Creating Trace Output File '.\NOR FLASH\UART_Test.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\nor flash\s3c2410a.o"'
+### List of Objects: adding '".\nor flash\main.o"'
+### List of Objects: adding '".\nor flash\uart_test.o"'
+### List of Objects: adding '".\nor flash\2410lib.o"'
+### List of Objects: adding '".\nor flash\sys_init.o"'
+### ADS-LD Command completed:
+".\nor flash\s3c2410a.o" ".\nor flash\main.o" ".\nor flash\uart_test.o" ".\nor flash\2410lib.o" ".\nor flash\sys_init.o" --device DARMSS9 --strict --scatter ".\NOR FLASH\UART_Test.sct" 
+--autoat --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\NOR FLASH\UART_Test.map" -o ".\NOR FLASH\UART_Test.axf"### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\NOR FLASH\UART_Test.axf'
+### ADS-LD Command File: '.\NOR FLASH\UART_Test.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\NOR FLASH\UART_Test.lnp', Handle=0x000002C8
+### Writing '.lnp' file
+### ADS-LD Command file '.\NOR FLASH\UART_Test.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

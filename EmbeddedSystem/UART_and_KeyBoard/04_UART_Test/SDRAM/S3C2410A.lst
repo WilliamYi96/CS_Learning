@@ -1,0 +1,3673 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         ;/******************************************************
+                       ***********************/
+    2 00000000         ;/* S3C2440A.S: Startup file for Samsung S3C440A        
+                                             */
+    3 00000000         ;/******************************************************
+                       ***********************/
+    4 00000000         ;/* <<< Use Configuration Wizard in Context Menu >>>    
+                                             */ 
+    5 00000000         ;/******************************************************
+                       ***********************/
+    6 00000000         ;/* This file is part of the uVision/ARM development too
+                       ls.                   */
+    7 00000000         ;/* Copyright (c) 2005-2006 Keil Software. All rights re
+                       served.               */
+    8 00000000         ;/* This software may only be used under the terms of a 
+                       valid, current,       */
+    9 00000000         ;/* end user licence from KEIL for a compatible version 
+                       of KEIL software      */
+   10 00000000         ;/* development tools. Nothing else gives you the right 
+                       to use this software. */
+   11 00000000         ;/******************************************************
+                       ***********************/
+   12 00000000         ;Author: emboard
+   13 00000000         ;History: 
+   14 00000000         
+   15 00000000         ; *** Startup Code (executed after Reset) ***
+   16 00000000         
+   17 00000000         
+   18 00000000         ; Standard definitions of Mode bits and Interrupt (I & F
+                       ) flags in PSRs
+   19 00000000         
+   20 00000000 00000010 
+                       Mode_USR
+                               EQU              0x10
+   21 00000000 00000011 
+                       Mode_FIQ
+                               EQU              0x11
+   22 00000000 00000012 
+                       Mode_IRQ
+                               EQU              0x12
+   23 00000000 00000013 
+                       Mode_SVC
+                               EQU              0x13
+   24 00000000 00000017 
+                       Mode_ABT
+                               EQU              0x17
+   25 00000000 0000001B 
+                       Mode_UND
+                               EQU              0x1B
+   26 00000000 0000001F 
+                       Mode_SYS
+                               EQU              0x1F
+   27 00000000         
+   28 00000000 00000080 
+                       I_Bit   EQU              0x80        ; when I bit is set
+                                                            , IRQ is disabled
+   29 00000000 00000040 
+                       F_Bit   EQU              0x40        ; when F bit is set
+                                                            , FIQ is disabled
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   30 00000000         
+   31 00000000         
+   32 00000000         ;// <h> Stack Configuration (Stack Sizes in Bytes)
+   33 00000000         ;//   <o0> Undefined Mode      <0x0-0xFFFFFFFF:8>
+   34 00000000         ;//   <o1> Supervisor Mode     <0x0-0xFFFFFFFF:8>
+   35 00000000         ;//   <o2> Abort Mode          <0x0-0xFFFFFFFF:8>
+   36 00000000         ;//   <o3> Fast Interrupt Mode <0x0-0xFFFFFFFF:8>
+   37 00000000         ;//   <o4> Interrupt Mode      <0x0-0xFFFFFFFF:8>
+   38 00000000         ;//   <o5> User/System Mode    <0x0-0xFFFFFFFF:8>
+   39 00000000         ;// </h>
+   40 00000000         
+   41 00000000 00000400 
+                       UND_Stack_Size
+                               EQU              0x00000400
+   42 00000000 00004000 
+                       SVC_Stack_Size
+                               EQU              0x00004000
+   43 00000000 00000400 
+                       ABT_Stack_Size
+                               EQU              0x00000400
+   44 00000000 00001000 
+                       FIQ_Stack_Size
+                               EQU              0x00001000
+   45 00000000 00001000 
+                       IRQ_Stack_Size
+                               EQU              0x00001000
+   46 00000000 00003800 
+                       USR_Stack_Size
+                               EQU              0x00003800
+   47 00000000         
+   49 00000000 0000A000 
+                       Stack_Size
+                               EQU              (UND_Stack_Size + SVC_Stack_Siz
+e + ABT_Stack_Size +                           FIQ_Stack_Size + IRQ_Stack_Size
+ + USR_Stack_Size)
+   50 00000000         
+   51 00000000                 AREA             STACK, NOINIT, READWRITE, ALIGN
+=3
+   52 00000000         Stack_Mem
+                               SPACE            Stack_Size
+   53 0000A000         
+   54 0000A000 0000A000 
+                       Stack_Top
+                               EQU              Stack_Mem + Stack_Size
+   55 0000A000         
+   56 0000A000         
+   57 0000A000         ;// <h> Heap Configuration
+   58 0000A000         ;//   <o>  Heap Size (in Bytes) <0x0-0xFFFFFFFF>
+   59 0000A000         ;// </h>
+   60 0000A000         
+   61 0000A000 00004800 
+                       Heap_Size
+                               EQU              0x00004800
+   62 0000A000         
+   63 0000A000                 AREA             HEAP, NOINIT, READWRITE, ALIGN=
+3
+   64 00000000         Heap_Mem
+                               SPACE            Heap_Size
+   65 00004800         
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   66 00004800         
+   67 00004800         ;INT CONFIG
+   68 00004800 4A000000 
+                       INT_BASE
+                               EQU              0x4A000000
+   69 00004800 00000000 
+                       SRCPND_OFS
+                               EQU              0x0
+   70 00004800 00000008 
+                       INTMSK_OFS
+                               EQU              0x8
+   71 00004800 00000010 
+                       INTPND_OFS
+                               EQU              0x10
+   72 00004800 0000001C 
+                       INTSUBMASK_OFS
+                               EQU              0x1c
+   73 00004800         
+   74 00004800 00000001 
+                       INT_SETUP
+                               EQU              1
+   75 00004800 FFFFFFFF 
+                       INTMSK_VAL
+                               EQU              0xFFFFFFFF
+   76 00004800 000007FF 
+                       INTSUBMASK_VAL
+                               EQU              0X7FF
+   77 00004800         
+   78 00004800         
+   79 00004800         ; Clock Management definitions
+   80 00004800 4C000000 
+                       CLK_BASE
+                               EQU              0x4C000000  ; Clock Base Addres
+                                                            s
+   81 00004800 00000000 
+                       LOCKTIME_OFS
+                               EQU              0x00        ; LOCKTIME Offset
+   82 00004800 00000004 
+                       MPLLCON_OFS
+                               EQU              0x04        ; MPLLCON Offset
+   83 00004800 00000008 
+                       UPLLCON_OFS
+                               EQU              0X08        ; UPLLCON Offset
+   84 00004800 0000000C 
+                       CLKCON_OFS
+                               EQU              0x0C        ; CLKCON Offset
+   85 00004800 00000010 
+                       CLKSLOW_OFS
+                               EQU              0x10        ; CLKSLOW Offset
+   86 00004800 00000014 
+                       CLKDIVN_OFS
+                               EQU              0X14        ; CLDKIVN Offset
+   87 00004800 00000018 
+                       CAMDIVN_OFS
+                               EQU              0X18        ; CAMDIVN Offset
+   88 00004800         
+   89 00004800         
+   90 00004800         
+   91 00004800         ;// <e> Clock Management
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+   92 00004800         ;//   <h> MPLL Settings
+   93 00004800         ;//   <i> Mpll = (m * Fin) / (p * 2^s)
+   94 00004800         ;//     <o1.12..19> MDIV: Main divider <0x0-0xFF>
+   95 00004800         ;//                 <i> m = MDIV + 8
+   96 00004800         ;//     <o1.4..9>   PDIV: Pre-divider  <0x0-0x3F>
+   97 00004800         ;//                 <i> p = PDIV + 2
+   98 00004800         ;//     <o1.0..1>   SDIV: Post Divider <0x0-0x03>
+   99 00004800         ;//                 <i> s = SDIV 
+  100 00004800         ;//   </h>
+  101 00004800         ;//   <h> UPLL Settings
+  102 00004800         ;//   <i> Upll = ( m * Fin) / (p * 2^s),Uclk must be 48M
+                       HZ to USB device 
+  103 00004800         ;//     <o2.12..19> MDIV: Main divider <0x1-0xF8>
+  104 00004800         ;//                 <i> m = MDIV + 8,if Fin=12MHZ MDIV c
+                       ould be 0x38   
+  105 00004800         ;//     <o2.4..9>   PDIV: Pre-divider  <0x1-0x3E>
+  106 00004800         ;//                 <i> p = PDIV + 2,if Fin=12MHZ PDIV c
+                       ould be 0x2
+  107 00004800         ;//     <o2.0..1>   SDIV: Post Divider <0x0-0x03>
+  108 00004800         ;//                 <i> s = SDIV ,if Fin=12MHZ SDIV coul
+                       d be 0x2
+  109 00004800         ;//   </h>
+  110 00004800         ;//   <h>LOCK TIME 
+  111 00004800         ;//      <o5.0..11>  LTIME CNT: MPLL Lock Time Count  <0
+                       x0-0xFFF>
+  112 00004800         ;//      <o5.12..23>  LTIME CNT: UPLL Lock Time Count  <
+                       0x0-0xFFF>
+  113 00004800         ;//   </h>
+  114 00004800         ;//   <h> Master Clock
+  115 00004800         ;//   <i> PLL Clock:  FCLK = FMPLL
+  116 00004800         ;//   <i> Slow Clock: FCLK = Fin / (2 * SLOW_VAL), SLOW_
+                       VAL > 0
+  117 00004800         ;//   <i> Slow Clock: FCLK = Fin, SLOW_VAL = 0
+  118 00004800         ;//     <o4.7>      UCLK_ON: UCLK ON
+  119 00004800         ;//                 <i> 0: UCLK ON(UPLL is also turned o
+                       n) 1: UCLK OFF (UPLL is also turned off)   
+  120 00004800         ;//     <o4.5>      MPLL_OFF: Turn off PLL
+  121 00004800         ;//                 <i> 0: Turn on PLL.After PLL stabili
+                       zation time (minimum 300us), SLOW_BIT can be cleared to 
+                       0. 1: Turn off PLL. PLL is turned off only when SLOW_BIT
+                        is 1.
+  122 00004800         ;//     <o4.4>      SLOW_BIT: Slow Clock
+  123 00004800         ;//     <o4.0..2>   SLOW_VAL: Slow Clock divider    <0x0
+                       -0x7>
+  124 00004800         ;//   </h>
+  125 00004800         ;//   <h> CLOCK DIVIDER CONTROL
+  126 00004800         ;//     <o6.1>   HDIVN                            
+  127 00004800         ;//                  <i> 0: HCLK = FCLK/1, 01 : HCLK = F
+                       CLK/2
+  128 00004800         ;//     <o6.0>      PDIVN
+  129 00004800         ;//                  <i> 0: PCLK has the clock same as t
+                       he HCLK/1,1: PCLK has the clock same as the HCLK/2
+  130 00004800         ;//    </h>
+  131 00004800         ;//  <h> Clock Generation
+  132 00004800         ;//     <o3.18>     SPI          <0=> Disable  <1=> Enab
+                       le
+  133 00004800         ;//     <o3.17>     IIS          <0=> Disable  <1=> Enab
+                       le
+  134 00004800         ;//     <o3.16>     IIC          <0=> Disable  <1=> Enab
+
+
+
+ARM Macro Assembler    Page 5 
+
+
+                       le
+  135 00004800         ;//     <o3.15>     ADC          <0=> Disable  <1=> Enab
+                       le
+  136 00004800         ;//     <o3.14>     RTC          <0=> Disable  <1=> Enab
+                       le
+  137 00004800         ;//     <o3.13>     GPIO         <0=> Disable  <1=> Enab
+                       le
+  138 00004800         ;//     <o3.12>     UART2        <0=> Disable  <1=> Enab
+                       le
+  139 00004800         ;//     <o3.11>     UART1        <0=> Disable  <1=> Enab
+                       le
+  140 00004800         ;//     <o3.10>     UART0        <0=> Disable  <1=> Enab
+                       le
+  141 00004800         ;//     <o3.9>      SDI          <0=> Disable  <1=> Enab
+                       le
+  142 00004800         ;//     <o3.8>      PWMTIMER     <0=> Disable  <1=> Enab
+                       le
+  143 00004800         ;//     <o3.7>      USB device   <0=> Disable  <1=> Enab
+                       le
+  144 00004800         ;//     <o3.6>      USB host     <0=> Disable  <1=> Enab
+                       le
+  145 00004800         ;//     <o3.5>      LCDC         <0=> Disable  <1=> Enab
+                       le
+  146 00004800         ;//     <o3.4>      NAND FLASH Controller       <0=> Dis
+                       able  <1=> Enable
+  147 00004800         ;//     <o3.3>      POWER-OFF    <0=> Disable  <1=> Enab
+                       le
+  148 00004800         ;//     <o3.2>      IDLE BIT     <0=> Disable  <1=> Enab
+                       le
+  149 00004800         ;//     <O3.0>      SM_BIT       <0=> Disable  <1=> Enab
+                       le
+  150 00004800         ;//   </h>
+  151 00004800         ;// </e>
+  152 00004800 00000001 
+                       CLK_SETUP
+                               EQU              1
+  153 00004800 0005C042 
+                       MPLLCON_Val
+                               EQU              0x0005C042
+  154 00004800 00028080 
+                       UPLLCON_Val
+                               EQU              0x00028080
+  155 00004800 0007FFF0 
+                       CLKCON_Val
+                               EQU              0x0007FFF0
+  156 00004800 00000004 
+                       CLKSLOW_Val
+                               EQU              0x00000004
+  157 00004800 00FFFFFF 
+                       LOCKTIME_Val
+                               EQU              0x00FFFFFF
+  158 00004800 00000003 
+                       CLKDIVN_Val
+                               EQU              0X00000003
+  159 00004800         
+  160 00004800         
+  161 00004800         
+  162 00004800         ;Interrupt  definitions
+  163 00004800 4A000014 
+
+
+
+ARM Macro Assembler    Page 6 
+
+
+                       INTOFFSET
+                               EQU              0X4A000014  ;Address of Interru
+                                                            pt offset Register
+  164 00004800         
+  165 00004800         ;//<e> Interrupt Vector Table
+  166 00004800         ;//  <o1.0..31> Interrupt Vector address     <0x20-0x3ff
+                       fff78>
+  167 00004800         ;//            <i> You could define Interuupt Vctor Tabl
+                       e address.  
+  168 00004800         ;//            <i> The Interrupt Vector Table address mu
+                       st be word aligned adress. 
+  169 00004800         ;//</e>  
+  170 00004800 00000001 
+                       IntVT_SETUP
+                               EQU              1
+  171 00004800 33FFFF20 
+                       IntVTAddress
+                               EQU              0x33FFFF20
+  172 00004800         
+  173 00004800         ; Watchdog Timer definitions
+  174 00004800 53000000 
+                       WT_BASE EQU              0x53000000  ; WT Base Address
+  175 00004800 00000000 
+                       WTCON_OFS
+                               EQU              0x00        ; WTCON Offset
+  176 00004800 00000004 
+                       WTDAT_OFS
+                               EQU              0x04        ; WTDAT Offset
+  177 00004800 00000008 
+                       WTCNT_OFS
+                               EQU              0x08        ; WTCNT Offset
+  178 00004800         
+  179 00004800         ;// <e> Watchdog Timer
+  180 00004800         ;//   <o1.5>      Watchdog Timer Enable/Disable
+  181 00004800         ;//   <o1.0>      Reset Enable/Disable
+  182 00004800         ;//   <o1.2>      Interrupt Enable/Disable
+  183 00004800         ;//   <o1.3..4>   Clock Select  
+  184 00004800         ;//               <0=> 1/16  <1=> 1/32  <2=> 1/64  <3=> 
+                       1/128
+  185 00004800         ;//               <i> Clock Division Factor
+  186 00004800         ;//   <o1.8..15>  Prescaler Value <0x0-0xFF>
+  187 00004800         ;//   <o2.0..15>  Time-out Value  <0x0-0xFFFF>
+  188 00004800         ;// </e>
+  189 00004800 00000001 
+                       WT_SETUP
+                               EQU              1
+  190 00004800 00000000 
+                       WTCON_Val
+                               EQU              0x00000000
+  191 00004800 00008000 
+                       WTDAT_Val
+                               EQU              0x00008000
+  192 00004800         
+  193 00004800         
+  194 00004800         ; Memory Controller definitions
+  195 00004800 48000000 
+                       MC_BASE EQU              0x48000000  ; Memory Controller
+                                                             Base Address
+  196 00004800         
+
+
+
+ARM Macro Assembler    Page 7 
+
+
+  197 00004800         ;// <e> Memory Controller
+  198 00004800 00000001 
+                       MC_SETUP
+                               EQU              1
+  199 00004800         
+  200 00004800         ;//   <h> Bank 0
+  201 00004800         ;//     <o0.0..1>   PMC: Page Mode Configuration
+  202 00004800         ;//                 <0=> 1 Data  <1=> 4 Data  <2=> 8 Dat
+                       a  <3=> 16 Data
+  203 00004800         ;//     <o0.2..3>   Tpac: Page Mode Access Cycle
+  204 00004800         ;//                 <0=> 2 clks  <1=> 3 clks  <2=> 4 clk
+                       s  <3=> 6 clks
+  205 00004800         ;//     <o0.4..5>   Tcah: Address Holding Time after nGC
+                       Sn
+  206 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  207 00004800         ;//     <o0.6..7>   Toch: Chip Select Hold on nOE
+  208 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  209 00004800         ;//     <o0.8..10>  Tacc: Access Cycle
+  210 00004800         ;//                 <0=> 1 clk   <1=> 2 clks  <2=> 3 clk
+                       s  <3=> 4 clks
+  211 00004800         ;//                 <4=> 6 clk   <5=> 8 clks  <6=> 10 cl
+                       ks <7=> 14 clks
+  212 00004800         ;//     <o0.11..12> Tcos: Chip Select Set-up nOE
+  213 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  214 00004800         ;//     <o0.13..14> Tacs: Address Set-up before nGCSn
+  215 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  216 00004800         ;//   </h>
+  217 00004800         ;//
+  218 00004800         ;//   <h> Bank 1
+  219 00004800         ;//     <o8.4..5>   DW: Data Bus Width
+  220 00004800         ;//                 <0=> 8-bit   <1=> 16-bit  <2=> 32-bi
+                       t  <3=> Rsrvd
+  221 00004800         ;//     <o8.6>      WS: WAIT Status
+  222 00004800         ;//                 <0=> WAIT Disable
+  223 00004800         ;//                 <1=> WAIT Enable
+  224 00004800         ;//     <o8.7>      ST: SRAM Type
+  225 00004800         ;//                 <0=> Not using UB/LB
+  226 00004800         ;//                 <1=> Using UB/LB
+  227 00004800         ;//     <o1.0..1>   PMC: Page Mode Configuration
+  228 00004800         ;//                 <0=> 1 Data  <1=> 4 Data  <2=> 8 Dat
+                       a  <3=> 16 Data
+  229 00004800         ;//     <o1.2..3>   Tpac: Page Mode Access Cycle
+  230 00004800         ;//                 <0=> 2 clks  <1=> 3 clks  <2=> 4 clk
+                       s  <3=> 6 clks
+  231 00004800         ;//     <o1.4..5>   Tcah: Address Holding Time after nGC
+                       Sn
+  232 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  233 00004800         ;//     <o1.6..7>   Toch: Chip Select Hold on nOE
+  234 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  235 00004800         ;//     <o1.8..10>  Tacc: Access Cycle
+  236 00004800         ;//                 <0=> 1 clk   <1=> 2 clks  <2=> 3 clk
+                       s  <3=> 4 clks
+  237 00004800         ;//                 <4=> 6 clk   <5=> 8 clks  <6=> 10 cl
+
+
+
+ARM Macro Assembler    Page 8 
+
+
+                       ks <7=> 14 clks
+  238 00004800         ;//     <o1.11..12> Tcos: Chip Select Set-up nOE
+  239 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  240 00004800         ;//     <o1.13..14> Tacs: Address Set-up before nGCSn
+  241 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  242 00004800         ;//   </h>
+  243 00004800         ;//
+  244 00004800         ;//   <h> Bank 2
+  245 00004800         ;//     <o8.8..9>   DW: Data Bus Width
+  246 00004800         ;//                 <0=> 8-bit   <1=> 16-bit  <2=> 32-bi
+                       t  <3=> Rsrvd
+  247 00004800         ;//     <o8.10>     WS: WAIT Status
+  248 00004800         ;//                 <0=> WAIT Disable
+  249 00004800         ;//                 <1=> WAIT Enable
+  250 00004800         ;//     <o8.11>     ST: SRAM Type
+  251 00004800         ;//                 <0=> Not using UB/LB
+  252 00004800         ;//                 <1=> Using UB/LB
+  253 00004800         ;//     <o2.0..1>   PMC: Page Mode Configuration
+  254 00004800         ;//                 <0=> 1 Data  <1=> 4 Data  <2=> 8 Dat
+                       a  <3=> 16 Data
+  255 00004800         ;//     <o2.2..3>   Tpac: Page Mode Access Cycle
+  256 00004800         ;//                 <0=> 2 clks  <1=> 3 clks  <2=> 4 clk
+                       s  <3=> 6 clks
+  257 00004800         ;//     <o2.4..5>   Tcah: Address Holding Time after nGC
+                       Sn
+  258 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  259 00004800         ;//     <o2.6..7>   Toch: Chip Select Hold on nOE
+  260 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  261 00004800         ;//     <o2.8..10>  Tacc: Access Cycle
+  262 00004800         ;//                 <0=> 1 clk   <1=> 2 clks  <2=> 3 clk
+                       s  <3=> 4 clks
+  263 00004800         ;//                 <4=> 6 clk   <5=> 8 clks  <6=> 10 cl
+                       ks <7=> 14 clks
+  264 00004800         ;//     <o2.11..12> Tcos: Chip Select Set-up nOE
+  265 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  266 00004800         ;//     <o2.13..14> Tacs: Address Set-up before nGCSn
+  267 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  268 00004800         ;//   </h>
+  269 00004800         ;//
+  270 00004800         ;//   <h> Bank 3
+  271 00004800         ;//     <o8.12..13> DW: Data Bus Width
+  272 00004800         ;//                 <0=> 8-bit   <1=> 16-bit  <2=> 32-bi
+                       t  <3=> Rsrvd
+  273 00004800         ;//     <o8.14>     WS: WAIT Status
+  274 00004800         ;//                 <0=> WAIT Disable
+  275 00004800         ;//                 <1=> WAIT Enable
+  276 00004800         ;//     <o8.15>     ST: SRAM Type
+  277 00004800         ;//                 <0=> Not using UB/LB
+  278 00004800         ;//                 <1=> Using UB/LB
+  279 00004800         ;//     <o3.0..1>   PMC: Page Mode Configuration
+  280 00004800         ;//                 <0=> 1 Data  <1=> 4 Data  <2=> 8 Dat
+                       a  <3=> 16 Data
+  281 00004800         ;//     <o3.2..3>   Tpac: Page Mode Access Cycle
+
+
+
+ARM Macro Assembler    Page 9 
+
+
+  282 00004800         ;//                 <0=> 2 clks  <1=> 3 clks  <2=> 4 clk
+                       s  <3=> 6 clks
+  283 00004800         ;//     <o3.4..5>   Tcah: Address Holding Time after nGC
+                       Sn
+  284 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  285 00004800         ;//     <o3.6..7>   Toch: Chip Select Hold on nOE
+  286 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  287 00004800         ;//     <o3.8..10>  Tacc: Access Cycle
+  288 00004800         ;//                 <0=> 1 clk   <1=> 2 clks  <2=> 3 clk
+                       s  <3=> 4 clks
+  289 00004800         ;//                 <4=> 6 clk   <5=> 8 clks  <6=> 10 cl
+                       ks <7=> 14 clks
+  290 00004800         ;//     <o3.11..12> Tcos: Chip Select Set-up nOE
+  291 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  292 00004800         ;//     <o3.13..14> Tacs: Address Set-up before nGCSn
+  293 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  294 00004800         ;//   </h>
+  295 00004800         ;//
+  296 00004800         ;//   <h> Bank 4
+  297 00004800         ;//     <o8.16..17> DW: Data Bus Width
+  298 00004800         ;//                 <0=> 8-bit   <1=> 16-bit  <2=> 32-bi
+                       t  <3=> Rsrvd
+  299 00004800         ;//     <o8.18>     WS: WAIT Status
+  300 00004800         ;//                 <0=> WAIT Disable
+  301 00004800         ;//                 <1=> WAIT Enable
+  302 00004800         ;//     <o8.19>     ST: SRAM Type
+  303 00004800         ;//                 <0=> Not using UB/LB
+  304 00004800         ;//                 <1=> Using UB/LB
+  305 00004800         ;//     <o4.0..1>   PMC: Page Mode Configuration
+  306 00004800         ;//                 <0=> 1 Data  <1=> 4 Data  <2=> 8 Dat
+                       a  <3=> 16 Data
+  307 00004800         ;//     <o4.2..3>   Tpac: Page Mode Access Cycle
+  308 00004800         ;//                 <0=> 2 clks  <1=> 3 clks  <2=> 4 clk
+                       s  <3=> 6 clks
+  309 00004800         ;//     <o4.4..5>   Tcah: Address Holding Time after nGC
+                       Sn
+  310 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  311 00004800         ;//     <o4.6..7>   Toch: Chip Select Hold on nOE
+  312 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  313 00004800         ;//     <o4.8..10>  Tacc: Access Cycle
+  314 00004800         ;//                 <0=> 1 clk   <1=> 2 clks  <2=> 3 clk
+                       s  <3=> 4 clks
+  315 00004800         ;//                 <4=> 6 clk   <5=> 8 clks  <6=> 10 cl
+                       ks <7=> 14 clks
+  316 00004800         ;//     <o4.11..12> Tcos: Chip Select Set-up nOE
+  317 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  318 00004800         ;//     <o4.13..14> Tacs: Address Set-up before nGCSn
+  319 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  320 00004800         ;//   </h>
+  321 00004800         ;//
+  322 00004800         ;//   <h> Bank 5
+
+
+
+ARM Macro Assembler    Page 10 
+
+
+  323 00004800         ;//     <o8.20..21> DW: Data Bus Width
+  324 00004800         ;//                 <0=> 8-bit   <1=> 16-bit  <2=> 32-bi
+                       t  <3=> Rsrvd
+  325 00004800         ;//     <o8.22>     WS: WAIT Status
+  326 00004800         ;//                 <0=> WAIT Disable
+  327 00004800         ;//                 <1=> WAIT Enable
+  328 00004800         ;//     <o8.23>     ST: SRAM Type
+  329 00004800         ;//                 <0=> Not using UB/LB
+  330 00004800         ;//                 <1=> Using UB/LB
+  331 00004800         ;//     <o5.0..1>   PMC: Page Mode Configuration
+  332 00004800         ;//                 <0=> 1 Data  <1=> 4 Data  <2=> 8 Dat
+                       a  <3=> 16 Data
+  333 00004800         ;//     <o5.2..3>   Tpac: Page Mode Access Cycle
+  334 00004800         ;//                 <0=> 2 clks  <1=> 3 clks  <2=> 4 clk
+                       s  <3=> 6 clks
+  335 00004800         ;//     <o5.4..5>   Tcah: Address Holding Time after nGC
+                       Sn
+  336 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  337 00004800         ;//     <o5.6..7>   Toch: Chip Select Hold on nOE
+  338 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  339 00004800         ;//     <o5.8..10>  Tacc: Access Cycle
+  340 00004800         ;//                 <0=> 1 clk   <1=> 2 clks  <2=> 3 clk
+                       s  <3=> 4 clks
+  341 00004800         ;//                 <4=> 6 clk   <5=> 8 clks  <6=> 10 cl
+                       ks <7=> 14 clks
+  342 00004800         ;//     <o5.11..12> Tcos: Chip Select Set-up nOE
+  343 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  344 00004800         ;//     <o5.13..14> Tacs: Address Set-up before nGCSn
+  345 00004800         ;//                 <0=> 0 clk   <1=> 1 clk   <2=> 2 clk
+                       s  <3=> 4 clks
+  346 00004800         ;//   </h>
+  347 00004800         ;//
+  348 00004800         ;//   <h> Bank 6
+  349 00004800         ;//     <o10.0..2>  BK76MAP: Bank 6/7 Memory Map
+  350 00004800         ;//                 <0=> 32M  <1=> 64M <2=> 128M <4=> 2M
+                          <5=> 4M   <6=> 8M   <7=> 16M
+  351 00004800         ;//     <o8.24..25> DW: Data Bus Width
+  352 00004800         ;//                 <0=> 8-bit   <1=> 16-bit  <2=> 32-bi
+                       t  <3=> Rsrvd
+  353 00004800         ;//     <o8.26>     WS: WAIT Status
+  354 00004800         ;//                 <0=> WAIT Disable
+  355 00004800         ;//                 <1=> WAIT Enable
+  356 00004800         ;//     <o8.27>     ST: SRAM Type
+  357 00004800         ;//                 <0=> Not using UB/LB
+  358 00004800         ;//                 <1=> Using UB/LB
+  359 00004800         ;//     <o6.15..16> MT: Memory Type
+  360 00004800         ;//                 <0=> ROM or SRAM
+  361 00004800         ;//                 <3=> SDRAM
+  362 00004800         ;//     <h> ROM or SRAM
+  363 00004800         ;//       <o6.0..1>   PMC: Page Mode Configuration
+  364 00004800         ;//                   <0=> 1 Data  <1=> 4 Data  <2=> 8 D
+                       ata  <3=> 16 Data
+  365 00004800         ;//       <o6.2..3>   Tpac: Page Mode Access Cycle
+  366 00004800         ;//                 <0=> 2 clks  <1=> 3 clks  <2=> 4 clk
+                       s  <3=> 6 clks
+  367 00004800         ;//       <o6.4..5>   Tcah: Address Holding Time after n
+
+
+
+ARM Macro Assembler    Page 11 
+
+
+                       GCSn
+  368 00004800         ;//                   <0=> 0 clk   <1=> 1 clk   <2=> 2 c
+                       lks  <3=> 4 clks
+  369 00004800         ;//       <o6.6..7>   Toch: Chip Select Hold on nOE
+  370 00004800         ;//                   <0=> 0 clk   <1=> 1 clk   <2=> 2 c
+                       lks  <3=> 4 clks
+  371 00004800         ;//       <o6.8..10>  Tacc: Access Cycle
+  372 00004800         ;//                   <0=> 1 clk   <1=> 2 clks  <2=> 3 c
+                       lks  <3=> 4 clks
+  373 00004800         ;//                   <4=> 6 clk   <5=> 8 clks  <6=> 10 
+                       clks <7=> 14 clks
+  374 00004800         ;//       <o6.11..12> Tcos: Chip Select Set-up nOE
+  375 00004800         ;//                   <0=> 0 clk   <1=> 1 clk   <2=> 2 c
+                       lks  <3=> 4 clks
+  376 00004800         ;//       <o6.13..14> Tacs: Address Set-up before nGCSn
+  377 00004800         ;//                   <0=> 0 clk   <1=> 1 clk   <2=> 2 c
+                       lks  <3=> 4 clks
+  378 00004800         ;//     </h>
+  379 00004800         ;//     <h> SDRAM
+  380 00004800         ;//       <o6.0..1>   SCAN: Columnn Address Number
+  381 00004800         ;//                   <0=> 8-bit   <1=> 9-bit   <2=> 10-
+                       bit  <3=> Rsrvd
+  382 00004800         ;//       <o6.2..3>   Trcd: RAS to CAS Delay
+  383 00004800         ;//                   <0=> 2 clks  <1=> 3 clks  <2=> 4 c
+                       lks  <3=> Rsrvd
+  384 00004800         ;//       <o10.4>     SCKEEN: SCLK Selection (Bank 6/7)
+  385 00004800         ;//                   <0=> Normal
+  386 00004800         ;//                   <1=> Reduced Power   
+  387 00004800         ;//       <o10.5>     SCLKEN: SDRAM power down mode (Ban
+                       k 6/7)
+  388 00004800         ;//                   <0=> DISABLE
+  389 00004800         ;//                   <1=> ENABLE 
+  390 00004800         ;//       <o10.7>     BURST_EN: ARM core burst operation
+                        (Bank 6/7)
+  391 00004800         ;//                   <0=> DISABLE
+  392 00004800         ;//                   <1=> ENABLE 
+  393 00004800         ;//       <o11.0..2>  BL: Burst Length
+  394 00004800         ;//                   <0=> 1
+  395 00004800         ;//       <o11.3>     BT: Burst Type
+  396 00004800         ;//                   <0=> Sequential
+  397 00004800         ;//       <o11.4..6>  CL: CAS Latency
+  398 00004800         ;//                   <0=> 1 clk   <1=> 2 clks  <2=> 3 c
+                       lks
+  399 00004800         ;//       <o11.7..8>  TM: Test Mode
+  400 00004800         ;//                   <0=> Mode Register Set
+  401 00004800         ;//       <o11.9>     WBL: Write Burst Length
+  402 00004800         ;//                   <0=> 0
+  403 00004800         ;//     </h>
+  404 00004800         ;//   </h>
+  405 00004800         ;//
+  406 00004800         ;//   <h> Bank 7
+  407 00004800         ;//     <o10.0..2>  BK76MAP: Bank 6/7 Memory Map
+  408 00004800         ;//                 <0=> 32M  <1=> 64M <2=> 128M <4=> 2M
+                          <5=> 4M   <6=> 8M   <7=> 16M
+  409 00004800         ;//     <o8.28..29> DW: Data Bus Width
+  410 00004800         ;//                 <0=> 8-bit   <1=> 16-bit  <2=> 32-bi
+                       t  <3=> Rsrvd
+  411 00004800         ;//     <o8.30>     WS: WAIT Status
+  412 00004800         ;//                 <0=> WAIT Disable
+
+
+
+ARM Macro Assembler    Page 12 
+
+
+  413 00004800         ;//                 <1=> WAIT Enable
+  414 00004800         ;//     <o8.31>     ST: SRAM Type
+  415 00004800         ;//                 <0=> Not using UB/LB
+  416 00004800         ;//                 <1=> Using UB/LB
+  417 00004800         ;//     <o7.15..16> MT: Memory Type
+  418 00004800         ;//                 <0=> ROM or SRAM
+  419 00004800         ;//                 <3=> SDRAM
+  420 00004800         ;//     <h> ROM or SRAM
+  421 00004800         ;//       <o7.0..1>   PMC: Page Mode Configuration
+  422 00004800         ;//                   <0=> 1 Data  <1=> 4 Data  <2=> 8 D
+                       ata  <3=> 16 Data
+  423 00004800         ;//       <o7.2..3>   Tpac: Page Mode Access Cycle
+  424 00004800         ;//                 <0=> 2 clks  <1=> 3 clks  <2=> 4 clk
+                       s  <3=> 6 clks
+  425 00004800         ;//       <o7.4..5>   Tcah: Address Holding Time after n
+                       GCSn
+  426 00004800         ;//                   <0=> 0 clk   <1=> 1 clk   <2=> 2 c
+                       lks  <3=> 4 clks
+  427 00004800         ;//       <o7.6..7>   Toch: Chip Select Hold on nOE
+  428 00004800         ;//                   <0=> 0 clk   <1=> 1 clk   <2=> 2 c
+                       lks  <3=> 4 clks
+  429 00004800         ;//       <o7.8..10>  Tacc: Access Cycle
+  430 00004800         ;//                   <0=> 1 clk   <1=> 2 clks  <2=> 3 c
+                       lks  <3=> 4 clks
+  431 00004800         ;//                   <4=> 6 clk   <5=> 8 clks  <6=> 10 
+                       clks <7=> 14 clks
+  432 00004800         ;//       <o7.11..12> Tcos: Chip Select Set-up nOE
+  433 00004800         ;//                   <0=> 0 clk   <1=> 1 clk   <2=> 2 c
+                       lks  <3=> 4 clks
+  434 00004800         ;//       <o7.13..14> Tacs: Address Set-up before nGCSn
+  435 00004800         ;//                   <0=> 0 clk   <1=> 1 clk   <2=> 2 c
+                       lks  <3=> 4 clks
+  436 00004800         ;//     </h>
+  437 00004800         ;//     <h> SDRAM
+  438 00004800         ;//       <o7.0..1>   SCAN: Columnn Address Number
+  439 00004800         ;//                   <0=> 8-bit   <1=> 9-bit   <2=> 10-
+                       bit  <3=> Rsrvd
+  440 00004800         ;//       <o7.2..3>   Trcd: RAS to CAS Delay
+  441 00004800         ;//                   <0=> 2 clks  <1=> 3 clks  <2=> 4 c
+                       lks  <3=> Rsrvd
+  442 00004800         ;//       <o10.4>     SCLKEN: SCLK Selection (Bank 6/7)
+  443 00004800         ;//                   <0=> Normal
+  444 00004800         ;//                   <1=> Reduced Power 
+  445 00004800         ;//       <o10.5>     SCLKEN: SDRAM power down mode (Ban
+                       k 6/7)
+  446 00004800         ;//                   <0=> DISABLE
+  447 00004800         ;//                   <1=> ENABLE 
+  448 00004800         ;//       <o10.7>     BURST_EN: ARM core burst operation
+                        (Bank 6/7)
+  449 00004800         ;//                   <0=> DISABLE
+  450 00004800         ;//                   <1=> ENABLE 
+  451 00004800         ;//       <o12.0..2>  BL: Burst Length
+  452 00004800         ;//                   <0=> 1
+  453 00004800         ;//       <o12.3>     BT: Burst Type
+  454 00004800         ;//                   <0=> Sequential
+  455 00004800         ;//       <o12.4..6>  CL: CAS Latency
+  456 00004800         ;//                   <0=> 1 clk   <1=> 2 clks  <2=> 3 c
+                       lks
+  457 00004800         ;//       <o12.7..8>  TM: Test Mode
+
+
+
+ARM Macro Assembler    Page 13 
+
+
+  458 00004800         ;//                   <0=> Mode Register Set
+  459 00004800         ;//       <o12.9>     WBL: Write Burst Length
+  460 00004800         ;//                   <0=> 0
+  461 00004800         ;//     </h>
+  462 00004800         ;//   </h>
+  463 00004800         ;//
+  464 00004800         ;//   <h> Refresh
+  465 00004800         ;//     <o9.23>     REFEN: SDRAM Refresh
+  466 00004800         ;//                 <0=> Disable <1=> Enable
+  467 00004800         ;//     <o9.22>     TREFMD: SDRAM Refresh Mode
+  468 00004800         ;//                 <0=> CBR/Auto Refresh
+  469 00004800         ;//                 <1=> Self Refresh
+  470 00004800         ;//     <o9.20..21> Trp: SDRAM RAS Pre-charge Time
+  471 00004800         ;//                 <0=> 2 clks 
+  472 00004800         ;//                 <1=> 3 clks 
+  473 00004800         ;//                 <2=> 4 clks 
+  474 00004800         ;//                 <3=> Rsrvd 
+  475 00004800         ;//     <o9.18..19> Tsrc: SDRAM Semi Row cycle time
+  476 00004800         ;//                <i> SDRAM Row cycle time: Trc=Tsrc+Tr
+                       p
+  477 00004800         ;//                 <0=> 4 clks  <1=> 5 clks  <2=> 6 clk
+                       s  <3=> 7 clks
+  478 00004800         ;//     <o9.0..10>  Refresh Counter <0x0-0x07FF>
+  479 00004800         ;//                 <i> Refresh Period = (2^11 - Refresh
+                        Count + 1) / HCLK
+  480 00004800         ;//   </h>
+  481 00004800 00000700 
+                       BANKCON0_Val
+                               EQU              0x00000700
+  482 00004800 00000700 
+                       BANKCON1_Val
+                               EQU              0x00000700
+  483 00004800 00000700 
+                       BANKCON2_Val
+                               EQU              0x00000700
+  484 00004800 00000700 
+                       BANKCON3_Val
+                               EQU              0x00000700
+  485 00004800 00000700 
+                       BANKCON4_Val
+                               EQU              0x00000700
+  486 00004800 00000700 
+                       BANKCON5_Val
+                               EQU              0x00000700
+  487 00004800 00018005 
+                       BANKCON6_Val
+                               EQU              0x00018005
+  488 00004800 00018005 
+                       BANKCON7_Val
+                               EQU              0x00018005
+  489 00004800 22119120 
+                       BWSCON_Val
+                               EQU              0X22119120  ;0x22111110  
+  490 00004800 008E0459 
+                       REFRESH_Val
+                               EQU              0x008e0459
+  491 00004800 00000032 
+                       BANKSIZE_Val
+                               EQU              0x00000032  ;0x000000b2
+
+
+
+ARM Macro Assembler    Page 14 
+
+
+  492 00004800 00000030 
+                       MRSRB6_Val
+                               EQU              0x00000030
+  493 00004800 00000030 
+                       MRSRB7_Val
+                               EQU              0x00000030
+  494 00004800         
+  495 00004800         ;// </e> End of MC
+  496 00004800         
+  497 00004800         
+  498 00004800         
+  499 00004800         ; I/O Ports definitions
+  500 00004800 56000000 
+                       PIO_BASE
+                               EQU              0x56000000  ; PIO Base Address
+  501 00004800 00000000 
+                       PCONA_OFS
+                               EQU              0x00        ; PCONA Offset
+  502 00004800 00000010 
+                       PCONB_OFS
+                               EQU              0x10        ; PCONB Offset
+  503 00004800 00000020 
+                       PCONC_OFS
+                               EQU              0x20        ; PCONC Offset
+  504 00004800 00000030 
+                       PCOND_OFS
+                               EQU              0x30        ; PCOND Offset
+  505 00004800 00000040 
+                       PCONE_OFS
+                               EQU              0x40        ; PCONE Offset
+  506 00004800 00000050 
+                       PCONF_OFS
+                               EQU              0x50        ; PCONF Offset
+  507 00004800 00000060 
+                       PCONG_OFS
+                               EQU              0x60        ; PCONG Offset
+  508 00004800 00000070 
+                       PCONH_OFS
+                               EQU              0x70        ; PCONH Offset
+  509 00004800 000000D0 
+                       PCONJ_OFS
+                               EQU              0xD0        ; PCONJ Offset
+  510 00004800 00000018 
+                       PUPB_OFS
+                               EQU              0x18        ; PUPB Offset
+  511 00004800 00000028 
+                       PUPC_OFS
+                               EQU              0x28        ; PUPC Offset
+  512 00004800 00000038 
+                       PUPD_OFS
+                               EQU              0x38        ; PUPD Offset
+  513 00004800 00000048 
+                       PUPE_OFS
+                               EQU              0x48        ; PUPE Offset
+  514 00004800 00000058 
+                       PUPF_OFS
+                               EQU              0x58        ; PUPF Offset
+  515 00004800 00000068 
+                       PUPG_OFS
+
+
+
+ARM Macro Assembler    Page 15 
+
+
+                               EQU              0x68        ; PUPG Offset
+  516 00004800 00000078 
+                       PUPH_OFS
+                               EQU              0x78        ; PUPH Offset
+  517 00004800 000000D8 
+                       PUPJ_OFS
+                               EQU              0xD8        ; PUPJ Offset
+  518 00004800         
+  519 00004800         
+  520 00004800         ;// <e> I/O Configuration
+  521 00004800 00000001 
+                       PIO_SETUP
+                               EQU              1
+  522 00004800         
+  523 00004800         ;//   <e> Port A
+  524 00004800         ;//     <o1.0>      PA0  <0=> Output   <1=> ADDR0
+  525 00004800         ;//     <o1.1>      PA1  <0=> Output   <1=> ADDR16
+  526 00004800         ;//     <o1.2>      PA2  <0=> Output   <1=> ADDR17
+  527 00004800         ;//     <o1.3>      PA3  <0=> Output   <1=> ADDR18
+  528 00004800         ;//     <o1.4>      PA4  <0=> Output   <1=> ADDR19
+  529 00004800         ;//     <o1.5>      PA5  <0=> Output   <1=> ADDR20
+  530 00004800         ;//     <o1.6>      PA6  <0=> Output   <1=> ADDR21
+  531 00004800         ;//     <o1.7>      PA7  <0=> Output   <1=> ADDR22
+  532 00004800         ;//     <o1.8>      PA8  <0=> Output   <1=> ADDR23
+  533 00004800         ;//     <o1.9>      PA9  <0=> Output   <1=> ADDR24
+  534 00004800         ;//     <o1.10>      PA0  <0=> Output   <1=> ADDR25
+  535 00004800         ;//     <o1.11>      PA1  <0=> Output   <1=> ADDR26
+  536 00004800         ;//     <o1.12>      PA2  <0=> Output   <1=> nGCS[1]
+  537 00004800         ;//     <o1.13>      PA3  <0=> Output   <1=> nGCS[2]
+  538 00004800         ;//     <o1.14>      PA4  <0=> Output   <1=> nGCS[3]
+  539 00004800         ;//     <o1.15>      PA5  <0=> Output   <1=> nGCS[4]
+  540 00004800         ;//     <o1.16>      PA6  <0=> Output   <1=> nGCS[5]
+  541 00004800         ;//     <o1.17>      PA7  <0=> Output   <1=> CLE
+  542 00004800         ;//     <o1.18>      PA8  <0=> Output   <1=> ALE
+  543 00004800         ;//     <o1.19>      PA9  <0=> Output   <1=> nFWE
+  544 00004800         ;//     <o1.20>      PA0  <0=> Output   <1=> nFRE
+  545 00004800         ;//     <o1.21>      PA1  <0=> Output   <1=> nRSTOUT
+  546 00004800         ;//     <o1.22>      PA2  <0=> Output   <1=> nFCE
+  547 00004800         ;//   </e>
+  548 00004800 00000000 
+                       PIOA_SETUP
+                               EQU              0
+  549 00004800 000003FF 
+                       PCONA_Val
+                               EQU              0x000003FF
+  550 00004800         
+  551 00004800         ;//   <e> Port B
+  552 00004800         ;//     <o1.0..1>        PB0  <0=> Input   <1=> Output  
+                       <2=> TOUT0    <3=> Reserved 
+  553 00004800         ;//     <o1.2..3>        PB1  <0=> Input   <1=> Output  
+                       <2=> TOUT1    <3=> Reserved 
+  554 00004800         ;//     <o1.4..5>        PB2  <0=> Input   <1=> Output  
+                       <2=> TOUT2    <3=> Reserved 
+  555 00004800         ;//     <o1.6..7>        PB3  <0=> Input   <1=> Output  
+                       <2=> TOUT3    <3=> Reserved 
+  556 00004800         ;//     <o1.8..9>        PB4  <0=> Input   <1=> Output  
+                       <2=> TCLK[0]  <3=> Reserved 
+  557 00004800         ;//     <o1.10..11>      PB5  <0=> Input   <1=> Output  
+                       <2=> nXBACK   <3=> Reserved 
+
+
+
+ARM Macro Assembler    Page 16 
+
+
+  558 00004800         ;//     <o1.12..13>      PB6  <0=> Input   <1=> Output  
+                       <2=> nXBREQ   <3=> Reserved 
+  559 00004800         ;//     <o1.14..15>      PB7  <0=> Input   <1=> Output  
+                       <2=> nXDACK1  <3=> Reserved 
+  560 00004800         ;//     <o1.16..17>      PB8  <0=> Input   <1=> Output  
+                       <2=> nXDREQ1  <3=> Reserved 
+  561 00004800         ;//     <o1.18..19>      PB9  <0=> Input   <1=> Output  
+                       <2=> nXDACK0  <3=> Reserved 
+  562 00004800         ;//     <o1.20..21>      PB10 <0=> Input   <1=> Output  
+                       <2=> nXDREQ0  <3=> Reserved 
+  563 00004800         ;//     <h> Pull-up Resistors                           
+                                    
+  564 00004800         ;//       <o2.0>    PB0 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  565 00004800         ;//       <o2.1>    PB1 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  566 00004800         ;//       <o2.2>    PB2 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  567 00004800         ;//       <o2.3>    PB3 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  568 00004800         ;//       <o2.4>    PB4 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  569 00004800         ;//       <o2.5>    PB5 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  570 00004800         ;//       <o2.6>    PB6 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  571 00004800         ;//       <o2.7>    PB7 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  572 00004800         ;//       <o2.8>    PB8 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  573 00004800         ;//       <o2.9>    PB9 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  574 00004800         ;//       <o2.10>   PB10 Pull-up       <0=> Enabled  <1=
+                       > Disabled   
+  575 00004800         ;//     </h>                                            
+                                    
+  576 00004800         ;//   </e>
+  577 00004800 00000001 
+                       PIOB_SETUP
+                               EQU              1
+  578 00004800 00000FFF 
+                       PCONB_Val
+                               EQU              0x00000FFF
+  579 00004800 00000000 
+                       PUPB_Val
+                               EQU              0x00000000
+  580 00004800         
+  581 00004800         ;//   <e> Port C
+  582 00004800         ;//     <o1.0..1>          PC0  <0=> Input    <1=> Outpu
+                       t  <2=> LEND          <3=> Reserved 
+  583 00004800         ;//     <o1.2..3>          PC1  <0=> Input    <1=> Outpu
+                       t  <2=> VCLK          <3=> Reserved 
+  584 00004800         ;//     <o1.4..5>          PC2  <0=> Input    <1=> Outpu
+                       t  <2=> VLINE         <3=> Reserved 
+  585 00004800         ;//     <o1.6..7>          PC3  <0=> Input    <1=> Outpu
+                       t  <2=> VFRAME        <3=> Reserved 
+  586 00004800         ;//     <o1.8..9>          PC4  <0=> Input    <1=> Outpu
+                       t  <2=> VM            <3=> Reserved 
+  587 00004800         ;//     <o1.10..11>        PC5  <0=> Input    <1=> Outpu
+
+
+
+ARM Macro Assembler    Page 17 
+
+
+                       t  <2=> LCDVF2     <3=> Reserved 
+  588 00004800         ;//     <o1.12..13>        PC6  <0=> Input    <1=> Outpu
+                       t  <2=> LCDVF1    <3=> Reserved 
+  589 00004800         ;//     <o1.14..15>        PC7  <0=> Input    <1=> Outpu
+                       t  <2=> LCDVF0   <3=> Reserved 
+  590 00004800         ;//     <o1.16..17>        PC8  <0=> Input    <1=> Outpu
+                       t  <2=> VD[0]         <3=> Reserved 
+  591 00004800         ;//     <o1.18..19>        PC9  <0=> Input    <1=> Outpu
+                       t  <2=> VD[1]         <3=> Reserved 
+  592 00004800         ;//     <o1.20..21>        PC10 <0=> Input    <1=> Outpu
+                       t  <2=> VD[2]         <3=> Reserved 
+  593 00004800         ;//     <o1.22..23>        PC11  <0=> Input   <1=> Outpu
+                       t  <2=> VD[3]         <3=> Reserved 
+  594 00004800         ;//     <o1.24..25>        PC12  <0=> Input   <1=> Outpu
+                       t  <2=> VD[4]         <3=> Reserved 
+  595 00004800         ;//     <o1.26..27>        PC13  <0=> Input   <1=> Outpu
+                       t  <2=> VD[5]         <3=> Reserved 
+  596 00004800         ;//     <o1.28..29>        PC14  <0=> Input   <1=> Outpu
+                       t  <2=> VD[6]         <3=> Reserved 
+  597 00004800         ;//     <o1.30..31>        PC15  <0=> Input   <1=> Outpu
+                       t  <2=> VD[7]         <3=> Reserved 
+  598 00004800         ;//     <h> Pull-up Resistors                           
+                                    
+  599 00004800         ;//       <o2.0>     PC0 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  600 00004800         ;//       <o2.1>     PC1 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  601 00004800         ;//       <o2.2>     PC2 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  602 00004800         ;//       <o2.3>     PC3 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  603 00004800         ;//       <o2.4>     PC4 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  604 00004800         ;//       <o2.5>     PC5 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  605 00004800         ;//       <o2.6>     PC6 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  606 00004800         ;//       <o2.7>     PC7 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  607 00004800         ;//       <o2.8>     PC8 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  608 00004800         ;//       <o2.9>     PC9 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  609 00004800         ;//       <o2.10>    PC10 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  610 00004800         ;//       <o2.11>    PC11 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  611 00004800         ;//       <o2.12>    PC12 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  612 00004800         ;//       <o2.13>    PC13 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  613 00004800         ;//       <o2.14>    PC14 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  614 00004800         ;//       <o2.15>    PC15 Pull-up        <0=> Enabled  <
+                       1=> Disabled  
+  615 00004800         ;//     </h>                                            
+                                    
+  616 00004800         ;//   </e>
+  617 00004800 00000000 
+
+
+
+ARM Macro Assembler    Page 18 
+
+
+                       PIOC_SETUP
+                               EQU              0
+  618 00004800 AAAAAAAA 
+                       PCONC_Val
+                               EQU              0xAAAAAAAA
+  619 00004800 00000000 
+                       PUPC_Val
+                               EQU              0x00000000
+  620 00004800         
+  621 00004800         ;//   <e> Port D
+  622 00004800         ;//     <o1.0..1>          PD0  <0=> Input    <1=> Outpu
+                       t  <2=> VD[8]         <3=> Reserved 
+  623 00004800         ;//     <o1.2..3>          PD1  <0=> Input    <1=> Outpu
+                       t  <2=> VD[9]         <3=> Reserved 
+  624 00004800         ;//     <o1.4..5>          PD2  <0=> Input    <1=> Outpu
+                       t  <2=> VD[10]         <3=> Reserved 
+  625 00004800         ;//     <o1.6..7>          PD3  <0=> Input    <1=> Outpu
+                       t  <2=> VD[11]         <3=> Reserved 
+  626 00004800         ;//     <o1.8..9>          PD4  <0=> Input    <1=> Outpu
+                       t  <2=> VD[12]         <3=> Reserved 
+  627 00004800         ;//     <o1.10..11>        PD5  <0=> Input    <1=> Outpu
+                       t  <2=> VD[13]         <3=> Reserved 
+  628 00004800         ;//     <o1.12..13>        PD6  <0=> Input    <1=> Outpu
+                       t  <2=> VD[14]         <3=> Reserved 
+  629 00004800         ;//     <o1.14..15>        PD7  <0=> Input    <1=> Outpu
+                       t  <2=> VD[15]         <3=> Reserved 
+  630 00004800         ;//     <o1.16..17>        PD8  <0=> Input    <1=> Outpu
+                       t  <2=> VD[16]         <3=> Reserved  
+  631 00004800         ;//     <o1.18..19>        PD9  <0=> Input    <1=> Outpu
+                       t  <2=> VD[17]         <3=> Reserved 
+  632 00004800         ;//     <o1.20..21>        PD10 <0=> Input    <1=> Outpu
+                       t  <2=> VD[18]         <3=> Reserved 
+  633 00004800         ;//     <o1.22..23>        PD11  <0=> Input   <1=> Outpu
+                       t  <2=> VD[19]         <3=> Reserved 
+  634 00004800         ;//     <o1.24..25>        PD12  <0=> Input   <1=> Outpu
+                       t  <2=> VD[20]         <3=> Reserved 
+  635 00004800         ;//     <o1.26..27>        PD13  <0=> Input   <1=> Outpu
+                       t  <2=> VD[21]         <3=> Reserved 
+  636 00004800         ;//     <o1.28..29>        PD14  <0=> Input   <1=> Outpu
+                       t  <2=> VD[22]          <3=> nSS1
+  637 00004800         ;//     <o1.30..31>        PD15  <0=> Input   <1=> Outpu
+                       t  <2=> VD[23]          <3=> nSS0 
+  638 00004800         ;//     <h> Pull-up Resistors                           
+                                    
+  639 00004800         ;//       <o2.0>     PD0 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  640 00004800         ;//       <o2.1>     PD1 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  641 00004800         ;//       <o2.2>     PD2 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  642 00004800         ;//       <o2.3>     PD3 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  643 00004800         ;//       <o2.4>     PD4 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  644 00004800         ;//       <o2.5>     PD5 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  645 00004800         ;//       <o2.6>     PD6 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  646 00004800         ;//       <o2.7>     PD7 Pull-up         <0=> Enabled  <
+
+
+
+ARM Macro Assembler    Page 19 
+
+
+                       1=> Disabled   
+  647 00004800         ;//       <o2.8>     PD8 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  648 00004800         ;//       <o2.9>     PD9 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  649 00004800         ;//       <o2.10>    PD10 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  650 00004800         ;//       <o2.11>    PD11 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  651 00004800         ;//       <o2.12>    PD12 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  652 00004800         ;//       <o2.13>    PD13 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  653 00004800         ;//       <o2.14>    PD14 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  654 00004800         ;//       <o2.15>    PD15 Pull-up        <0=> Enabled  <
+                       1=> Disabled  
+  655 00004800         ;//     </h>         
+  656 00004800         ;//   </e>
+  657 00004800 00000000 
+                       PIOD_SETUP
+                               EQU              0
+  658 00004800 00000000 
+                       PCOND_Val
+                               EQU              0x00000000
+  659 00004800 00000000 
+                       PUPD_Val
+                               EQU              0x00000000
+  660 00004800         
+  661 00004800         ;//   <e> Port E
+  662 00004800         ;//     <o1.0..1>          PE0  <0=> Input    <1=> Outpu
+                       t  <2=> I2SLRCK       <3=> Reserved 
+  663 00004800         ;//     <o1.2..3>          PE1  <0=> Input    <1=> Outpu
+                       t  <2=> I2SSCLK       <3=> Reserved  
+  664 00004800         ;//     <o1.4..5>          PE2  <0=> Input    <1=> Outpu
+                       t  <2=> CDCLK         <3=> Reserved 
+  665 00004800         ;//     <o1.6..7>          PE3  <0=> Input    <1=> Outpu
+                       t  <2=> I2SDI         <3=> nSS0 
+  666 00004800         ;//     <o1.8..9>          PE4  <0=> Input    <1=> Outpu
+                       t  <2=> I2SDO         <3=> I2SSDI 
+  667 00004800         ;//     <o1.10..11>        PE5  <0=> Input    <1=> Outpu
+                       t  <2=> SDCLK         <3=> Reserved 
+  668 00004800         ;//     <o1.12..13>        PE6  <0=> Input    <1=> Outpu
+                       t  <2=> SDCMD         <3=> Reserved 
+  669 00004800         ;//     <o1.14..15>        PE7  <0=> Input    <1=> Outpu
+                       t  <2=> SDDAT0        <3=> Reserved 
+  670 00004800         ;//     <o1.16..17>        PE8  <0=> Input    <1=> Outpu
+                       t  <2=> SDDAT1        <3=> Reserved
+  671 00004800         ;//     <o1.18..19>        PE9  <0=> Input    <1=> Outpu
+                       t  <2=> SDDAT2        <3=> Reserved
+  672 00004800         ;//     <o1.20..21>        PE10 <0=> Input    <1=> Outpu
+                       t  <2=> SDDAT3        <3=> Reserved
+  673 00004800         ;//     <o1.22..23>        PE11  <0=> Input   <1=> Outpu
+                       t  <2=> SPIMISO0      <3=> Reserved 
+  674 00004800         ;//     <o1.24..25>        PE12  <0=> Input   <1=> Outpu
+                       t  <2=> SPIMOSI0      <3=> Reserved 
+  675 00004800         ;//     <o1.26..27>        PE13  <0=> Input   <1=> Outpu
+                       t  <2=> SPICLK0       <3=> Reserved 
+  676 00004800         ;//     <o1.28..29>        PE14  <0=> Input   <1=> Outpu
+
+
+
+ARM Macro Assembler    Page 20 
+
+
+                       t  <2=> IICSCL        <3=> Reserved
+  677 00004800         ;//     <o1.30..31>        PE15  <0=> Input   <1=> Outpu
+                       t  <2=> IICSDA        <3=> Reserved
+  678 00004800         ;//     <h> Pull-up Resistors                           
+                                                  
+  679 00004800         ;//       <o2.0>     PE0 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  680 00004800         ;//       <o2.1>     PE1 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  681 00004800         ;//       <o2.2>     PE2 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  682 00004800         ;//       <o2.3>     PE3 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  683 00004800         ;//       <o2.4>     PE4 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  684 00004800         ;//       <o2.5>     PE5 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  685 00004800         ;//       <o2.6>     PE6 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  686 00004800         ;//       <o2.7>     PE7 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  687 00004800         ;//       <o2.8>     PE8 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  688 00004800         ;//       <o2.9>     PE9 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  689 00004800         ;//       <o2.10>    PE10 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  690 00004800         ;//       <o2.11>    PE11 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  691 00004800         ;//       <o2.12>    PE12 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  692 00004800         ;//       <o2.13>    PE13 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  693 00004800         ;//       <o2.14>    PE14 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  694 00004800         ;//       <o2.15>    PE15 Pull-up        <0=> Enabled  <
+                       1=> Disabled  
+  695 00004800         ;//     </h>         
+  696 00004800         ;//   </e>
+  697 00004800 00000000 
+                       PIOE_SETUP
+                               EQU              0
+  698 00004800 00000000 
+                       PCONE_Val
+                               EQU              0x00000000
+  699 00004800 00000000 
+                       PUPE_Val
+                               EQU              0x00000000
+  700 00004800         
+  701 00004800         ;//   <e> Port F
+  702 00004800         ;//     <o1.0..1>        PF0  <0=> Input   <1=> Output  
+                       <2=> EINT[0]  <3=> Reserved 
+  703 00004800         ;//     <o1.2..3>        PF1  <0=> Input   <1=> Output  
+                       <2=> EINT[1]  <3=> Reserved 
+  704 00004800         ;//     <o1.4..5>        PF2  <0=> Input   <1=> Output  
+                       <2=> EINT[2]  <3=> Reserved 
+  705 00004800         ;//     <o1.6..7>        PF3  <0=> Input   <1=> Output  
+                       <2=> EINT[3]  <3=> Reserved 
+  706 00004800         ;//     <o1.8..9>        PF4  <0=> Input   <1=> Output  
+
+
+
+ARM Macro Assembler    Page 21 
+
+
+                       <2=> EINT[4]  <3=> Reserved 
+  707 00004800         ;//     <o1.10..11>      PF5  <0=> Input   <1=> Output  
+                       <2=> EINT[5]  <3=> Reserved 
+  708 00004800         ;//     <o1.12..13>      PF6  <0=> Input   <1=> Output  
+                       <2=> EINT[6]  <3=> Reserved 
+  709 00004800         ;//     <o1.14..15>      PF7  <0=> Input   <1=> Output  
+                       <2=> EINT[7]  <3=> Reserved 
+  710 00004800         ;//     <h> Pull-up Resistors                           
+                                    
+  711 00004800         ;//       <o2.0>    PF0 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  712 00004800         ;//       <o2.1>    PF1 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  713 00004800         ;//       <o2.2>    PF2 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  714 00004800         ;//       <o2.3>    PF3 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  715 00004800         ;//       <o2.4>    PF4 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  716 00004800         ;//       <o2.5>    PF5 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  717 00004800         ;//       <o2.6>    PF6 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  718 00004800         ;//       <o2.7>    PF7 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  719 00004800         ;//     </h> 
+  720 00004800         ;//   </e>
+  721 00004800 00000001 
+                       PIOF_SETUP
+                               EQU              1
+  722 00004800 000055AA 
+                       PCONF_Val
+                               EQU              0x000055aa
+  723 00004800 000000FF 
+                       PUPF_Val
+                               EQU              0x000000ff
+  724 00004800         
+  725 00004800         ;//   <e> Port G
+  726 00004800         ;//     <o1.0..1>          PG0  <0=> Input    <1=> Outpu
+                       t  <2=> EINT[8]   <3=> Reserved 
+  727 00004800         ;//     <o1.2..3>          PG1  <0=> Input    <1=> Outpu
+                       t  <2=> EINT[9]   <3=> Reserved 
+  728 00004800         ;//     <o1.4..5>          PG2  <0=> Input    <1=> Outpu
+                       t  <2=> EINT[10]   <3=> nSS0 
+  729 00004800         ;//     <o1.6..7>          PG3  <0=> Input    <1=> Outpu
+                       t  <2=> EINT[11]   <3=> nSS1 
+  730 00004800         ;//     <o1.8..9>          PG4  <0=> Input    <1=> Outpu
+                       t  <2=> EINT[12]   <3=> LCD_PWRDN 
+  731 00004800         ;//     <o1.10..11>        PG5  <0=> Input    <1=> Outpu
+                       t  <2=> EINT[13]   <3=> SPIMISO1 
+  732 00004800         ;//     <o1.12..13>        PG6  <0=> Input    <1=> Outpu
+                       t  <2=> EINT[14]   <3=> SPIMOSI1
+  733 00004800         ;//     <o1.14..15>        PG7  <0=> Input    <1=> Outpu
+                       t  <2=> EINT[15]   <3=> SPICLK1 
+  734 00004800         ;//     <o1.16..17>        PG8  <0=> Input    <1=> Outpu
+                       t  <2=> EINT[16]   <3=> Reserved 
+  735 00004800         ;//     <o1.18..19>        PG9  <0=> Input    <1=> Outpu
+                       t  <2=> EINT[17]   <3=> Reserved 
+  736 00004800         ;//     <o1.20..21>        PG10 <0=> Input    <1=> Outpu
+
+
+
+ARM Macro Assembler    Page 22 
+
+
+                       t  <2=> EINT[18]   <3=> Reserved 
+  737 00004800         ;//     <o1.22..23>        PG11  <0=> Input   <1=> Outpu
+                       t  <2=> EINT[19]   <3=> TCLK1
+  738 00004800         ;//     <o1.24..25>        PG12  <0=> Input   <1=> Outpu
+                       t  <2=> EINT[20]   <3=> XMON
+  739 00004800         ;//     <o1.26..27>        PG13  <0=> Input   <1=> Outpu
+                       t  <2=> EINT[21]   <3=> nXPON 
+  740 00004800         ;//     <o1.28..29>        PG14  <0=> Input   <1=> Outpu
+                       t  <2=> EINT[22]   <3=> YMON
+  741 00004800         ;//     <o1.30..31>        PG15  <0=> Input   <1=> Outpu
+                       t  <2=> EINT[23]   <3=> nYPON
+  742 00004800         ;//     <h> Pull-up Resistors                           
+                                    
+  743 00004800         ;//       <o2.0>     PG0 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  744 00004800         ;//       <o2.1>     PG1 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  745 00004800         ;//       <o2.2>     PG2 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  746 00004800         ;//       <o2.3>     PG3 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  747 00004800         ;//       <o2.4>     PG4 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  748 00004800         ;//       <o2.5>     PG5 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  749 00004800         ;//       <o2.6>     PG6 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  750 00004800         ;//       <o2.7>     PG7 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  751 00004800         ;//       <o2.8>     PG8 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  752 00004800         ;//       <o2.9>     PG9 Pull-up         <0=> Enabled  <
+                       1=> Disabled   
+  753 00004800         ;//       <o2.10>    PG10 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  754 00004800         ;//       <o2.11>    PG11 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  755 00004800         ;//       <o2.12>    PG12 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  756 00004800         ;//       <o2.13>    PG13 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  757 00004800         ;//       <o2.14>    PG14 Pull-up        <0=> Enabled  <
+                       1=> Disabled   
+  758 00004800         ;//       <o2.15>    PG15 Pull-up        <0=> Enabled  <
+                       1=> Disabled  
+  759 00004800         ;//     </h>                                            
+                               
+  760 00004800         ;//   </e>
+  761 00004800 00000000 
+                       PIOG_SETUP
+                               EQU              0
+  762 00004800 00000000 
+                       PCONG_Val
+                               EQU              0x00000000
+  763 00004800 00000000 
+                       PUPG_Val
+                               EQU              0x00000000
+  764 00004800         
+  765 00004800         ;//   <e> Port H
+
+
+
+ARM Macro Assembler    Page 23 
+
+
+  766 00004800         ;//     <o1.0..1>        PH0  <0=> Input   <1=> Output  
+                       <2=> nCTS0    <3=> Reserved 
+  767 00004800         ;//     <o1.2..3>        PH1  <0=> Input   <1=> Output  
+                       <2=> nRTS0    <3=> Reserved 
+  768 00004800         ;//     <o1.4..5>        PH2  <0=> Input   <1=> Output  
+                       <2=> TXD[0]    <3=> Reserved 
+  769 00004800         ;//     <o1.6..7>        PH3  <0=> Input   <1=> Output  
+                       <2=> RXD[0]    <3=> Reserved 
+  770 00004800         ;//     <o1.8..9>        PH4  <0=> Input   <1=> Output  
+                       <2=> TXD[1]  <3=> Reserved 
+  771 00004800         ;//     <o1.10..11>      PH5  <0=> Input   <1=> Output  
+                       <2=> RXD[1]   <3=> Reserved 
+  772 00004800         ;//     <o1.12..13>      PH6  <0=> Input   <1=> Output  
+                       <2=> TXD[2]   <3=> nRTS1
+  773 00004800         ;//     <o1.14..15>      PH7  <0=> Input   <1=> Output  
+                       <2=> RXD[2]  <3=> nCTS1 
+  774 00004800         ;//     <o1.16..17>      PH8  <0=> Input   <1=> Output  
+                       <2=> UCLK    <3=> Reserved 
+  775 00004800         ;//     <o1.18..19>      PH9  <0=> Input   <1=> Output  
+                       <2=> CLKOUT0  <3=> Reserved 
+  776 00004800         ;//     <o1.20..21>      PH10 <0=> Input   <1=> Output  
+                       <2=> CLKOUT1  <3=> Reserved 
+  777 00004800         ;//     <h> Pull-up Resistors                           
+                                    
+  778 00004800         ;//       <o2.0>    PH0 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  779 00004800         ;//       <o2.1>    PH1 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  780 00004800         ;//       <o2.2>    PH2 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  781 00004800         ;//       <o2.3>    PH3 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  782 00004800         ;//       <o2.4>    PH4 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  783 00004800         ;//       <o2.5>    PH5 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  784 00004800         ;//       <o2.6>    PH6 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  785 00004800         ;//       <o2.7>    PH7 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  786 00004800         ;//       <o2.8>    PH8 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  787 00004800         ;//       <o2.9>    PH9 Pull-up        <0=> Enabled  <1=
+                       > Disabled   
+  788 00004800         ;//       <o2.10>   PH10 Pull-up       <0=> Enabled  <1=
+                       > Disabled   
+  789 00004800         ;//     </h>                                            
+                                    
+  790 00004800         ;//   </e>
+  791 00004800 00000000 
+                       PIOH_SETUP
+                               EQU              0
+  792 00004800 000007FF 
+                       PCONH_Val
+                               EQU              0x000007FF
+  793 00004800 00000000 
+                       PUPH_Val
+                               EQU              0x00000000
+  794 00004800         
+
+
+
+ARM Macro Assembler    Page 24 
+
+
+  795 00004800         ;// </e>
+  796 00004800         
+  797 00004800         
+  798 00004800         
+  799 00004800         
+  800 00004800                 PRESERVE8
+  801 00004800         
+  802 00004800         
+  803 00004800         ; Area Definition and Entry Point
+  804 00004800         ;  Startup Code must be linked first at Address at which
+                        it expects to run.
+  805 00004800         
+  806 00004800                 AREA             RESET, CODE, READONLY
+  807 00000000                 ARM
+  808 00000000         
+  809 00000000         
+  810 00000000         ; Exception Vectors
+  811 00000000         ;  Mapped to Address 0.
+  812 00000000         ;  Absolute addressing mode must be used.
+  813 00000000         ;  Dummy Handlers are implemented as infinite loops whic
+                       h can be modified.
+  814 00000000         
+  815 00000000 E59FF03C 
+                       Vectors LDR              PC, Reset_Addr
+  816 00000004 E59FF03C        LDR              PC, Undef_Addr
+  817 00000008 E59FF03C        LDR              PC, SWI_Addr
+  818 0000000C E59FF03C        LDR              PC, PAbt_Addr
+  819 00000010 E59FF03C        LDR              PC, DAbt_Addr
+  820 00000014 E1A00000        NOP                          ; Reserved Vector 
+  821 00000018 E59FF03C        LDR              PC, IRQ_Addr
+  822 0000001C E59FF03C        LDR              PC, FIQ_Addr
+  823 00000020         
+  824 00000020         
+  825 00000020                 IF               IntVT_SETUP <> 0
+  826 00000020         
+  827 00000020         ;Interrupt Vector Table Address                
+  828 00000020 33FFFF20 
+                       HandleEINT0
+                               EQU              IntVTAddress
+  829 00000020 33FFFF24 
+                       HandleEINT1
+                               EQU              IntVTAddress +4
+  830 00000020 33FFFF28 
+                       HandleEINT2
+                               EQU              IntVTAddress +4*2
+  831 00000020 33FFFF2C 
+                       HandleEINT3
+                               EQU              IntVTAddress +4*3
+  832 00000020 33FFFF30 
+                       HandleEINT4_7
+                               EQU              IntVTAddress +4*4
+  833 00000020 33FFFF34 
+                       HandleEINT8_23
+                               EQU              IntVTAddress +4*5
+  834 00000020 33FFFF38 
+                       HandleReserved
+                               EQU              IntVTAddress +4*6
+  835 00000020 33FFFF3C 
+                       HandleBATFLT
+
+
+
+ARM Macro Assembler    Page 25 
+
+
+                               EQU              IntVTAddress +4*7
+  836 00000020 33FFFF40 
+                       HandleTICK
+                               EQU              IntVTAddress +4*8
+  837 00000020 33FFFF44 
+                       HandleWDT
+                               EQU              IntVTAddress +4*9
+  838 00000020 33FFFF48 
+                       HandleTIMER0
+                               EQU              IntVTAddress +4*10
+  839 00000020 33FFFF4C 
+                       HandleTIMER1
+                               EQU              IntVTAddress +4*11
+  840 00000020 33FFFF50 
+                       HandleTIMER2
+                               EQU              IntVTAddress +4*12
+  841 00000020 33FFFF54 
+                       HandleTIMER3
+                               EQU              IntVTAddress +4*13
+  842 00000020 33FFFF58 
+                       HandleTIMER4
+                               EQU              IntVTAddress +4*14
+  843 00000020 33FFFF5C 
+                       HandleUART2
+                               EQU              IntVTAddress +4*15
+  844 00000020 33FFFF60 
+                       HandleLCD
+                               EQU              IntVTAddress +4*16
+  845 00000020 33FFFF64 
+                       HandleDMA0
+                               EQU              IntVTAddress +4*17
+  846 00000020 33FFFF68 
+                       HandleDMA1
+                               EQU              IntVTAddress +4*18
+  847 00000020 33FFFF6C 
+                       HandleDMA2
+                               EQU              IntVTAddress +4*19
+  848 00000020 33FFFF70 
+                       HandleDMA3
+                               EQU              IntVTAddress +4*20
+  849 00000020 33FFFF74 
+                       HandleMMC
+                               EQU              IntVTAddress +4*21
+  850 00000020 33FFFF78 
+                       HandleSPI0
+                               EQU              IntVTAddress +4*22
+  851 00000020 33FFFF7C 
+                       HandleUART1
+                               EQU              IntVTAddress +4*23
+  852 00000020         ;HandleReserved    EQU    IntVTAddress +4*24
+  853 00000020 33FFFF84 
+                       HandleUSBD
+                               EQU              IntVTAddress +4*25
+  854 00000020 33FFFF88 
+                       HandleUSBH
+                               EQU              IntVTAddress +4*26
+  855 00000020 33FFFF8C 
+                       HandleIIC
+                               EQU              IntVTAddress +4*27
+
+
+
+ARM Macro Assembler    Page 26 
+
+
+  856 00000020 33FFFF90 
+                       HandleUART0
+                               EQU              IntVTAddress +4*28
+  857 00000020 33FFFFBC 
+                       HandleSPI1
+                               EQU              IntVTAddress +4*39
+  858 00000020 33FFFF98 
+                       HandleRTC
+                               EQU              IntVTAddress +4*30
+  859 00000020 33FFFF9C 
+                       HandleADC
+                               EQU              IntVTAddress +4*31
+  860 00000020         
+  861 00000020         IRQ_Entry
+  862 00000020 E24DD004        sub              sp,sp,#4    ;reserved for PC
+  863 00000024 E92D0300        stmfd            sp!,{r8-r9}
+  864 00000028         
+  865 00000028 E59F91AC        ldr              r9,=INTOFFSET
+  866 0000002C E5999000        ldr              r9,[r9]
+  867 00000030 E59F81A8        ldr              r8,=HandleEINT0
+  868 00000034 E0888109        add              r8,r8,r9,lsl #2
+  869 00000038 E5988000        ldr              r8,[r8]
+  870 0000003C E58D8008        str              r8,[sp,#8]
+  871 00000040 E8BD8300        ldmfd            sp!,{r8-r9,pc}
+  872 00000044         
+  873 00000044                 ENDIF
+  874 00000044         
+  875 00000044 00000000 
+                       Reset_Addr
+                               DCD              Reset_Handler
+  876 00000048 00000000 
+                       Undef_Addr
+                               DCD              Undef_Handler
+  877 0000004C 00000000 
+                       SWI_Addr
+                               DCD              SWI_Handler
+  878 00000050 00000000 
+                       PAbt_Addr
+                               DCD              PAbt_Handler
+  879 00000054 00000000 
+                       DAbt_Addr
+                               DCD              DAbt_Handler
+  880 00000058 00000000        DCD              0           ; Reserved Address 
+                                                            
+  881 0000005C 00000000 
+                       IRQ_Addr
+                               DCD              IRQ_Handler
+  882 00000060 00000000 
+                       FIQ_Addr
+                               DCD              FIQ_Handler
+  883 00000064         
+  884 00000064 EAFFFFFE 
+                       Undef_Handler
+                               B                Undef_Handler
+  885 00000068 EAFFFFFE 
+                       SWI_Handler
+                               B                SWI_Handler
+  886 0000006C EAFFFFFE 
+                       PAbt_Handler
+
+
+
+ARM Macro Assembler    Page 27 
+
+
+                               B                PAbt_Handler
+  887 00000070 EAFFFFFE 
+                       DAbt_Handler
+                               B                DAbt_Handler
+  888 00000074         
+  889 00000074                 IF               IntVT_SETUP <> 1
+  891                          ENDIF
+  892 00000074         
+  893 00000074                 IF               IntVT_SETUP <> 0
+  894 00000074 EAFFFFE9 
+                       IRQ_Handler
+                               B                IRQ_Entry
+  895 00000078                 ENDIF
+  896 00000078         
+  897 00000078 EAFFFFFE 
+                       FIQ_Handler
+                               B                FIQ_Handler
+  898 0000007C         
+  899 0000007C         
+  900 0000007C         
+  901 0000007C         ; Memory Controller Configuration
+  902 0000007C                 IF               MC_SETUP <> 0
+  903 0000007C         MC_CFG
+  904 0000007C 22119120        DCD              BWSCON_Val
+  905 00000080 00000700        DCD              BANKCON0_Val
+  906 00000084 00000700        DCD              BANKCON1_Val
+  907 00000088 00000700        DCD              BANKCON2_Val
+  908 0000008C 00000700        DCD              BANKCON3_Val
+  909 00000090 00000700        DCD              BANKCON4_Val
+  910 00000094 00000700        DCD              BANKCON5_Val
+  911 00000098 00018005        DCD              BANKCON6_Val
+  912 0000009C 00018005        DCD              BANKCON7_Val
+  913 000000A0 008E0459        DCD              REFRESH_Val
+  914 000000A4 00000032        DCD              BANKSIZE_Val
+  915 000000A8 00000030        DCD              MRSRB6_Val
+  916 000000AC 00000030        DCD              MRSRB7_Val
+  917 000000B0                 ENDIF
+  918 000000B0         
+  919 000000B0         
+  920 000000B0         ; Clock Management Configuration
+  921 000000B0                 IF               CLK_SETUP <> 0
+  922 000000B0         CLK_CFG
+  923 000000B0 00FFFFFF        DCD              LOCKTIME_Val
+  924 000000B4 00000003        DCD              CLKDIVN_Val
+  925 000000B8 0005C042        DCD              MPLLCON_Val
+  926 000000BC 00028080        DCD              UPLLCON_Val
+  927 000000C0 00000004        DCD              CLKSLOW_Val
+  928 000000C4 0007FFF0        DCD              CLKCON_Val
+  929 000000C8                 ENDIF
+  930 000000C8         
+  931 000000C8         
+  932 000000C8         
+  933 000000C8         ; I/O Configuration
+  934 000000C8                 IF               PIO_SETUP <> 0
+  935 000000C8         PIOA_CFG
+  936 000000C8 000003FF        DCD              PCONA_Val
+  937 000000CC 00000FFF 
+                       PIOB_CFG
+                               DCD              PCONB_Val
+
+
+
+ARM Macro Assembler    Page 28 
+
+
+  938 000000D0 00000000        DCD              PUPB_Val
+  939 000000D4 AAAAAAAA 
+                       PIOC_CFG
+                               DCD              PCONC_Val
+  940 000000D8 00000000        DCD              PUPC_Val
+  941 000000DC 00000000 
+                       PIOD_CFG
+                               DCD              PCOND_Val
+  942 000000E0 00000000        DCD              PUPD_Val
+  943 000000E4 00000000 
+                       PIOE_CFG
+                               DCD              PCONE_Val
+  944 000000E8 00000000        DCD              PUPE_Val
+  945 000000EC 000055AA 
+                       PIOF_CFG
+                               DCD              PCONF_Val
+  946 000000F0 000000FF        DCD              PUPF_Val
+  947 000000F4 00000000 
+                       PIOG_CFG
+                               DCD              PCONG_Val
+  948 000000F8 00000000        DCD              PUPG_Val
+  949 000000FC 000007FF 
+                       PIOH_CFG
+                               DCD              PCONH_Val
+  950 00000100 00000000        DCD              PUPH_Val
+  951 00000104                 ENDIF
+  952 00000104         
+  953 00000104         ; Reset Handler
+  954 00000104         
+  955 00000104                 EXPORT           Reset_Handler
+  956 00000104         Reset_Handler
+  957 00000104         
+  958 00000104                 IF               WT_SETUP <> 0
+  959 00000104 E3A00453        LDR              R0, =WT_BASE
+  960 00000108 E3A01000        LDR              R1, =WTCON_Val
+  961 0000010C E3A02902        LDR              R2, =WTDAT_Val
+  962 00000110 E5802008        STR              R2, [R0, #WTCNT_OFS]
+  963 00000114 E5802004        STR              R2, [R0, #WTDAT_OFS]
+  964 00000118 E5801000        STR              R1, [R0, #WTCON_OFS]
+  965 0000011C                 ENDIF
+  966 0000011C         
+  967 0000011C                 IF               INT_SETUP <> 0
+  968 0000011C E3A0044A        LDR              R0, =INT_BASE
+  969 00000120 E3E01000        LDR              R1, =INTMSK_VAL
+  970 00000124 E59F20B8        LDR              R2, =INTSUBMASK_VAL
+  971 00000128 E5801008        STR              R1, [R0,#INTMSK_OFS]
+  972 0000012C E580201C        STR              R2, [R0,#INTSUBMASK_OFS]
+  973 00000130                 ENDIF
+  974 00000130         
+  975 00000130                 IF               CLK_SETUP <> 0
+  976 00000130 E3A00313        LDR              R0, =CLK_BASE
+  977 00000134 E24F808C        ADR              R8, CLK_CFG
+  978 00000138 E898007E        LDMIA            R8, {R1-R6}
+  979 0000013C E5801000        STR              R1, [R0, #LOCKTIME_OFS]
+  980 00000140 E5802014        STR              R2, [R0, #CLKDIVN_OFS]
+  981 00000144 E5803004        STR              R3, [R0, #MPLLCON_OFS]
+  982 00000148 E5804008        STR              R4, [R0, #UPLLCON_OFS]
+  983 0000014C E5805010        STR              R5, [R0, #CLKSLOW_OFS]
+  984 00000150 E580600C        STR              R6, [R0, #CLKCON_OFS]
+
+
+
+ARM Macro Assembler    Page 29 
+
+
+  985 00000154                 ENDIF
+  986 00000154         
+  987 00000154         
+  988 00000154                 IF               MC_SETUP <> 0
+  989 00000154 E24FD0E0        ADR              R13, MC_CFG
+  990 00000158 E89D1FFF        LDMIA            R13, {R0-R12}
+  991 0000015C E3A0D312        LDR              R13, =MC_BASE
+  992 00000160 E88D1FFF        STMIA            R13, {R0-R12}
+  993 00000164                 ENDIF
+  994 00000164         
+  995 00000164         
+  996 00000164                 IF               PIO_SETUP <> 0
+  997 00000164 E3A0D456        LDR              R13, =PIO_BASE
+  998 00000168         
+  999 00000168                 IF               PIOA_SETUP <> 0
+ 1002                          ENDIF
+ 1003 00000168         
+ 1004 00000168                 IF               PIOB_SETUP <> 0
+ 1005 00000168 E24F00A4        ADR              R0, PIOB_CFG
+ 1006 0000016C E5901004        LDR              R1, [R0,#4]
+ 1007 00000170 E58D0010        STR              R0, [R13, #PCONB_OFS]
+ 1008 00000174 E58D1018        STR              R1, [R13, #PUPB_OFS]
+ 1009 00000178                 ENDIF
+ 1010 00000178         
+ 1011 00000178                 IF               PIOC_SETUP <> 0
+ 1016                          ENDIF
+ 1017 00000178         
+ 1018 00000178                 IF               PIOD_SETUP <> 0
+ 1023                          ENDIF
+ 1024 00000178         
+ 1025 00000178                 IF               PIOE_SETUP <> 0
+ 1030                          ENDIF
+ 1031 00000178         
+ 1032 00000178                 IF               PIOF_SETUP <> 0
+ 1033 00000178 E24F0094        ADR              R0, PIOF_CFG
+ 1034 0000017C E5901004        LDR              R1, [R0,#4]
+ 1035 00000180 E58D0050        STR              R0, [R13, #PCONF_OFS]
+ 1036 00000184 E58D1058        STR              R1, [R13, #PUPF_OFS]
+ 1037 00000188                 ENDIF
+ 1038 00000188         
+ 1039 00000188                 IF               PIOG_SETUP <> 0
+ 1044                          ENDIF
+ 1045 00000188         
+ 1046 00000188                 IF               PIOH_SETUP <> 0
+ 1051                          ENDIF
+ 1052 00000188         
+ 1053 00000188                 ENDIF
+ 1054 00000188         
+ 1055 00000188         
+ 1056 00000188         ; Setup Stack for each mode
+ 1057 00000188         
+ 1058 00000188 E59F0058        LDR              R0, =Stack_Top
+ 1059 0000018C         
+ 1060 0000018C         ;  Enter Undefined Instruction Mode and set its Stack Po
+                       inter
+ 1061 0000018C E321F0DB        MSR              CPSR_c, #Mode_UND:OR:I_Bit:OR:F
+_Bit
+ 1062 00000190 E1A0D000        MOV              SP, R0
+ 1063 00000194 E2400B01        SUB              R0, R0, #UND_Stack_Size
+
+
+
+ARM Macro Assembler    Page 30 
+
+
+ 1064 00000198         
+ 1065 00000198         ;  Enter Abort Mode and set its Stack Pointer
+ 1066 00000198 E321F0D7        MSR              CPSR_c, #Mode_ABT:OR:I_Bit:OR:F
+_Bit
+ 1067 0000019C E1A0D000        MOV              SP, R0
+ 1068 000001A0 E2400B01        SUB              R0, R0, #ABT_Stack_Size
+ 1069 000001A4         
+ 1070 000001A4         ;  Enter FIQ Mode and set its Stack Pointer
+ 1071 000001A4 E321F0D1        MSR              CPSR_c, #Mode_FIQ:OR:I_Bit:OR:F
+_Bit
+ 1072 000001A8 E1A0D000        MOV              SP, R0
+ 1073 000001AC E2400A01        SUB              R0, R0, #FIQ_Stack_Size
+ 1074 000001B0         
+ 1075 000001B0         ;  Enter IRQ Mode and set its Stack Pointer
+ 1076 000001B0 E321F0D2        MSR              CPSR_c, #Mode_IRQ:OR:I_Bit:OR:F
+_Bit
+ 1077 000001B4 E1A0D000        MOV              SP, R0
+ 1078 000001B8 E2400A01        SUB              R0, R0, #IRQ_Stack_Size
+ 1079 000001BC         
+ 1080 000001BC         ;  Enter Supervisor Mode and set its Stack Pointer
+ 1081 000001BC E321F0D3        MSR              CPSR_c, #Mode_SVC:OR:I_Bit:OR:F
+_Bit
+ 1082 000001C0 E1A0D000        MOV              SP, R0
+ 1083 000001C4 E2400901        SUB              R0, R0, #SVC_Stack_Size
+ 1084 000001C8         
+ 1085 000001C8         ;  Enter User Mode and set its Stack Pointer
+ 1086 000001C8 E321F010        MSR              CPSR_c, #Mode_USR
+ 1087 000001CC E1A0D000        MOV              SP, R0
+ 1088 000001D0 E24DAB0E        SUB              SL, SP, #USR_Stack_Size
+ 1089 000001D4         
+ 1090 000001D4         
+ 1091 000001D4         ; Enter the C code
+ 1092 000001D4         
+ 1093 000001D4                 IMPORT           __main
+ 1094 000001D4 E59F0010        LDR              R0, =__main
+ 1095 000001D8 E12FFF10        BX               R0
+ 1096 000001DC         
+ 1097 000001DC         
+ 1098 000001DC         ; User Initial Stack & Heap
+ 1099 000001DC 4A000014 
+              33FFFF20 
+              000007FF 
+              00000000 
+              00000000         AREA             |.text|, CODE, READONLY
+ 1100 00000000         
+ 1101 00000000                 IMPORT           __use_two_region_memory
+ 1102 00000000                 EXPORT           __user_initial_stackheap
+ 1103 00000000         __user_initial_stackheap
+ 1104 00000000         
+ 1105 00000000 E59F000C        LDR              R0, =  Heap_Mem
+ 1106 00000004 E59F100C        LDR              R1, =(Stack_Mem + USR_Stack_Siz
+e)
+ 1107 00000008 E59F200C        LDR              R2, = (Heap_Mem +      Heap_Siz
+e)
+ 1108 0000000C E59F300C        LDR              R3, = Stack_Mem
+ 1109 00000010 E12FFF1E        BX               LR
+ 1110 00000014         
+ 1111 00000014         
+ 1112 00000014                 END
+
+
+
+ARM Macro Assembler    Page 31 
+
+
+              00000000 
+              00003800 
+              00004800 
+              00000000 
+Command Line: --debug --xref --device=DARMSS9 --apcs=interwork -o.\SDRAM\S3C241
+0A.o -ID:\Keil\ARM\INC\Samsung --list=.\SDRAM\S3C2410A.lst S3C2410A.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+STACK 00000000
+
+Symbol: STACK
+   Definitions
+      At line 51 in file S3C2410A.s
+   Uses
+      None
+Comment: STACK unused
+Stack_Mem 00000000
+
+Symbol: Stack_Mem
+   Definitions
+      At line 52 in file S3C2410A.s
+   Uses
+      At line 54 in file S3C2410A.s
+      At line 1106 in file S3C2410A.s
+      At line 1108 in file S3C2410A.s
+
+Stack_Top 0000A000
+
+Symbol: Stack_Top
+   Definitions
+      At line 54 in file S3C2410A.s
+   Uses
+      At line 1058 in file S3C2410A.s
+Comment: Stack_Top used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+HEAP 00000000
+
+Symbol: HEAP
+   Definitions
+      At line 63 in file S3C2410A.s
+   Uses
+      None
+Comment: HEAP unused
+Heap_Mem 00000000
+
+Symbol: Heap_Mem
+   Definitions
+      At line 64 in file S3C2410A.s
+   Uses
+      At line 1105 in file S3C2410A.s
+      At line 1107 in file S3C2410A.s
+
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+CLK_CFG 000000B0
+
+Symbol: CLK_CFG
+   Definitions
+      At line 922 in file S3C2410A.s
+   Uses
+      At line 977 in file S3C2410A.s
+Comment: CLK_CFG used once
+DAbt_Addr 00000054
+
+Symbol: DAbt_Addr
+   Definitions
+      At line 879 in file S3C2410A.s
+   Uses
+      At line 819 in file S3C2410A.s
+Comment: DAbt_Addr used once
+DAbt_Handler 00000070
+
+Symbol: DAbt_Handler
+   Definitions
+      At line 887 in file S3C2410A.s
+   Uses
+      At line 879 in file S3C2410A.s
+      At line 887 in file S3C2410A.s
+
+FIQ_Addr 00000060
+
+Symbol: FIQ_Addr
+   Definitions
+      At line 882 in file S3C2410A.s
+   Uses
+      At line 822 in file S3C2410A.s
+Comment: FIQ_Addr used once
+FIQ_Handler 00000078
+
+Symbol: FIQ_Handler
+   Definitions
+      At line 897 in file S3C2410A.s
+   Uses
+      At line 882 in file S3C2410A.s
+      At line 897 in file S3C2410A.s
+
+IRQ_Addr 0000005C
+
+Symbol: IRQ_Addr
+   Definitions
+      At line 881 in file S3C2410A.s
+   Uses
+      At line 821 in file S3C2410A.s
+Comment: IRQ_Addr used once
+IRQ_Entry 00000020
+
+Symbol: IRQ_Entry
+   Definitions
+      At line 861 in file S3C2410A.s
+   Uses
+      At line 894 in file S3C2410A.s
+Comment: IRQ_Entry used once
+IRQ_Handler 00000074
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Relocatable symbols
+
+
+Symbol: IRQ_Handler
+   Definitions
+      At line 894 in file S3C2410A.s
+   Uses
+      At line 881 in file S3C2410A.s
+Comment: IRQ_Handler used once
+MC_CFG 0000007C
+
+Symbol: MC_CFG
+   Definitions
+      At line 903 in file S3C2410A.s
+   Uses
+      At line 989 in file S3C2410A.s
+Comment: MC_CFG used once
+PAbt_Addr 00000050
+
+Symbol: PAbt_Addr
+   Definitions
+      At line 878 in file S3C2410A.s
+   Uses
+      At line 818 in file S3C2410A.s
+Comment: PAbt_Addr used once
+PAbt_Handler 0000006C
+
+Symbol: PAbt_Handler
+   Definitions
+      At line 886 in file S3C2410A.s
+   Uses
+      At line 878 in file S3C2410A.s
+      At line 886 in file S3C2410A.s
+
+PIOA_CFG 000000C8
+
+Symbol: PIOA_CFG
+   Definitions
+      At line 935 in file S3C2410A.s
+   Uses
+      None
+Comment: PIOA_CFG unused
+PIOB_CFG 000000CC
+
+Symbol: PIOB_CFG
+   Definitions
+      At line 937 in file S3C2410A.s
+   Uses
+      At line 1005 in file S3C2410A.s
+Comment: PIOB_CFG used once
+PIOC_CFG 000000D4
+
+Symbol: PIOC_CFG
+   Definitions
+      At line 939 in file S3C2410A.s
+   Uses
+      None
+Comment: PIOC_CFG unused
+PIOD_CFG 000000DC
+
+Symbol: PIOD_CFG
+
+
+
+ARM Macro Assembler    Page 3 Alphabetic symbol ordering
+Relocatable symbols
+
+   Definitions
+      At line 941 in file S3C2410A.s
+   Uses
+      None
+Comment: PIOD_CFG unused
+PIOE_CFG 000000E4
+
+Symbol: PIOE_CFG
+   Definitions
+      At line 943 in file S3C2410A.s
+   Uses
+      None
+Comment: PIOE_CFG unused
+PIOF_CFG 000000EC
+
+Symbol: PIOF_CFG
+   Definitions
+      At line 945 in file S3C2410A.s
+   Uses
+      At line 1033 in file S3C2410A.s
+Comment: PIOF_CFG used once
+PIOG_CFG 000000F4
+
+Symbol: PIOG_CFG
+   Definitions
+      At line 947 in file S3C2410A.s
+   Uses
+      None
+Comment: PIOG_CFG unused
+PIOH_CFG 000000FC
+
+Symbol: PIOH_CFG
+   Definitions
+      At line 949 in file S3C2410A.s
+   Uses
+      None
+Comment: PIOH_CFG unused
+RESET 00000000
+
+Symbol: RESET
+   Definitions
+      At line 806 in file S3C2410A.s
+   Uses
+      None
+Comment: RESET unused
+Reset_Addr 00000044
+
+Symbol: Reset_Addr
+   Definitions
+      At line 875 in file S3C2410A.s
+   Uses
+      At line 815 in file S3C2410A.s
+Comment: Reset_Addr used once
+Reset_Handler 00000104
+
+Symbol: Reset_Handler
+   Definitions
+      At line 956 in file S3C2410A.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 4 Alphabetic symbol ordering
+Relocatable symbols
+
+      At line 875 in file S3C2410A.s
+      At line 955 in file S3C2410A.s
+
+SWI_Addr 0000004C
+
+Symbol: SWI_Addr
+   Definitions
+      At line 877 in file S3C2410A.s
+   Uses
+      At line 817 in file S3C2410A.s
+Comment: SWI_Addr used once
+SWI_Handler 00000068
+
+Symbol: SWI_Handler
+   Definitions
+      At line 885 in file S3C2410A.s
+   Uses
+      At line 877 in file S3C2410A.s
+      At line 885 in file S3C2410A.s
+
+Undef_Addr 00000048
+
+Symbol: Undef_Addr
+   Definitions
+      At line 876 in file S3C2410A.s
+   Uses
+      At line 816 in file S3C2410A.s
+Comment: Undef_Addr used once
+Undef_Handler 00000064
+
+Symbol: Undef_Handler
+   Definitions
+      At line 884 in file S3C2410A.s
+   Uses
+      At line 876 in file S3C2410A.s
+      At line 884 in file S3C2410A.s
+
+Vectors 00000000
+
+Symbol: Vectors
+   Definitions
+      At line 815 in file S3C2410A.s
+   Uses
+      None
+Comment: Vectors unused
+27 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.text 00000000
+
+Symbol: .text
+   Definitions
+      At line 1099 in file S3C2410A.s
+   Uses
+      None
+Comment: .text unused
+__user_initial_stackheap 00000000
+
+Symbol: __user_initial_stackheap
+   Definitions
+      At line 1103 in file S3C2410A.s
+   Uses
+      At line 1102 in file S3C2410A.s
+Comment: __user_initial_stackheap used once
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.debug_info$$$RESET 00000000
+
+Symbol: .debug_info$$$RESET
+   Definitions
+      None
+   Uses
+      None
+Warning: .debug_info$$$RESET undefinedComment: .debug_info$$$RESET unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.debug_line$$$RESET 00000000
+
+Symbol: .debug_line$$$RESET
+   Definitions
+      None
+   Uses
+      None
+Warning: .debug_line$$$RESET undefinedComment: .debug_line$$$RESET unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.debug_info$$$.text 00000000
+
+Symbol: .debug_info$$$.text
+   Definitions
+      None
+   Uses
+      None
+Warning: .debug_info$$$.text undefinedComment: .debug_info$$$.text unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.debug_line$$$.text 00000000
+
+Symbol: .debug_line$$$.text
+   Definitions
+      None
+   Uses
+      None
+Warning: .debug_line$$$.text undefinedComment: .debug_line$$$.text unused
+1 symbol
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+.debug_abbrev 00000000
+
+Symbol: .debug_abbrev
+   Definitions
+      None
+   Uses
+      None
+Warning: .debug_abbrev undefinedComment: .debug_abbrev unused
+__ARM_asm.debug_abbrev 00000000
+
+Symbol: __ARM_asm.debug_abbrev
+   Definitions
+      None
+   Uses
+      None
+Warning: __ARM_asm.debug_abbrev undefinedComment: __ARM_asm.debug_abbrev unused
+2 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+ABT_Stack_Size 00000400
+
+Symbol: ABT_Stack_Size
+   Definitions
+      At line 43 in file S3C2410A.s
+   Uses
+      At line 49 in file S3C2410A.s
+      At line 1068 in file S3C2410A.s
+
+BANKCON0_Val 00000700
+
+Symbol: BANKCON0_Val
+   Definitions
+      At line 481 in file S3C2410A.s
+   Uses
+      At line 905 in file S3C2410A.s
+Comment: BANKCON0_Val used once
+BANKCON1_Val 00000700
+
+Symbol: BANKCON1_Val
+   Definitions
+      At line 482 in file S3C2410A.s
+   Uses
+      At line 906 in file S3C2410A.s
+Comment: BANKCON1_Val used once
+BANKCON2_Val 00000700
+
+Symbol: BANKCON2_Val
+   Definitions
+      At line 483 in file S3C2410A.s
+   Uses
+      At line 907 in file S3C2410A.s
+Comment: BANKCON2_Val used once
+BANKCON3_Val 00000700
+
+Symbol: BANKCON3_Val
+   Definitions
+      At line 484 in file S3C2410A.s
+   Uses
+      At line 908 in file S3C2410A.s
+Comment: BANKCON3_Val used once
+BANKCON4_Val 00000700
+
+Symbol: BANKCON4_Val
+   Definitions
+      At line 485 in file S3C2410A.s
+   Uses
+      At line 909 in file S3C2410A.s
+Comment: BANKCON4_Val used once
+BANKCON5_Val 00000700
+
+Symbol: BANKCON5_Val
+   Definitions
+      At line 486 in file S3C2410A.s
+   Uses
+      At line 910 in file S3C2410A.s
+Comment: BANKCON5_Val used once
+BANKCON6_Val 00018005
+
+
+
+
+ARM Macro Assembler    Page 2 Alphabetic symbol ordering
+Absolute symbols
+
+Symbol: BANKCON6_Val
+   Definitions
+      At line 487 in file S3C2410A.s
+   Uses
+      At line 911 in file S3C2410A.s
+Comment: BANKCON6_Val used once
+BANKCON7_Val 00018005
+
+Symbol: BANKCON7_Val
+   Definitions
+      At line 488 in file S3C2410A.s
+   Uses
+      At line 912 in file S3C2410A.s
+Comment: BANKCON7_Val used once
+BANKSIZE_Val 00000032
+
+Symbol: BANKSIZE_Val
+   Definitions
+      At line 491 in file S3C2410A.s
+   Uses
+      At line 914 in file S3C2410A.s
+Comment: BANKSIZE_Val used once
+BWSCON_Val 22119120
+
+Symbol: BWSCON_Val
+   Definitions
+      At line 489 in file S3C2410A.s
+   Uses
+      At line 904 in file S3C2410A.s
+Comment: BWSCON_Val used once
+CAMDIVN_OFS 00000018
+
+Symbol: CAMDIVN_OFS
+   Definitions
+      At line 87 in file S3C2410A.s
+   Uses
+      None
+Comment: CAMDIVN_OFS unused
+CLKCON_OFS 0000000C
+
+Symbol: CLKCON_OFS
+   Definitions
+      At line 84 in file S3C2410A.s
+   Uses
+      At line 984 in file S3C2410A.s
+Comment: CLKCON_OFS used once
+CLKCON_Val 0007FFF0
+
+Symbol: CLKCON_Val
+   Definitions
+      At line 155 in file S3C2410A.s
+   Uses
+      At line 928 in file S3C2410A.s
+Comment: CLKCON_Val used once
+CLKDIVN_OFS 00000014
+
+Symbol: CLKDIVN_OFS
+   Definitions
+      At line 86 in file S3C2410A.s
+
+
+
+ARM Macro Assembler    Page 3 Alphabetic symbol ordering
+Absolute symbols
+
+   Uses
+      At line 980 in file S3C2410A.s
+Comment: CLKDIVN_OFS used once
+CLKDIVN_Val 00000003
+
+Symbol: CLKDIVN_Val
+   Definitions
+      At line 158 in file S3C2410A.s
+   Uses
+      At line 924 in file S3C2410A.s
+Comment: CLKDIVN_Val used once
+CLKSLOW_OFS 00000010
+
+Symbol: CLKSLOW_OFS
+   Definitions
+      At line 85 in file S3C2410A.s
+   Uses
+      At line 983 in file S3C2410A.s
+Comment: CLKSLOW_OFS used once
+CLKSLOW_Val 00000004
+
+Symbol: CLKSLOW_Val
+   Definitions
+      At line 156 in file S3C2410A.s
+   Uses
+      At line 927 in file S3C2410A.s
+Comment: CLKSLOW_Val used once
+CLK_BASE 4C000000
+
+Symbol: CLK_BASE
+   Definitions
+      At line 80 in file S3C2410A.s
+   Uses
+      At line 976 in file S3C2410A.s
+Comment: CLK_BASE used once
+CLK_SETUP 00000001
+
+Symbol: CLK_SETUP
+   Definitions
+      At line 152 in file S3C2410A.s
+   Uses
+      At line 921 in file S3C2410A.s
+      At line 975 in file S3C2410A.s
+
+FIQ_Stack_Size 00001000
+
+Symbol: FIQ_Stack_Size
+   Definitions
+      At line 44 in file S3C2410A.s
+   Uses
+      At line 49 in file S3C2410A.s
+      At line 1073 in file S3C2410A.s
+
+F_Bit 00000040
+
+Symbol: F_Bit
+   Definitions
+      At line 29 in file S3C2410A.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 4 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 1061 in file S3C2410A.s
+      At line 1066 in file S3C2410A.s
+      At line 1071 in file S3C2410A.s
+      At line 1076 in file S3C2410A.s
+      At line 1081 in file S3C2410A.s
+
+HandleADC 33FFFF9C
+
+Symbol: HandleADC
+   Definitions
+      At line 859 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleADC unused
+HandleBATFLT 33FFFF3C
+
+Symbol: HandleBATFLT
+   Definitions
+      At line 835 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleBATFLT unused
+HandleDMA0 33FFFF64
+
+Symbol: HandleDMA0
+   Definitions
+      At line 845 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleDMA0 unused
+HandleDMA1 33FFFF68
+
+Symbol: HandleDMA1
+   Definitions
+      At line 846 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleDMA1 unused
+HandleDMA2 33FFFF6C
+
+Symbol: HandleDMA2
+   Definitions
+      At line 847 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleDMA2 unused
+HandleDMA3 33FFFF70
+
+Symbol: HandleDMA3
+   Definitions
+      At line 848 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleDMA3 unused
+HandleEINT0 33FFFF20
+
+Symbol: HandleEINT0
+   Definitions
+      At line 828 in file S3C2410A.s
+
+
+
+ARM Macro Assembler    Page 5 Alphabetic symbol ordering
+Absolute symbols
+
+   Uses
+      At line 867 in file S3C2410A.s
+Comment: HandleEINT0 used once
+HandleEINT1 33FFFF24
+
+Symbol: HandleEINT1
+   Definitions
+      At line 829 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleEINT1 unused
+HandleEINT2 33FFFF28
+
+Symbol: HandleEINT2
+   Definitions
+      At line 830 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleEINT2 unused
+HandleEINT3 33FFFF2C
+
+Symbol: HandleEINT3
+   Definitions
+      At line 831 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleEINT3 unused
+HandleEINT4_7 33FFFF30
+
+Symbol: HandleEINT4_7
+   Definitions
+      At line 832 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleEINT4_7 unused
+HandleEINT8_23 33FFFF34
+
+Symbol: HandleEINT8_23
+   Definitions
+      At line 833 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleEINT8_23 unused
+HandleIIC 33FFFF8C
+
+Symbol: HandleIIC
+   Definitions
+      At line 855 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleIIC unused
+HandleLCD 33FFFF60
+
+Symbol: HandleLCD
+   Definitions
+      At line 844 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleLCD unused
+
+
+
+ARM Macro Assembler    Page 6 Alphabetic symbol ordering
+Absolute symbols
+
+HandleMMC 33FFFF74
+
+Symbol: HandleMMC
+   Definitions
+      At line 849 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleMMC unused
+HandleRTC 33FFFF98
+
+Symbol: HandleRTC
+   Definitions
+      At line 858 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleRTC unused
+HandleReserved 33FFFF38
+
+Symbol: HandleReserved
+   Definitions
+      At line 834 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleReserved unused
+HandleSPI0 33FFFF78
+
+Symbol: HandleSPI0
+   Definitions
+      At line 850 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleSPI0 unused
+HandleSPI1 33FFFFBC
+
+Symbol: HandleSPI1
+   Definitions
+      At line 857 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleSPI1 unused
+HandleTICK 33FFFF40
+
+Symbol: HandleTICK
+   Definitions
+      At line 836 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleTICK unused
+HandleTIMER0 33FFFF48
+
+Symbol: HandleTIMER0
+   Definitions
+      At line 838 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleTIMER0 unused
+HandleTIMER1 33FFFF4C
+
+Symbol: HandleTIMER1
+
+
+
+ARM Macro Assembler    Page 7 Alphabetic symbol ordering
+Absolute symbols
+
+   Definitions
+      At line 839 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleTIMER1 unused
+HandleTIMER2 33FFFF50
+
+Symbol: HandleTIMER2
+   Definitions
+      At line 840 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleTIMER2 unused
+HandleTIMER3 33FFFF54
+
+Symbol: HandleTIMER3
+   Definitions
+      At line 841 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleTIMER3 unused
+HandleTIMER4 33FFFF58
+
+Symbol: HandleTIMER4
+   Definitions
+      At line 842 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleTIMER4 unused
+HandleUART0 33FFFF90
+
+Symbol: HandleUART0
+   Definitions
+      At line 856 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleUART0 unused
+HandleUART1 33FFFF7C
+
+Symbol: HandleUART1
+   Definitions
+      At line 851 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleUART1 unused
+HandleUART2 33FFFF5C
+
+Symbol: HandleUART2
+   Definitions
+      At line 843 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleUART2 unused
+HandleUSBD 33FFFF84
+
+Symbol: HandleUSBD
+   Definitions
+      At line 853 in file S3C2410A.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 8 Alphabetic symbol ordering
+Absolute symbols
+
+      None
+Comment: HandleUSBD unused
+HandleUSBH 33FFFF88
+
+Symbol: HandleUSBH
+   Definitions
+      At line 854 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleUSBH unused
+HandleWDT 33FFFF44
+
+Symbol: HandleWDT
+   Definitions
+      At line 837 in file S3C2410A.s
+   Uses
+      None
+Comment: HandleWDT unused
+Heap_Size 00004800
+
+Symbol: Heap_Size
+   Definitions
+      At line 61 in file S3C2410A.s
+   Uses
+      At line 64 in file S3C2410A.s
+      At line 1107 in file S3C2410A.s
+
+INTMSK_OFS 00000008
+
+Symbol: INTMSK_OFS
+   Definitions
+      At line 70 in file S3C2410A.s
+   Uses
+      At line 971 in file S3C2410A.s
+Comment: INTMSK_OFS used once
+INTMSK_VAL FFFFFFFF
+
+Symbol: INTMSK_VAL
+   Definitions
+      At line 75 in file S3C2410A.s
+   Uses
+      At line 969 in file S3C2410A.s
+Comment: INTMSK_VAL used once
+INTOFFSET 4A000014
+
+Symbol: INTOFFSET
+   Definitions
+      At line 163 in file S3C2410A.s
+   Uses
+      At line 865 in file S3C2410A.s
+Comment: INTOFFSET used once
+INTPND_OFS 00000010
+
+Symbol: INTPND_OFS
+   Definitions
+      At line 71 in file S3C2410A.s
+   Uses
+      None
+Comment: INTPND_OFS unused
+
+
+
+ARM Macro Assembler    Page 9 Alphabetic symbol ordering
+Absolute symbols
+
+INTSUBMASK_OFS 0000001C
+
+Symbol: INTSUBMASK_OFS
+   Definitions
+      At line 72 in file S3C2410A.s
+   Uses
+      At line 972 in file S3C2410A.s
+Comment: INTSUBMASK_OFS used once
+INTSUBMASK_VAL 000007FF
+
+Symbol: INTSUBMASK_VAL
+   Definitions
+      At line 76 in file S3C2410A.s
+   Uses
+      At line 970 in file S3C2410A.s
+Comment: INTSUBMASK_VAL used once
+INT_BASE 4A000000
+
+Symbol: INT_BASE
+   Definitions
+      At line 68 in file S3C2410A.s
+   Uses
+      At line 968 in file S3C2410A.s
+Comment: INT_BASE used once
+INT_SETUP 00000001
+
+Symbol: INT_SETUP
+   Definitions
+      At line 74 in file S3C2410A.s
+   Uses
+      At line 967 in file S3C2410A.s
+Comment: INT_SETUP used once
+IRQ_Stack_Size 00001000
+
+Symbol: IRQ_Stack_Size
+   Definitions
+      At line 45 in file S3C2410A.s
+   Uses
+      At line 49 in file S3C2410A.s
+      At line 1078 in file S3C2410A.s
+
+I_Bit 00000080
+
+Symbol: I_Bit
+   Definitions
+      At line 28 in file S3C2410A.s
+   Uses
+      At line 1061 in file S3C2410A.s
+      At line 1066 in file S3C2410A.s
+      At line 1071 in file S3C2410A.s
+      At line 1076 in file S3C2410A.s
+      At line 1081 in file S3C2410A.s
+
+IntVTAddress 33FFFF20
+
+Symbol: IntVTAddress
+   Definitions
+      At line 171 in file S3C2410A.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 10 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 828 in file S3C2410A.s
+      At line 829 in file S3C2410A.s
+      At line 830 in file S3C2410A.s
+      At line 831 in file S3C2410A.s
+      At line 832 in file S3C2410A.s
+      At line 833 in file S3C2410A.s
+      At line 834 in file S3C2410A.s
+      At line 835 in file S3C2410A.s
+      At line 836 in file S3C2410A.s
+      At line 837 in file S3C2410A.s
+      At line 838 in file S3C2410A.s
+      At line 839 in file S3C2410A.s
+      At line 840 in file S3C2410A.s
+      At line 841 in file S3C2410A.s
+      At line 842 in file S3C2410A.s
+      At line 843 in file S3C2410A.s
+      At line 844 in file S3C2410A.s
+      At line 845 in file S3C2410A.s
+      At line 846 in file S3C2410A.s
+      At line 847 in file S3C2410A.s
+      At line 848 in file S3C2410A.s
+      At line 849 in file S3C2410A.s
+      At line 850 in file S3C2410A.s
+      At line 851 in file S3C2410A.s
+      At line 853 in file S3C2410A.s
+      At line 854 in file S3C2410A.s
+      At line 855 in file S3C2410A.s
+      At line 856 in file S3C2410A.s
+      At line 857 in file S3C2410A.s
+      At line 858 in file S3C2410A.s
+      At line 859 in file S3C2410A.s
+
+IntVT_SETUP 00000001
+
+Symbol: IntVT_SETUP
+   Definitions
+      At line 170 in file S3C2410A.s
+   Uses
+      At line 825 in file S3C2410A.s
+      At line 889 in file S3C2410A.s
+      At line 893 in file S3C2410A.s
+
+LOCKTIME_OFS 00000000
+
+Symbol: LOCKTIME_OFS
+   Definitions
+      At line 81 in file S3C2410A.s
+   Uses
+      At line 979 in file S3C2410A.s
+Comment: LOCKTIME_OFS used once
+LOCKTIME_Val 00FFFFFF
+
+Symbol: LOCKTIME_Val
+   Definitions
+      At line 157 in file S3C2410A.s
+   Uses
+      At line 923 in file S3C2410A.s
+Comment: LOCKTIME_Val used once
+MC_BASE 48000000
+
+
+
+ARM Macro Assembler    Page 11 Alphabetic symbol ordering
+Absolute symbols
+
+
+Symbol: MC_BASE
+   Definitions
+      At line 195 in file S3C2410A.s
+   Uses
+      At line 991 in file S3C2410A.s
+Comment: MC_BASE used once
+MC_SETUP 00000001
+
+Symbol: MC_SETUP
+   Definitions
+      At line 198 in file S3C2410A.s
+   Uses
+      At line 902 in file S3C2410A.s
+      At line 988 in file S3C2410A.s
+
+MPLLCON_OFS 00000004
+
+Symbol: MPLLCON_OFS
+   Definitions
+      At line 82 in file S3C2410A.s
+   Uses
+      At line 981 in file S3C2410A.s
+Comment: MPLLCON_OFS used once
+MPLLCON_Val 0005C042
+
+Symbol: MPLLCON_Val
+   Definitions
+      At line 153 in file S3C2410A.s
+   Uses
+      At line 925 in file S3C2410A.s
+Comment: MPLLCON_Val used once
+MRSRB6_Val 00000030
+
+Symbol: MRSRB6_Val
+   Definitions
+      At line 492 in file S3C2410A.s
+   Uses
+      At line 915 in file S3C2410A.s
+Comment: MRSRB6_Val used once
+MRSRB7_Val 00000030
+
+Symbol: MRSRB7_Val
+   Definitions
+      At line 493 in file S3C2410A.s
+   Uses
+      At line 916 in file S3C2410A.s
+Comment: MRSRB7_Val used once
+Mode_ABT 00000017
+
+Symbol: Mode_ABT
+   Definitions
+      At line 24 in file S3C2410A.s
+   Uses
+      At line 1066 in file S3C2410A.s
+Comment: Mode_ABT used once
+Mode_FIQ 00000011
+
+Symbol: Mode_FIQ
+
+
+
+ARM Macro Assembler    Page 12 Alphabetic symbol ordering
+Absolute symbols
+
+   Definitions
+      At line 21 in file S3C2410A.s
+   Uses
+      At line 1071 in file S3C2410A.s
+Comment: Mode_FIQ used once
+Mode_IRQ 00000012
+
+Symbol: Mode_IRQ
+   Definitions
+      At line 22 in file S3C2410A.s
+   Uses
+      At line 1076 in file S3C2410A.s
+Comment: Mode_IRQ used once
+Mode_SVC 00000013
+
+Symbol: Mode_SVC
+   Definitions
+      At line 23 in file S3C2410A.s
+   Uses
+      At line 1081 in file S3C2410A.s
+Comment: Mode_SVC used once
+Mode_SYS 0000001F
+
+Symbol: Mode_SYS
+   Definitions
+      At line 26 in file S3C2410A.s
+   Uses
+      None
+Comment: Mode_SYS unused
+Mode_UND 0000001B
+
+Symbol: Mode_UND
+   Definitions
+      At line 25 in file S3C2410A.s
+   Uses
+      At line 1061 in file S3C2410A.s
+Comment: Mode_UND used once
+Mode_USR 00000010
+
+Symbol: Mode_USR
+   Definitions
+      At line 20 in file S3C2410A.s
+   Uses
+      At line 1086 in file S3C2410A.s
+Comment: Mode_USR used once
+PCONA_OFS 00000000
+
+Symbol: PCONA_OFS
+   Definitions
+      At line 501 in file S3C2410A.s
+   Uses
+      None
+Comment: PCONA_OFS unused
+PCONA_Val 000003FF
+
+Symbol: PCONA_Val
+   Definitions
+      At line 549 in file S3C2410A.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 13 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 936 in file S3C2410A.s
+Comment: PCONA_Val used once
+PCONB_OFS 00000010
+
+Symbol: PCONB_OFS
+   Definitions
+      At line 502 in file S3C2410A.s
+   Uses
+      At line 1007 in file S3C2410A.s
+Comment: PCONB_OFS used once
+PCONB_Val 00000FFF
+
+Symbol: PCONB_Val
+   Definitions
+      At line 578 in file S3C2410A.s
+   Uses
+      At line 937 in file S3C2410A.s
+Comment: PCONB_Val used once
+PCONC_OFS 00000020
+
+Symbol: PCONC_OFS
+   Definitions
+      At line 503 in file S3C2410A.s
+   Uses
+      None
+Comment: PCONC_OFS unused
+PCONC_Val AAAAAAAA
+
+Symbol: PCONC_Val
+   Definitions
+      At line 618 in file S3C2410A.s
+   Uses
+      At line 939 in file S3C2410A.s
+Comment: PCONC_Val used once
+PCOND_OFS 00000030
+
+Symbol: PCOND_OFS
+   Definitions
+      At line 504 in file S3C2410A.s
+   Uses
+      None
+Comment: PCOND_OFS unused
+PCOND_Val 00000000
+
+Symbol: PCOND_Val
+   Definitions
+      At line 658 in file S3C2410A.s
+   Uses
+      At line 941 in file S3C2410A.s
+Comment: PCOND_Val used once
+PCONE_OFS 00000040
+
+Symbol: PCONE_OFS
+   Definitions
+      At line 505 in file S3C2410A.s
+   Uses
+      None
+Comment: PCONE_OFS unused
+PCONE_Val 00000000
+
+
+
+ARM Macro Assembler    Page 14 Alphabetic symbol ordering
+Absolute symbols
+
+
+Symbol: PCONE_Val
+   Definitions
+      At line 698 in file S3C2410A.s
+   Uses
+      At line 943 in file S3C2410A.s
+Comment: PCONE_Val used once
+PCONF_OFS 00000050
+
+Symbol: PCONF_OFS
+   Definitions
+      At line 506 in file S3C2410A.s
+   Uses
+      At line 1035 in file S3C2410A.s
+Comment: PCONF_OFS used once
+PCONF_Val 000055AA
+
+Symbol: PCONF_Val
+   Definitions
+      At line 722 in file S3C2410A.s
+   Uses
+      At line 945 in file S3C2410A.s
+Comment: PCONF_Val used once
+PCONG_OFS 00000060
+
+Symbol: PCONG_OFS
+   Definitions
+      At line 507 in file S3C2410A.s
+   Uses
+      None
+Comment: PCONG_OFS unused
+PCONG_Val 00000000
+
+Symbol: PCONG_Val
+   Definitions
+      At line 762 in file S3C2410A.s
+   Uses
+      At line 947 in file S3C2410A.s
+Comment: PCONG_Val used once
+PCONH_OFS 00000070
+
+Symbol: PCONH_OFS
+   Definitions
+      At line 508 in file S3C2410A.s
+   Uses
+      None
+Comment: PCONH_OFS unused
+PCONH_Val 000007FF
+
+Symbol: PCONH_Val
+   Definitions
+      At line 792 in file S3C2410A.s
+   Uses
+      At line 949 in file S3C2410A.s
+Comment: PCONH_Val used once
+PCONJ_OFS 000000D0
+
+Symbol: PCONJ_OFS
+   Definitions
+
+
+
+ARM Macro Assembler    Page 15 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 509 in file S3C2410A.s
+   Uses
+      None
+Comment: PCONJ_OFS unused
+PIOA_SETUP 00000000
+
+Symbol: PIOA_SETUP
+   Definitions
+      At line 548 in file S3C2410A.s
+   Uses
+      At line 999 in file S3C2410A.s
+Comment: PIOA_SETUP used once
+PIOB_SETUP 00000001
+
+Symbol: PIOB_SETUP
+   Definitions
+      At line 577 in file S3C2410A.s
+   Uses
+      At line 1004 in file S3C2410A.s
+Comment: PIOB_SETUP used once
+PIOC_SETUP 00000000
+
+Symbol: PIOC_SETUP
+   Definitions
+      At line 617 in file S3C2410A.s
+   Uses
+      At line 1011 in file S3C2410A.s
+Comment: PIOC_SETUP used once
+PIOD_SETUP 00000000
+
+Symbol: PIOD_SETUP
+   Definitions
+      At line 657 in file S3C2410A.s
+   Uses
+      At line 1018 in file S3C2410A.s
+Comment: PIOD_SETUP used once
+PIOE_SETUP 00000000
+
+Symbol: PIOE_SETUP
+   Definitions
+      At line 697 in file S3C2410A.s
+   Uses
+      At line 1025 in file S3C2410A.s
+Comment: PIOE_SETUP used once
+PIOF_SETUP 00000001
+
+Symbol: PIOF_SETUP
+   Definitions
+      At line 721 in file S3C2410A.s
+   Uses
+      At line 1032 in file S3C2410A.s
+Comment: PIOF_SETUP used once
+PIOG_SETUP 00000000
+
+Symbol: PIOG_SETUP
+   Definitions
+      At line 761 in file S3C2410A.s
+   Uses
+      At line 1039 in file S3C2410A.s
+
+
+
+ARM Macro Assembler    Page 16 Alphabetic symbol ordering
+Absolute symbols
+
+Comment: PIOG_SETUP used once
+PIOH_SETUP 00000000
+
+Symbol: PIOH_SETUP
+   Definitions
+      At line 791 in file S3C2410A.s
+   Uses
+      At line 1046 in file S3C2410A.s
+Comment: PIOH_SETUP used once
+PIO_BASE 56000000
+
+Symbol: PIO_BASE
+   Definitions
+      At line 500 in file S3C2410A.s
+   Uses
+      At line 997 in file S3C2410A.s
+Comment: PIO_BASE used once
+PIO_SETUP 00000001
+
+Symbol: PIO_SETUP
+   Definitions
+      At line 521 in file S3C2410A.s
+   Uses
+      At line 934 in file S3C2410A.s
+      At line 996 in file S3C2410A.s
+
+PUPB_OFS 00000018
+
+Symbol: PUPB_OFS
+   Definitions
+      At line 510 in file S3C2410A.s
+   Uses
+      At line 1008 in file S3C2410A.s
+Comment: PUPB_OFS used once
+PUPB_Val 00000000
+
+Symbol: PUPB_Val
+   Definitions
+      At line 579 in file S3C2410A.s
+   Uses
+      At line 938 in file S3C2410A.s
+Comment: PUPB_Val used once
+PUPC_OFS 00000028
+
+Symbol: PUPC_OFS
+   Definitions
+      At line 511 in file S3C2410A.s
+   Uses
+      None
+Comment: PUPC_OFS unused
+PUPC_Val 00000000
+
+Symbol: PUPC_Val
+   Definitions
+      At line 619 in file S3C2410A.s
+   Uses
+      At line 940 in file S3C2410A.s
+Comment: PUPC_Val used once
+PUPD_OFS 00000038
+
+
+
+ARM Macro Assembler    Page 17 Alphabetic symbol ordering
+Absolute symbols
+
+
+Symbol: PUPD_OFS
+   Definitions
+      At line 512 in file S3C2410A.s
+   Uses
+      None
+Comment: PUPD_OFS unused
+PUPD_Val 00000000
+
+Symbol: PUPD_Val
+   Definitions
+      At line 659 in file S3C2410A.s
+   Uses
+      At line 942 in file S3C2410A.s
+Comment: PUPD_Val used once
+PUPE_OFS 00000048
+
+Symbol: PUPE_OFS
+   Definitions
+      At line 513 in file S3C2410A.s
+   Uses
+      None
+Comment: PUPE_OFS unused
+PUPE_Val 00000000
+
+Symbol: PUPE_Val
+   Definitions
+      At line 699 in file S3C2410A.s
+   Uses
+      At line 944 in file S3C2410A.s
+Comment: PUPE_Val used once
+PUPF_OFS 00000058
+
+Symbol: PUPF_OFS
+   Definitions
+      At line 514 in file S3C2410A.s
+   Uses
+      At line 1036 in file S3C2410A.s
+Comment: PUPF_OFS used once
+PUPF_Val 000000FF
+
+Symbol: PUPF_Val
+   Definitions
+      At line 723 in file S3C2410A.s
+   Uses
+      At line 946 in file S3C2410A.s
+Comment: PUPF_Val used once
+PUPG_OFS 00000068
+
+Symbol: PUPG_OFS
+   Definitions
+      At line 515 in file S3C2410A.s
+   Uses
+      None
+Comment: PUPG_OFS unused
+PUPG_Val 00000000
+
+Symbol: PUPG_Val
+   Definitions
+
+
+
+ARM Macro Assembler    Page 18 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 763 in file S3C2410A.s
+   Uses
+      At line 948 in file S3C2410A.s
+Comment: PUPG_Val used once
+PUPH_OFS 00000078
+
+Symbol: PUPH_OFS
+   Definitions
+      At line 516 in file S3C2410A.s
+   Uses
+      None
+Comment: PUPH_OFS unused
+PUPH_Val 00000000
+
+Symbol: PUPH_Val
+   Definitions
+      At line 793 in file S3C2410A.s
+   Uses
+      At line 950 in file S3C2410A.s
+Comment: PUPH_Val used once
+PUPJ_OFS 000000D8
+
+Symbol: PUPJ_OFS
+   Definitions
+      At line 517 in file S3C2410A.s
+   Uses
+      None
+Comment: PUPJ_OFS unused
+REFRESH_Val 008E0459
+
+Symbol: REFRESH_Val
+   Definitions
+      At line 490 in file S3C2410A.s
+   Uses
+      At line 913 in file S3C2410A.s
+Comment: REFRESH_Val used once
+SRCPND_OFS 00000000
+
+Symbol: SRCPND_OFS
+   Definitions
+      At line 69 in file S3C2410A.s
+   Uses
+      None
+Comment: SRCPND_OFS unused
+SVC_Stack_Size 00004000
+
+Symbol: SVC_Stack_Size
+   Definitions
+      At line 42 in file S3C2410A.s
+   Uses
+      At line 49 in file S3C2410A.s
+      At line 1083 in file S3C2410A.s
+
+Stack_Size 0000A000
+
+Symbol: Stack_Size
+   Definitions
+      At line 49 in file S3C2410A.s
+   Uses
+
+
+
+ARM Macro Assembler    Page 19 Alphabetic symbol ordering
+Absolute symbols
+
+      At line 52 in file S3C2410A.s
+      At line 54 in file S3C2410A.s
+
+UND_Stack_Size 00000400
+
+Symbol: UND_Stack_Size
+   Definitions
+      At line 41 in file S3C2410A.s
+   Uses
+      At line 49 in file S3C2410A.s
+      At line 1063 in file S3C2410A.s
+
+UPLLCON_OFS 00000008
+
+Symbol: UPLLCON_OFS
+   Definitions
+      At line 83 in file S3C2410A.s
+   Uses
+      At line 982 in file S3C2410A.s
+Comment: UPLLCON_OFS used once
+UPLLCON_Val 00028080
+
+Symbol: UPLLCON_Val
+   Definitions
+      At line 154 in file S3C2410A.s
+   Uses
+      At line 926 in file S3C2410A.s
+Comment: UPLLCON_Val used once
+USR_Stack_Size 00003800
+
+Symbol: USR_Stack_Size
+   Definitions
+      At line 46 in file S3C2410A.s
+   Uses
+      At line 49 in file S3C2410A.s
+      At line 1088 in file S3C2410A.s
+      At line 1106 in file S3C2410A.s
+
+WTCNT_OFS 00000008
+
+Symbol: WTCNT_OFS
+   Definitions
+      At line 177 in file S3C2410A.s
+   Uses
+      At line 962 in file S3C2410A.s
+Comment: WTCNT_OFS used once
+WTCON_OFS 00000000
+
+Symbol: WTCON_OFS
+   Definitions
+      At line 175 in file S3C2410A.s
+   Uses
+      At line 964 in file S3C2410A.s
+Comment: WTCON_OFS used once
+WTCON_Val 00000000
+
+Symbol: WTCON_Val
+   Definitions
+      At line 190 in file S3C2410A.s
+
+
+
+ARM Macro Assembler    Page 20 Alphabetic symbol ordering
+Absolute symbols
+
+   Uses
+      At line 960 in file S3C2410A.s
+Comment: WTCON_Val used once
+WTDAT_OFS 00000004
+
+Symbol: WTDAT_OFS
+   Definitions
+      At line 176 in file S3C2410A.s
+   Uses
+      At line 963 in file S3C2410A.s
+Comment: WTDAT_OFS used once
+WTDAT_Val 00008000
+
+Symbol: WTDAT_Val
+   Definitions
+      At line 191 in file S3C2410A.s
+   Uses
+      At line 961 in file S3C2410A.s
+Comment: WTDAT_Val used once
+WT_BASE 53000000
+
+Symbol: WT_BASE
+   Definitions
+      At line 174 in file S3C2410A.s
+   Uses
+      At line 959 in file S3C2410A.s
+Comment: WT_BASE used once
+WT_SETUP 00000001
+
+Symbol: WT_SETUP
+   Definitions
+      At line 189 in file S3C2410A.s
+   Uses
+      At line 958 in file S3C2410A.s
+Comment: WT_SETUP used once
+138 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+External symbols
+
+__main 00000000
+
+Symbol: __main
+   Definitions
+      At line 1093 in file S3C2410A.s
+   Uses
+      At line 1094 in file S3C2410A.s
+Comment: __main used once
+__use_two_region_memory 00000000
+
+Symbol: __use_two_region_memory
+   Definitions
+      At line 1101 in file S3C2410A.s
+   Uses
+      None
+Comment: __use_two_region_memory unused
+2 symbols
+503 symbols in table
