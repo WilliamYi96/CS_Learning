@@ -1,0 +1,4 @@
+1.为何http://stormzhang.com/devtools/2016/06/03/my-cool-terminal/
+more/etc/shells显示的是无效参数
+2.windows下有什么好用的终端？超级终端
+git@github.com:WilliamYi96/TestRepository.git
