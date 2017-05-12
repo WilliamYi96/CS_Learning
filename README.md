@@ -9,7 +9,10 @@ This is all my summary and harvests of Computer Science learning.
 数据库系统原理(3)--关系数据库语言SQL         
 [数据库系统原理(4)--数据依赖与关系模式规范化](./DataBase/principle_of_database/data_dependence_and_relationship_pattern_normalization.md)       
 [数据库系统原理(5)--数据库设计](./DataBase/principle_of_database/database_design.md)         
-[数据库系统原理(7)--查询处理与查询优化](./DataBase/principle_of_database/query_processing_and_optimization.md)      
+[数据库系统原理(7)--查询处理与查询优化](./DataBase/principle_of_database/query_processing_and_optimization.md)                    
+[数据库期末考试复习规划](./DataBase/principle_of_database/数据库期末考试复习规划.md)             
+[数据库系统原理复习](./Database/principle_of_database/数据库系统原理复习.md)               
+《数据库系统原理》课内实验报告 [pdf](./DataBase/principle_of_database/《数据库系统原理》综合实验报告.pdf)  [tex](./DataBase/principle_of_database/《数据库系统原理》综合实验报告.tex)
 
 --------------------------------------------
 
