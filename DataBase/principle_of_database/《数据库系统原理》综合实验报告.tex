@@ -1,0 +1,424 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+\usepackage{xeCJK}
+\usepackage{hyperref}
+\usepackage{algorithm2e}
+\usepackage{amsfonts}
+\usepackage{epsfig}
+\usepackage{listings}
+\usepackage{xcolor}
+% 定义可能使用到的颜色
+
+\definecolor{CPPLight}  {HTML} {686868}
+\definecolor{CPPSteel}  {HTML} {888888}
+\definecolor{CPPDark}   {HTML} {262626}
+\definecolor{CPPBlue}   {HTML} {4172A3}
+\definecolor{CPPGreen}  {HTML} {487818}
+\definecolor{CPPBrown}  {HTML} {A07040}
+\definecolor{CPPRed}    {HTML} {AD4D3A}
+\definecolor{CPPViolet} {HTML} {7040A0}
+\definecolor{CPPGray}  {HTML} {B8B8B8}
+\lstset{
+    columns=fixed,
+    numbers=left,                                        % 在左侧显示行号
+    frame=none,                                          % 不显示背景边框
+    backgroundcolor=\color[RGB]{245,245,244},            % 设定背景颜色
+    keywordstyle=\color[RGB]{40,40,255},                 % 设定关键字颜色
+    numberstyle=\footnotesize\color{darkgray},           % 设定行号格式
+    commentstyle=\it\color[RGB]{0,96,96},                % 设置代码注释的格式
+    stringstyle=\rmfamily\slshape\color[RGB]{128,0,0},   % 设置字符串格式
+    showstringspaces=false,                              % 不显示字符串中的空格
+    language=c++,                                        % 设置语言
+    morekeywords={alignas,continute,friend,register,true,alignof,decltype,goto,
+    reinterpret_cast,try,asm,defult,if,return,typedef,auto,delete,inline,short,
+    typeid,bool,do,int,signed,typename,break,double,long,sizeof,union,case,
+    dynamic_cast,mutable,static,unsigned,catch,else,namespace,static_assert,using,
+    char,enum,new,static_cast,virtual,char16_t,char32_t,explict,noexcept,struct,
+    void,export,nullptr,switch,volatile,class,extern,operator,template,wchar_t,
+    const,false,private,this,while,constexpr,float,protected,thread_local,
+    const_cast,for,public,throw,std},
+}
+
+\graphicspath{{images/}}
+\setCJKmonofont{Microsoft YaHei}
+
+\title{\Huge{《数据库系统原理》\\课内实验报告}}
+\author{\Huge{易凯}}
+\date{\Huge{2017年4月16日}}
+
+\begin{document}
+  \maketitle
+  \vspace{35mm}
+  \begin{flushright}
+  \Large{
+    \textbf{班\ \ \ \ \ 级} \makebox[5em][l]{软件53班}
+
+    \textbf{学\ \ \ \ \ 号} \makebox[5em][l]{2151601053}
+
+    \textbf{邮\ \ \ \ \ 箱} \makebox[5em][l]{williamyi96@gmail.com}
+
+    \textbf{联系电话} \makebox[5em][l]{13772103675}
+
+    \textbf{个人网站} \makebox[5em][l]{https://williamyi.tech}
+
+    \textbf{提交日期} \makebox[5em][l]{\today}
+    }
+    \end{flushright}
+    \newpage
+    \tableofcontents
+    \newpage
+    \listoffigures
+    \newpage
+
+    \section{实验报告声明}
+    此报告为西安交通大学本科生易凯在《数据库基本原理》的基础之上，加上自己的理解以及个人感悟完成的数据库综合实验报告。未经允许，禁止挪作他用。由于笔者能力有限，报告中不乏有许多缺漏指出，因此望读者谅解的同时对于其中的不足指出能够批评指正。
+
+    \section{实验目的}
+    《数据库系统原理》课内实验的实验目的主要有如下的几个方面：
+
+    \paragraph{1. 熟悉SQL基本建库建表语句}
+
+    \paragraph{2. 掌握SQL语句查询基本方法}
+
+    \paragraph{3. 建立数据库设计的基本意识}
+
+    \paragraph{4. 熟练运用MySQL进行SQL语句实现}
+
+    \paragraph{5. 培养分析问题解决问题的基本能力}
+    
+    \section{实验内容}
+    \subsection{建表}
+    该部分主要是利用数据库建表等语言进行的数据库建立以及数据填充，在本次试验中，建立了名为student的数据库，并且创建了三张不同的表。
+
+    数据库的使用参见附录II.A所示所示。
+
+    接下来图2是s表的基本内容，其中s表中的属性有SNO表示学生学号，SNAME表示学生的名字，SEX表示学生的性别，BDATE表示出生日期，HEIGHT表示身高，DORM表示宿舍地址。SNO为主键，设置为非空，而且由于其是定长的，因而使用char来声明。其他较为明显，具体内容参见附录II.B所示。
+
+    接下来图3呈现的是c表的基本内容，也就是课程表的基本内容。其中c表中的属性有CNO表示课程号，LHOUR表示课时数，CREDIT表示学分，SEMESTER表示季度。CNO为主键，设置为非空，由于其是定长的，因此使用char来声明。其他较为明显，具体内容参见附录II.C所示。
+
+    最后呈现的图4是sc表的内容，也即是选课表的基本内容。其中sc表中的属性有SNO表示学生号，CNO表示课程号，GRADE表示课程号。其中SNO与CNO均为外键，分别引用自S表和C表。具体声明以及数据存储情况如附录II.D所示。
+
+    由上面的内容可以直观的看到，数据库的三张表已经被较好地建立起来。
+
+    \subsection{查询}
+    \paragraph{query one}
+    查询选修课程“CS102”的学生学号、成绩，结果参见附录III.A。
+
+    % \begin{figure}[!htb]
+    %   \centering
+    %   \includegraphics[width=0.8\textwidth,height=0.8\textwidth]{img/query-1.png}
+    %   \caption{query-1}\label{query-1}
+    % \end{figure}
+
+    \paragraph{query two}
+    查询选修课程“EE101”的女同学姓名，结果参见附录III.A。
+
+    % \begin{figure}[!htb]
+    %   \centering
+    %   \includegraphics[width=0.8\textwidth,height=0.5\textwidth]{img/query-2.png}
+    %   \caption{query-2}\label{query-2}
+    % \end{figure}
+
+    \paragraph{query three}
+    查询不选修课程“CS102”的学生姓名，结果参见附录III.B。
+
+    % \begin{figure}[!htb]
+    %   \centering
+    %   \includegraphics[width=0.8\textwidth,height=0.8\textwidth]{img/query-3.png}
+    %   \caption{query-3}\label{query-3}
+    % \end{figure}
+
+    \paragraph{query four}
+    查询所有比“李涛”年龄大的学生姓名、性别、年龄，结果参见附录III.B。
+
+    % \begin{figure}[!htb]
+    %   \centering
+    %   \includegraphics[width=0.8\textwidth,height=0.8\textwidth]{img/query-4.png}
+    %   \caption{query-4}\label{query-4}
+    % \end{figure}
+
+    \paragraph{query five}
+    查询选修课程“CS101”的学生中成绩最高的学生的学号，结果参见附录III.C。
+
+    % \begin{figure}[!htb]
+    %   \centering
+    %   \includegraphics[width=0.8\textwidth,height=0.8\textwidth]{img/query-5.png}
+    %   \caption{query-5}\label{query-5}
+    % \end{figure}
+
+    \paragraph{query six}
+    查询学生姓名及其所选修课程的课程号、学分和成绩，结果参见附录III.C。
+
+    % \begin{figure}[!htb]
+    %   \centering
+    %   \includegraphics[width=0.8\textwidth,height=0.8\textwidth]{img/query-6.png}
+    %   \caption{query-6}\label{query-6}
+    % \end{figure}
+
+    \paragraph{query seven}
+    查询平均成绩超过80分的学生姓名和平均成绩，结果参见附录III.D。
+
+    % \begin{figure}[!htb]
+    %   \centering
+    %   \includegraphics[width=0.8\textwidth,height=0.8\textwidth]{img/query-7.png}
+    %   \caption{query-7}\label{query-7}
+    % \end{figure}
+
+    \paragraph{query eight}
+    查询选修三门以上课程(包括三门)的学生总成绩(不统计不及格的课程)，并要求按总成绩的降序排列出来，结果参见附录III.D。
+
+    % \begin{figure}[!htb]
+    %   \centering
+    %   \includegraphics[width=0.8\textwidth,height=0.8\textwidth]{img/query-8.png}
+    %   \caption{query-8}\label{query-8}
+    % \end{figure}
+
+
+    \section{收获总结}
+    《数据库系统原理》的学习是一段十分令人难忘的历程，而今，随着数据库综合实验实验报告的落笔，至此，本科阶段进行数据库系统的系统性学习的场合就此远去了，这一路走来，感慨良多。
+
+    课程内容本身而言，在学习的过程中，《数据库系统原理》中有很多相关的概念相对而言不是那么直观，容易理解，同时知识点相对而言较多，虽然成系统，但是实际上真正把握还有一定的难度。因此，整个数据库系统原理的学习过程中，侯老师在课堂上发挥了很强的名师风采，但是于己而言有些知识点没有很好的消化吸收。因此，在私底下花了较多的时间去完成作业，去把握理解核心的概念与知识点。后来渐渐发现，只要沉下心来，有些东西也不是那么难以理解。渐渐地也掌握了学习的相关方法。
+
+    这次的数据库系统原理的综合实验实际上就是考察的sql语句的基本用法，熟悉数据库设计实现的基本流程，为之后的学习打下坚实的基础。总体而言，在完成实验报告的过程中，出于实验题目基础性的限制，因此没有遇到很多的障碍，但是一路走来对于数据库的相关概念有了一个更深的理解。同时也对数据库建库、建表以及增删改查等的相关操作更加熟练了，此外还对于这些内容有了一个更深的把握。因此，完成实验报告的这一段路同样也是受益匪浅。
+
+    作为一名软件工程的本科生，同时数据库又作为软件项目的一个极为重要的环节，因此之后会多次进行交互。希望带着这一段过程中学习到的思路和方法，能够在未来的学习生活中，发挥作用。为未来数据库的学习与实战打下坚实的基础。
+
+    \section{致谢}
+    Give my sincere thanks to my database teacher, Hou, for his excellent teaching skills and serious altitude for our homework. Give my sincere thanks to some students who have helped me and who have inspired me when discussing with them. Give my sincere thanks to myself because I've overcome all difficulties and have successfully finished my database comprehensive training paper. Give my sincere thanks to those pioneers who have devoted themselves to writing immortal books. Give my sincere thanks to all the people sharing their ideas and harvests without pay in QA communities.
+
+    衷心感谢《数据库系统原理》侯老师出色的教学风范以及严谨的治学态度，衷心感谢那些在讨论中帮助和启发我的同学们，衷心感谢克服了种种困难最终完成了数据库综合训练论文的自己，衷心感谢那些写了不朽著作为后人指明道路的先驱们，衷心感谢那些在问答社区无私奉献自己智慧成果的所有同仁！
+
+    \section{参考文献}
+    [1] 沈钧毅，侯迪，冯中慧，何亮. 数据库系统原理[M]. 西安：西安交通大学出版社. 2014-2.
+
+    [2] 侯迪. 数据库系统原理本科生教学课件. 西安：西安交通大学. 2017年春.
+
+    [3] Abraham Silberschatz, Henry F.Korth, S.Sudarshan. Database System Concepts[M] Mc-Graw Hill. Connect Learn Succeed. 2009-3.
+
+    [4] 肖海蓉. 数据库原理与应用[M] 北京：清华大学出版社. 2016-1.
+
+    [5] Thomas M.Connolly, Carolyn E.Begg. DATABASE SYSTEMS -- A Practical Approach to Design, Implementation, and Management.[M]. six edition. Pearson. 2016-6.
+
+    \section{附录--实验结果}
+    \subsection{Appendix I: Createtab.sql and Insert.sql}
+\begin{small}
+\begin{lstlisting}[language=sql]
+-- MySQL dump 10.13  Distrib 5.5.27, for Win64 (x86)
+--
+-- Host: localhost    Database: student
+-- ------------------------------------------------------
+-- Server version	5.5.27
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `c`
+--
+
+DROP TABLE IF EXISTS `c`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `c` (
+  `CNO` char(5) NOT NULL,
+  `LHOUR` double(5,0) DEFAULT NULL,
+  `CREDIT` char(1) DEFAULT NULL,
+  `SEMESTER` varchar(4) DEFAULT NULL,
+  PRIMARY KEY (`CNO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `c`
+--
+
+LOCK TABLES `c` WRITE;
+/*!40000 ALTER TABLE `c` DISABLE KEYS */;
+INSERT INTO `c` VALUES ('CS101',60,'3','´º'),('CS102',80,'4','´º'),
+('CS103',40,'2','Çï'),('EE101',60,'3','´º'),('EE102',100,'5','Çï');
+/*!40000 ALTER TABLE `c` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `s`
+--
+
+DROP TABLE IF EXISTS `s`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `s` (
+  `SNO` char(8) NOT NULL,
+  `SNAME` varchar(20) DEFAULT NULL,
+  `SEX` varchar(4) DEFAULT NULL,
+  `BDATE` varchar(10) NOT NULL,
+  `HEIGHT` double(3,2) DEFAULT NULL,
+  `DORM` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`SNO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `s`
+--
+
+LOCK TABLES `s` WRITE;
+/*!40000 ALTER TABLE `s` DISABLE KEYS */;
+INSERT INTO `s` VALUES ('01032001','ÕÅÏþÃ·','Å®','1983-11-17',1.58,'Î÷1Éá312'),
+('01032005','Áõ¾²','Å®','1982-1-10',1.63,'Î÷1Éá312'),
+('01032010','ÀîÌÎ','ÄÐ','1982-4-5',1.72,'Î÷14Éá221'),
+('01032023','ËïÎÄ','ÄÐ','1983-6-10',1.80,'Î÷14Éá221'),
+('01032112','¶­ÎÀ·æ','ÄÐ','1982-2-20',1.71,'Î÷14Éá221'),
+('03031009','ÌïæÃæÃ','Å®','1982-8-11',1.60,'Î÷2Éá104'),
+('03031011','ÍõÙ»','Å®','1983-12-20',1.66,'Î÷2Éá104'),
+('03031014','ÕÔË¼Ñï','ÄÐ','1981-6-6',1.85,'Î÷18Éá421'),
+('03031033','²ÌÃ÷ÁÁ','ÄÐ','1982-3-12',1.75,'Î÷18Éá423'),
+('03031051','ÖÜ½£','ÄÐ','1981-5-8',1.68,'Î÷18Éá422');
+/*!40000 ALTER TABLE `s` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sc`
+--
+
+DROP TABLE IF EXISTS `sc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sc` (
+  `SNO` char(8) NOT NULL,
+  `CNO` char(5) NOT NULL,
+  `GRADE` double(5,1) DEFAULT NULL,
+  KEY `SNO` (`SNO`),
+  KEY `CNO` (`CNO`),
+  CONSTRAINT `sc_ibfk_1` FOREIGN KEY (`SNO`) REFERENCES `s` (`SNO`),
+  CONSTRAINT `sc_ibfk_2` FOREIGN KEY (`CNO`) REFERENCES `c` (`CNO`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sc`
+--
+
+LOCK TABLES `sc` WRITE;
+/*!40000 ALTER TABLE `sc` DISABLE KEYS */;
+INSERT INTO `sc` VALUES ('01032010','CS101',82.0),
+('01032010','CS102',91.0),('01032010','CS103',83.5),
+('01032001','CS101',77.5),('01032001','CS102',85.0),
+('01032001','CS103',83.0),('01032005','CS101',62.0),
+('01032005','CS102',77.0),('01032005','CS103',82.0),
+('01032023','CS101',55.0),('01032023','CS102',81.0),
+('01032023','CS103',76.0),('01032112','CS101',88.0),
+('01032112','CS102',91.5),('01032112','CS103',86.0),
+('03031033','EE101',93.0),('03031033','EE102',89.0),
+('03031009','EE101',88.0),('03031009','EE102',78.5),
+('03031011','EE101',91.0),('03031011','EE102',86.0),
+('03031051','EE101',78.0),('03031051','EE102',58.0),
+('03031014','EE102',71.0),('03031014','EE101',79.0);
+/*!40000 ALTER TABLE `sc` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-04-20 13:50:54
+\end{lstlisting}
+\end{small}
+
+\subsection{Appendix II: Created DB and Created Table}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.5\textwidth,height=0.3\textwidth]{img/use_student_database.png}
+  \caption{A.use database of student}\label{A. use_student_db}
+\end{figure}
+
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth,height=0.7\textwidth]{img/table_s.png}
+  \caption{B. table s}\label{B. table s}
+\end{figure}
+
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth,height=0.6\textwidth]{img/table_c.png}
+  \caption{C. table c}\label{C. table c}
+\end{figure}
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth,height=0.7\textwidth]{img/table_sc.png}
+  \caption{D. table sc}\label{D. table sc}
+\end{figure}
+
+\subsection{Appendix III: Query Results}
+\begin{figure}[!htb]
+      \centering
+      \begin{minipage}[c]{0.5\textwidth}
+      \centering
+      \includegraphics[height=7.0cm,width=5.0cm]{img/query-1.png}
+      \end{minipage}%
+      \begin{minipage}[c]{0.5\textwidth}
+      \centering
+      \includegraphics[height=3.5cm,width=7.0cm]{img/query-2.png}
+      \end{minipage}
+      \caption{A. 查询1和2}
+    \end{figure}
+
+\begin{figure}[!htb]
+      \centering
+      \begin{minipage}[c]{0.5\textwidth}
+      \centering
+      \includegraphics[height=6.0cm,width=6.0cm]{img/query-3.png}
+      \end{minipage}%
+      \begin{minipage}[c]{0.5\textwidth}
+      \centering
+      \includegraphics[height=6.0cm,width=6.0cm]{img/query-4.png}
+      \end{minipage}
+      \caption{B. 查询3和4}
+\end{figure}
+
+
+\begin{figure}[!htb]
+        \centering
+        \begin{minipage}[c]{0.5\textwidth}
+        \centering
+        \includegraphics[height=6.0cm,width=6.0cm]{img/query-5.png}
+        \end{minipage}%
+        \begin{minipage}[c]{0.5\textwidth}
+        \centering
+        \includegraphics[height=8.0cm,width=6.0cm]{img/query-6.png}
+        \end{minipage}
+        \caption{C. 查询5和6}
+\end{figure}
+
+\begin{figure}[!htb]
+        \centering
+        \begin{minipage}[c]{0.5\textwidth}
+        \centering
+        \includegraphics[height=4.0cm,width=6.0cm]{img/query-7.png}
+        \end{minipage}%
+        \begin{minipage}[c]{0.5\textwidth}
+        \centering
+        \includegraphics[height=6.0cm,width=6.0cm]{img/query-8.png}
+        \end{minipage}
+        \caption{D. 查询7和8}
+\end{figure}
+\end{document} 
