@@ -1,6 +1,16 @@
 # CS_Learning
 This is all my summary and harvests of Computer Science learning.
 
+
+
+-------------------------
+
+# Git
+
+[Git教程](./Git/Base_information_about_Github.md)
+
+------------------------------
+
 # 数据库系统(DATABASE)
 ## 数据库系统原理
 [基本情况说明](./DataBase/principle_of_database/README.md)                 
@@ -25,9 +35,12 @@ This is all my summary and harvests of Computer Science learning.
 [嵌入式软件设计(4)--ARM程序设计](./EmbeddedSystem/embedded_software_design/ARM_programming.md)                                             
 [嵌入式实验(1)(主讲)](./EmbeddedSystem/embedded_software_design/串口通信与键盘控制.pptx)
 
-----------------------------------------
-
-# Linux系统(LINUX)
-## Linux基础
-
 ---------------------------------------
+
+
+
+# 数字逻辑(DIGITAL LOGIC)
+
+[基本情况说明](./DigitalLogic/基本情况说明.md)
+
+[数字逻辑知识点-概念-重点-解题思路归纳总结](./DigitalLogic/数字逻辑知识点-概念-重点-解题思路归纳总结.md)
