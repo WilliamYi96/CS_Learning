@@ -20,6 +20,7 @@ RISC(Reduced Instruction Set Computer), 顾名思义，其是精简指令集计�
 - 大多数指令单周期完成
 - 分开的Load/Store结构的存取指令
 - 基于多个通用寄存器堆操作
+
 （**注：**）暂时对于后面三点不是太理解
 
 RISC的历史贡献
@@ -42,6 +43,7 @@ ARM7处理器采用冯诺依曼结构，指令和数据公用一条32位总线�
 ARM7采用的是“冯·诺依曼结构”，而ARM9则采用的是“哈佛”结构。
 首先来谈一谈冯诺依曼结构：
 冯诺依曼结构就是将程序和数据都存储在同一个存储器中，其优点是结构简单，但是由于其不能同时进行取址和取数据的操作，因此其处理速度相对较慢。
+
 ![这里写图片描述](http://img.blog.csdn.net/20170302200413480?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ### 三级流水线
@@ -49,6 +51,7 @@ ARM7处理器使用的是三级流水线来提高运行的效率。其后，流�
 ARM7流水线可以分为三级，分别为取指-->译码-->执行。
 
 如下概念图所示：
+
 ![这里写图片描述](http://img.blog.csdn.net/20170302200747700?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 其中ARM7具有两套指令集，一套是32位的ARM指令集，一套是16位的Thumb指令集。
@@ -70,6 +73,7 @@ ARM7流水线可以分为三级，分别为取指-->译码-->执行。
 哈佛结构是相对于冯诺依曼结构的改进而提出的，现在的笔记本电脑大多使用的是哈佛结构。
 哈佛结构具有的突出特点就是指令总线和数据总线及其存储区是相互分开、独立的。取指操作和取数操作可以在同一个时间周期内进行，提高了处理速度。
 以下是哈佛结构的模式图：
+
 ![这里写图片描述](http://img.blog.csdn.net/20170302201931598?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ### ARM9流水线
@@ -118,6 +122,7 @@ ARM处理器有两种状态，分别为ARM状态和Thumb状态，通过之前内
 
 ## 处理器模式
 c处理器共有其中不同的模式，具体内容如下：
+
 ![这里写图片描述](http://img.blog.csdn.net/20170303140408549?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 其中Fiq以及irq都是硬中断，是引脚(硬件)引起的中断，而软件引起的中断则被称之为软中断，其可以进入管理模式。
