@@ -1,0 +1,5 @@
+# Android用户界面框架
+Android用户界面使用的是MVC框架，也就是Model-View-Controller模型，Model是保存数据和代码的模型，View是显示用户界面和图像的视图，Controller是处理用户输入的控制器。
+
+# Android界面布局
+Android的界面布局可以分为多种形式，具体在考察Android时会侧重于怎样的方式？
