@@ -27,6 +27,7 @@ NOP伪指令的重要功能是用于延时操作。其在汇编时被代替成AR
 # ARM汇编语言程序设计
 ## ARM汇编中的文件格式
 ARM程序源文件主要有三种格式，具体的情况说明如下：
+
 ![ARM源文件格式](http://img.blog.csdn.net/20170326152650496?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ## ARM汇编语言语句格式
@@ -56,11 +57,13 @@ ARM汇编语言是以**段**为单位进行源文件组织的。
 
 ### 循环条件
 不同的循环条件，通过汇编执行时，即使完成的是相同的任务，有时也会有不同的系统性能表现。
+
 ![循环条件](http://img.blog.csdn.net/20170326152721882?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 # C与汇编语言混合编程
 ## 寄存器的使用规则
 在ATPCS标准之下，寄存器的使用遵循以下规则:
+
 ![寄存器使用规则](http://img.blog.csdn.net/20170326152745809?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ## 数据栈的使用规则
@@ -85,11 +88,14 @@ ATPCS规定数据栈均为FD(满递减)类型，并且对数据栈的操作是8�
 
 ### 在C语言程序中调用汇编程序
 一切胜在不言中：
+
 ![在C语言中调用汇编程序](http://img.blog.csdn.net/20170326152826294?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
 ### 在汇编语言中调用C语言程序
 需要在汇编语言调用该程序之前，在汇编语言程序中使用IMPORT伪操作来声明该C程序。同时，在汇编程序中通过BL指令来调用子程序。
+
 ![在汇编语言中调用C语言程序](http://img.blog.csdn.net/20170326152850587?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 # 基于ADS环境的软件开发实例
 详情根据实际内容进行ADS环境之下的软件开发。
+
 ![数据拷贝程序](http://img.blog.csdn.net/20170326152906513?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
