@@ -1,3 +1,4 @@
+# 第一章： Computer Organization and Architecture
 ## 核心要点
 ### **computer organization 和 computer architecture的比较**
 
@@ -37,3 +38,20 @@ computer function 包含如下四个方面的内容：
 
 ## 问题
 冯诺依曼机的理解掌握程度，IAS计算机结构的扩展掌握程度
+
+# 第二章： Computer Evolution and Performance
+## 核心要点
+### 世界第一台电脑的基本情况
+
+### 冯诺依曼机的基本特征及其结构
+### 摩尔定律
+摩尔定律的最经典形式为： Numbers of transistors on a chip will double every year. 表示的是硬件发展规律的实验性结论。
+### 典型计算机分类
+- Chip Microcomputer
+- Single Board Computer
+- Embedded Computer
+- Microcomputer
+- Server
+- Super Computer
+
+以上按照其规模以及处理能力进行的典型计算机的分类。
