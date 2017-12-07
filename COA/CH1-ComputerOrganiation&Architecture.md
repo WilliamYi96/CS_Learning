@@ -36,16 +36,21 @@ computer function 包含如下四个方面的内容：
 
 ![](./img/computer.png)
 
-## 问题
-冯诺依曼机的理解掌握程度，IAS计算机结构的扩展掌握程度
-
 # 第二章： Computer Evolution and Performance
 ## 核心要点
 ### 世界第一台电脑的基本情况
+世界第一台通用计算机是ENIAC, 其设计制造开始于1943年，完成于1946年。其能够实现条件跳转，并且是可编程的。同时其仿照人的习惯，采取的是十进制数据存储。
 
 ### 冯诺依曼机的基本特征及其结构
+冯诺依曼机也就是IAS计算机的结构，虽然最后宣告失败，但是冯诺依曼机的思想却广受使用，典型的冯诺依曼机由MM, ALU, I/O, CU四部分构成。如下图：
+
+![](./img/ias.png)
+
+**关于IAS计算机的细节以及其扩展结构的了解掌握程度？**
+
 ### 摩尔定律
 摩尔定律的最经典形式为： Numbers of transistors on a chip will double every year. 表示的是硬件发展规律的实验性结论。
+
 ### 典型计算机分类
 - Chip Microcomputer
 - Single Board Computer
@@ -55,3 +60,38 @@ computer function 包含如下四个方面的内容：
 - Super Computer
 
 以上按照其规模以及处理能力进行的典型计算机的分类。
+
+# 第三章： A Top-Level View of Computer Function and Interconnection
+### 冯诺依曼机的三个核心概念：
+
+- 数据和指令存储在同一个可读可写内存中 (Data and instruction are stored in a single read-write memory)
+
+- 内存中的内容通过具体位置来寻址 (The contents of the memory are addressed by location)
+
+- 指令序列化执行 (Execution occurs in a sequence fashion)
+
+### High-level Programming Model
+![](./img/hl-computer.png)
+
+### 中断与指令周期 (Interrupt and Instruction Cycles)
+指令周期是执行一条指令所需要的CPU时间，其由取指周期(Fetch Cycle)和执行周期(Execute Cycle) 两部分构成。
+
+中断是一种允许其他模块打断CPU常规执行序列的机制 (A mechanism allowing other module to break CPU executing sequence)。
+
+**中断的优势**：
+
+- 提高了CPU的利用率
+- 允许CPU执行更为重要的任务
+
+**中断的类型**:
+
+- 程序中断：溢出，除零等
+- 时间片中断： 单CPU并发执行多个任务
+- I/O 中断：I/O 控制问题
+- 硬件失效： 存储异常等
+
+**Short I/O Wait & Long I/O Wait**
+
+短时I/O中断是
+
+**中断发生程序完成的事项**
