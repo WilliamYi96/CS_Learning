@@ -44,7 +44,10 @@ computer function 包含如下四个方面的内容：
 ### 冯诺依曼机的基本特征及其结构
 冯诺依曼机也就是IAS计算机的结构，虽然最后宣告失败，但是冯诺依曼机的思想却广受使用，典型的冯诺依曼机由MM, ALU, I/O, CU四部分构成。如下图：
 
-![](./img/ias.png)
+<p align="left">
+  <img src="./img/ias.png" width="60%" height="60%">
+</p>
+<br>
 
 **关于IAS计算机的细节以及其扩展结构的了解掌握程度？**
 
