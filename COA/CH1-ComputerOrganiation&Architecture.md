@@ -71,6 +71,7 @@ computer function 包含如下四个方面的内容：
 - 指令序列化执行 (Execution occurs in a sequence fashion)
 
 ### High-level Programming Model
+
 ![](./img/hl-computer.png)
 
 ### 中断与指令周期 (Interrupt and Instruction Cycles)
