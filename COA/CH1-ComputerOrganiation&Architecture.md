@@ -72,7 +72,7 @@ computer function 包含如下四个方面的内容：
 
 ### High-level Programming Model
 
-![](./img/hl-computer.png)
+![](./img/hil-computer.png)
 
 ### 中断与指令周期 (Interrupt and Instruction Cycles)
 指令周期是执行一条指令所需要的CPU时间，其由取指周期(Fetch Cycle)和执行周期(Execute Cycle) 两部分构成。
