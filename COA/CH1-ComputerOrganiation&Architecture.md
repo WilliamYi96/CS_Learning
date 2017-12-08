@@ -102,7 +102,28 @@ computer function 包含如下四个方面的内容：
 
 # 第四章：Cache Memory
 ## 核心要点
+### 内存访问的四种方式
+- 顺序访问(Sequential): 从头开始，然后按照一定的顺序访问。如磁带。
+- 直接访问(Direct): 每个内存块都要独立的地址，可以直接进行跳转。如光盘，磁盘。
+- 随机访问(Random): 不从头开始，随即开始，access time与位置和之前位置无关。如DRAM。
+- 关联访问(Associative): 随机访问的一种，将部分内容进行比对，然后访问。如cache。
+
+### 内存访问的几个关键时间
+- Access Time: 将数据从内存中取出的时间(the time of getting data out of memory)
+
+- Memory Cycle Time: access time + Address transient change time(地址顺变时间) -- 在随机内存访问中使用.
+
+- Transfer Rate: 每秒钟将数据换入或者换出主存单元数。
+
 ### 什么是Memory Hierarchy, 其根据什么执行
+Memory Hierarchy 是为了权衡主存速度、价格和容量之间的矛盾而设计的。其具有external memory --> main memory --> caceh的层次结构，访问速度逐渐提升，存储容量逐渐减小。
+
+实现内存的层级结构的实践依据是内存的局部性原理(principle of locality of reference)。
+
+**内存的局部性原理**：在程序执行的过程中，CPU是对指令和数据进行批量获取的。
+
+其理论依据为：一方面程序可能有较多的循环以及子程序，或者是以表的形式或数组的形式访问，其需要聚类的数据；另外一方面，程序和数据往往是序列化放置的，因此
+
 ### Block 能够被放在 Cache的哪里
 ### Block如何在Cache中找到
 ### 如果发生Cache中Block的缺失，哪个Block将被替换
