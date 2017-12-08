@@ -99,3 +99,11 @@ computer function 包含如下四个方面的内容：
 短时I/O中断是
 
 **中断发生程序完成的事项**
+
+# 第四章：Cache Memory
+## 核心要点
+### 什么是Memory Hierarchy, 其根据什么执行
+### Block 能够被放在 Cache的哪里
+### Block如何在Cache中找到
+### 如果发生Cache中Block的缺失，哪个Block将被替换
+### Cache中的写机制怎么样
