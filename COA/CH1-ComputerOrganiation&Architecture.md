@@ -131,6 +131,9 @@ Memory Hierarchy 是为了权衡主存速度、价格和容量之间的矛盾而
 
 # 第五章： Internal Memory
 ## 核心要点
+### 几种主要存储器
+![](./img/ram_comparision.png)
+
 ### SRAM与DRAM差异性
 Static Random-Access Memory & Dynamic Random-Access Memory. 
 
@@ -153,4 +156,55 @@ EPROM means Erasable Programmable ROM.
 |擦除模式|完全擦除|块擦除|
 
 ### SDRAM概念及其应用领域
-SDRAM是指Synchronous DRAM, 也就是同步动态随机访问存储器。
+SDRAM是指Synchronous DRAM, 也就是同步动态随机访问存储器。 其应用领域如何描述？
+
+## 基于已知RAM和ROM的主存扩展和主存与CPU物理连接
+这篇博客将主要讨论的是如何利用已知的RAM和ROM对主存进行扩展以及主存与CPU进行物理连接。
+
+### 基于已知RAM和ROM的字扩展与位扩展
+由于RAM与ROM实现的字扩展与位扩展大致相同，因此以下仅仅针对RAM进行分析。
+
+首先来明确以下什么是字扩展，什么是位扩展。假设某RAM是256K × 16bit的，那么如果我们将其扩展为512K × 16bit，那么就称之为字扩展；如果将其扩展为256K × 32bit，那么就是位扩展。如果同时需要进行字扩展和位扩展，首先将进行位扩展，然后再进行字扩展，详情在后面的内容中进行具体分析。
+
+以下将以1K × 8bitRAM为例来说明如何进行字扩展和位扩展。
+
+#### 位扩展
+目标，`将1K × 8bitRAM扩展为1K × 16bitRAM`
+
+我们如果需要进行位扩展，那么直接将其输入并联，然后输出串联，CS使能控制并联即可。如图所示：
+
+![这里写图片描述](http://img.blog.csdn.net/20171008151819258?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+#### 字扩展
+目标，`将1K × 8bitRAM扩展为2K × 8bitRAM`。
+
+我们知道，原RAM共有10根数据线(2**10=1K)，如果将其扩展为2K，那么需要增加一根数据线，同时明确需要两个原始的RAM进行扩展。我们可以通过一个选择逻辑来实现最高位的选择操作，然后关于其输出直接设置并行即可。
+
+如图所示：
+
+![这里写图片描述](http://img.blog.csdn.net/20171008151703400?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+#### 混合扩展
+对于既要进行字扩展，又要进行位扩展的情况，我们首先使用除法计算出需要的RAM的数量，然后首先进行位扩展，将位扩展得到的原件逻辑上封装为一个整体，接着对这个整体进行字扩展。
+
+如果字扩展的选择逻辑较为复杂，则可以使用译码器进行选择，将1K × 8bitRAM扩展为4K × 16bit的实现如图所示：
+
+![这里写图片描述](http://img.blog.csdn.net/20171008152306086?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+### 主存与CPU的物理连接设计
+主存与CPU的物理连接设计是该部分的一个主要难点。主要难的是地址的初始位选择。
+
+其选择的思路如下所示：
+
+#### 决定主存的容量
+通过需要的area来计算得到主存的容量
+#### 选择芯片
+根据得到的主存容量选择合适的芯片，系统线使用ROM，用户线使用RAM
+#### 挂载CPU地址线
+合理地使用ROM和RAM进行主存和CPU之间的物理连接
+
+关于主存与CPU的物理连接设计将依据PPT内容进行分析：
+
+![这里写图片描述](http://img.blog.csdn.net/20171008152850393?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](http://img.blog.csdn.net/20171008152902667?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](http://img.blog.csdn.net/20171008152911970?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](http://img.blog.csdn.net/20171008152920700?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
