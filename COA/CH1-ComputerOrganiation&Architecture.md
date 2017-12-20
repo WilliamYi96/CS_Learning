@@ -158,7 +158,10 @@ EPROM means Erasable Programmable ROM.
 ### SDRAM概念及其应用领域
 SDRAM是指Synchronous DRAM, 也就是同步动态随机访问存储器。 其应用领域如何描述？
 
-## 基于已知RAM和ROM的主存扩展和主存与CPU物理连接
+### Parallel DRAM 技术
+single bank multiple words, multibank multiple words技术，通常在大型计算机中使用。
+
+## 基于已知RAM和ROM的主存扩展和主存与CPU物理连接   
 这篇博客将主要讨论的是如何利用已知的RAM和ROM对主存进行扩展以及主存与CPU进行物理连接。
 
 ### 基于已知RAM和ROM的字扩展与位扩展
@@ -207,4 +210,30 @@ SDRAM是指Synchronous DRAM, 也就是同步动态随机访问存储器。 其�
 ![这里写图片描述](http://img.blog.csdn.net/20171008152902667?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 ![这里写图片描述](http://img.blog.csdn.net/20171008152911970?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 ![这里写图片描述](http://img.blog.csdn.net/20171008152920700?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2lsbGlhbXlpOTY=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
+# 第六章： External Memory
+## 核心要点
+### Organization of Disk System
+### Disk Performance Parameters
+### Common characteristics of RAID and different applications of different RAID levels
+### Types of optical memory
+
+# 第七章： Input/Output
+## 核心要点
+### Functions of I/O Module
+### I/O module structure
+### Input Output Modes
+### What is 82c59a
+### DMA & channel
+### SCSI
+### Firewire
+
+# 第八章： Operating System Support
+## 核心要点
+### What are the functions of OS
+### Which services do the OS provide
+### Process scheduling -- State transition & PCB
+### Virtual memory principle
+- Swap, page, segment
+- Pentium II virtual memory
 
