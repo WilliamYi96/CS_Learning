@@ -128,3 +128,29 @@ Memory Hierarchy 是为了权衡主存速度、价格和容量之间的矛盾而
 ### Block如何在Cache中找到
 ### 如果发生Cache中Block的缺失，哪个Block将被替换
 ### Cache中的写机制怎么样
+
+# 第五章： Internal Memory
+## 核心要点
+### SRAM与DRAM差异性
+Static Random-Access Memory & Dynamic Random-Access Memory. 
+
+||SRAM|DRAM|
+|---|---|---|
+|共同点|volatile memory||
+|价格|便宜||
+|密度|Dense||
+|制造难度|易于制造||
+|存储单元大小|更大||
+|速度|更快||
+|材料|Cache|MM|
+
+### EPROM 与 Flash Memory差异性
+EPROM means Erasable Programmable ROM.
+
+||EPROM|Flash Memory|
+|---|---|---|
+|价格|昂贵|更贵|
+|擦除模式|完全擦除|块擦除|
+
+### SDRAM概念及其应用领域
+SDRAM是指Synchronous DRAM, 也就是同步动态随机访问存储器。
