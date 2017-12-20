@@ -237,3 +237,6 @@ single bank multiple words, multibank multiple words技术，通常在大型计�
 - Swap, page, segment
 - Pentium II virtual memory
 
+# 时间基本规划
+|时间|规划|完成情况|备注|
+|12.20|完成机组规划，同时完成前五章初复习||
