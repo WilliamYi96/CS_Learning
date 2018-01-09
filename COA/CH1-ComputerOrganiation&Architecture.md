@@ -222,21 +222,91 @@ single bank multiple words, multibank multiple words技术，通常在大型计�
 ## 核心要点
 ### Functions of I/O Module
 ### I/O module structure
+![](img/io-module-structure.png)
 ### Input Output Modes
 ### What is 82c59a
+Intel 82C59A 是个中断控制器芯片，CPU和设备之间通过该控制器进行通信。关于其需要掌握到的程度。
 ### DMA & channel
 ### SCSI
 ### Firewire
 
-# 第八章： Operating System Support
+# 第九章： Computer  Arithmetric
 ## 核心要点
-### What are the functions of OS
-### Which services do the OS provide
-### Process scheduling -- State transition & PCB
-### Virtual memory principle
-- Swap, page, segment
-- Pentium II virtual memory
+### Complement representation and arithmetic of signed binary
+### Negatee 
+### +-x/ of integer
+### Float point representation and arithmetic
 
-# 时间基本规划
-|时间|规划|完成情况|备注|
-|12.20|完成机组规划，同时完成前五章初复习||
+# 第十章： Instruction Sets: Characteristics and Functions
+## 核心要点
+### Relationships between Instruction set, CPU and high-level language
+### Instruction types
+### What is 0 address instruction?
+### Which are types of operands?
+### Which are types of operations?
+### Shift
+### MMX Instructions and applications
+### Data types
+### Functions of MMX instructions
+
+# 第十一章： Instruction Sets: Addressing Modes and Formats
+## 核心要点
+### Common addressing modes
+### PII addressing modes
+### PII instruction format
+
+# 第十二章：CPU Structure and Function
+## 核心要点
+### Internal structure of CPU
+### Register organization
+### Pipelining 
+### How to process the branches
+
+# 第十三章： Reduced Instruction Set Computers
+## 核心要点
+### Characteristics of RISC computer
+### Large registers &Organization of registers
+### Optimized pipelining
+
+# 第十四章： Instruction Level Parallelism and Superscalar Processors
+## 核心要点
+### What is superscalar? Which elements may limit its performance? How to improve the performance?
+### Instruction-issue Policy
+### Register Renaming
+### Superscalar organization of PII & P4
+
+# 第十六章： Control Unit Operation
+## 核心要点
+### Concept of micro operation
+### Model and organization of control unit
+### Implementing modes  of CU
+
+# 第十七章： Micro-programmed Control
+## 核心要点
+### Concepts 
+- Microinstruction
+- Microprogram 
+- Firmware
+- Control word
+### Key elements of the control unit
+### Where does address of control memory come from
+### Basic tasks of microprogrammed control unit
+### Applications of microprogramming 
+
+# 第十八章： Parallel Processing
+## 核心要点
+### Taxonomy of parallel processor architecture
+### SMP 
+- Characteristics
+- Organization modes
+- OS
+### MESI protocol
+###Clusters 
+- Configurations
+- Applications
+- OS 
+### NUMA
+- Organization
+- Memory access 
+### Application of Supercomputer and Vector or array computer and Chaining Technique
+
